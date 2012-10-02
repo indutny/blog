@@ -1,4 +1,4 @@
-$(function() {
+(function() {
   var socket = io.connect();
 
   var ids = [];
@@ -58,4 +58,4 @@ $(function() {
       w.postMessage(nonce);
     });
   });
-});
+})();
