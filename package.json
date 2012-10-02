@@ -1,0 +1,13 @@
+{
+  "name": "blog.indutny.com",
+  "version": "0.0.0",
+  "private": true,
+  "domain": "blog.indutny.com",
+  "dependencies": {
+    "express": "~3.0.0rc4",
+    "socket.io": "~0.9.10",
+    "marked": "~0.2.5",
+    "jade": "~0.27.5",
+    "redis": "~0.8.1"
+  }
+}

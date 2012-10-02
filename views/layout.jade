@@ -1,0 +1,25 @@
+!!! 5
+html
+  head
+    link(rel='stylesheet',href='/css/main.css')
+    link(rel='stylesheet',href='http://fonts.googleapis.com/css?family=Indie+Flower')
+    link(rel='icon',type='image/png',href='/images/favicon.png')
+    title= title
+  body
+    div#wrapper
+      header
+        h1
+          block header
+            = title
+      section#content
+        block content
+      footer
+        span Copyright 
+        a(href="https://github.com/indutny") Fedor Indutny
+        span  , view 
+        a(href='http://opensource.org/licenses/mit-license.php') license
+
+  script(src='/socket.io/socket.io.js')
+  script(src='/js/zepto.min.js')
+  script(src='/js/main.js')
+  script var disqus_shortname = 'indutny-blog';(function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true; dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);})();

@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  - posts.forEach(function (post) {
+    section.post.teaser
+      span.num= post.id + '. '
+      a.link(href="/" + post.slug)= post.title
+  - })

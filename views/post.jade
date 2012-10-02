@@ -1,0 +1,11 @@
+extends layout
+
+block prepend header
+  a.home-link(href='/')= '&lt;&lt;'
+
+block content
+  section.post.big
+    include rate
+    section.post-content
+      != post.content
+      div#disqus_thread
