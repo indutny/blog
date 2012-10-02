@@ -5,4 +5,7 @@ block content
     section.post.teaser
       span.num= post.id + '. '
       a.link(href="/" + post.slug)= post.title
+      = ' '
+      span.rate(data-id=post.id)
+        span.front -
   - })
