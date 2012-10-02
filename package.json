@@ -8,7 +8,6 @@
     "socket.io": "~0.9.10",
     "marked": "~0.2.5",
     "jade": "~0.27.5",
-    "redis": "~0.8.1",
-    "sticky-session": "0.0.5"
+    "redis": "~0.8.1"
   }
 }
