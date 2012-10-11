@@ -8,4 +8,6 @@ block content
     include rate
     section.post-content
       != post.content
+      div.date
+        = 'Created at: ' + post.created_at
       div#disqus_thread

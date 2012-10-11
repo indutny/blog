@@ -76,6 +76,14 @@ footer {
   font-size: 15px;
 }
 
+span.date {
+  font-size: 11px;
+}
+
+div.date {
+  text-align: right;
+}
+
 section.post.big .rate {
   position: absolute;
   right: -60px;

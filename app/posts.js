@@ -26,6 +26,7 @@ function loadPost(filename) {
     slug: slug,
     title: title,
     ctime: stat.ctime,
+    created_at: stat.ctime.toUTCString(),
     content: rendered
   };
 
