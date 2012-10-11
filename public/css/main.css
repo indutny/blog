@@ -169,7 +169,12 @@ section.post.big .rate .back {
 
 /* Text formatting */
 
-section.post-content p, a, li {
+section.post-content p,
+section.post-content a,
+section.post-content li,
+section.post-content b,
+section.post-content strong,
+section.post-content i {
   font-family: Helvetica;
   font-size: 15px;
 }
@@ -185,4 +190,16 @@ section.post-content ul {
 section.post-content img {
   display: block;
   margin: 0 auto;
+}
+
+section.post-content pre {
+  background: white;
+  border: 1px solid #20467a;
+  padding: 3px 6px;
+}
+
+section.post-content pre code {
+  font-family: 'Bitstream Vera Sans Mono', 'Courier', monospace;
+  font-size: 15px;
+  line-height: 18px;
 }
