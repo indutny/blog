@@ -191,7 +191,8 @@ section.post-content p {
   margin: 15px 0;
 }
 
-section.post-content ul {
+section.post-content ul,
+section.post-content ol {
   padding: 0 0 0 21px;
 }
 
