@@ -1,0 +1,7 @@
+## Please put this file on your site. 
+## Suggest.io will expect content on on the following URL:
+## * http://blog.indutny.com/38741312-3a36-427f-971b-117d876a9781.txt
+##
+## Domain account validation will success, if URL response body will contain at least following ASCII text:
+
+ocM2PYEfNFUtOMVO
