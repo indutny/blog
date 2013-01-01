@@ -1,0 +1,559 @@
+<?xml version="1.0"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" width="1200" height="580" onload="init(evt)" viewBox="0 0 1200 580" xmlns="http://www.w3.org/2000/svg" >
+    <defs >
+        <linearGradient id="background" y1="0" y2="1" x1="0" x2="0" >
+            <stop stop-color="#eeeeee" offset="5%" />
+            <stop stop-color="#eeeeb0" offset="95%" />
+        </linearGradient>
+    </defs>
+    <style type="text/css" >
+	rect[rx]:hover { stroke:black; stroke-width:1; }
+	text:hover { stroke:black; stroke-width:1; stroke-opacity:0.35; }
+    </style>
+    <script type="text/ecmascript" >
+	var details;
+	function init(evt) {
+		details = document.getElementById(&quot;details&quot;).
+		    firstChild;
+	}
+	function s(info) { details.nodeValue = info; }
+	function c() { details.nodeValue = &quot; &quot;; }
+    </script>
+    <rect x="0.0" y="0.0" width="1200.0" height="580.0" fill="url(#background)" />
+    <text text-anchor="middle" x="600" y="24" font-size="17" font-family="Verdana" fill="rgb(0, 0, 0)" >Flame Graph</text>
+    <text text-anchor="left" x="10" y="48" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" >Function:</text>
+    <text text-anchor="left" x="70" y="48" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" id="details" > </text>
+    <rect x="15.6" y="371" width="1.9" height="15.0" fill="rgb(220,174,154)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`__lwp_park (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="17.5" y="371" width="2.9" height="15.0" fill="rgb(220,174,153)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`sema_wait_impl (15 samples, 0.25%)&quot;)" onmouseout="c()" />
+    <rect x="15.4" y="387" width="5.4" height="15.0" fill="rgb(218,170,152)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`sema_wait (28 samples, 0.46%)&quot;)" onmouseout="c()" />
+    <rect x="15.0" y="403" width="6.0" height="15.0" fill="rgb(216,166,151)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`sem_wait (31 samples, 0.51%)&quot;)" onmouseout="c()" />
+    <rect x="14.4" y="419" width="6.6" height="15.0" fill="rgb(215,163,149)" rx="2" ry="2" onmouseover="s(&quot;node`uv_sem_wait (34 samples, 0.56%)&quot;)" onmouseout="c()" />
+    <rect x="21.8" y="371" width="1.9" height="15.0" fill="rgb(220,174,154)" rx="2" ry="2" onmouseover="s(&quot;node`BIO_free (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="21.6" y="387" width="2.1" height="15.0" fill="rgb(218,170,152)" rx="2" ry="2" onmouseover="s(&quot;node`BIO_free_all (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="23.9" y="371" width="1.0" height="15.0" fill="rgb(220,174,154)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`free (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="23.7" y="387" width="1.2" height="15.0" fill="rgb(218,171,152)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_free (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="25.0" y="387" width="1.0" height="15.0" fill="rgb(218,171,153)" rx="2" ry="2" onmouseover="s(&quot;node`OPENSSL_cleanse (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="26.0" y="387" width="1.2" height="15.0" fill="rgb(218,171,152)" rx="2" ry="2" onmouseover="s(&quot;node`SSL_SESSION_free (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="27.2" y="387" width="1.0" height="15.0" fill="rgb(218,171,153)" rx="2" ry="2" onmouseover="s(&quot;node`int_free_ex_data (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="28.3" y="387" width="1.0" height="15.0" fill="rgb(218,171,153)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_free (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="29.9" y="387" width="1.5" height="15.0" fill="rgb(218,171,152)" rx="2" ry="2" onmouseover="s(&quot;node`ssl_clear_cipher_ctx (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="21.4" y="403" width="10.8" height="15.0" fill="rgb(216,166,150)" rx="2" ry="2" onmouseover="s(&quot;node`SSL_free (56 samples, 0.91%)&quot;)" onmouseout="c()" />
+    <rect x="21.0" y="419" width="11.4" height="15.0" fill="rgb(215,162,149)" rx="2" ry="2" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy6Socket5CloseEv (59 samples, 0.96%)&quot;)" onmouseout="c()" />
+    <rect x="34.5" y="371" width="2.3" height="15.0" fill="rgb(220,174,154)" rx="2" ry="2" onmouseover="s(&quot;node`ERR_get_state (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="34.1" y="387" width="3.1" height="15.0" fill="rgb(218,170,152)" rx="2" ry="2" onmouseover="s(&quot;node`get_error_values (16 samples, 0.26%)&quot;)" onmouseout="c()" />
+    <rect x="33.5" y="403" width="3.7" height="15.0" fill="rgb(216,167,151)" rx="2" ry="2" onmouseover="s(&quot;node`SSL_get_error (19 samples, 0.31%)&quot;)" onmouseout="c()" />
+    <rect x="38.3" y="371" width="1.3" height="15.0" fill="rgb(220,174,154)" rx="2" ry="2" onmouseover="s(&quot;node`def_get_class (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="39.7" y="339" width="1.0" height="15.0" fill="rgb(223,182,156)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`rw_rdlock_impl (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="39.7" y="355" width="1.0" height="15.0" fill="rgb(222,178,155)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`pthread_rwlock_rdlock (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="39.7" y="371" width="1.0" height="15.0" fill="rgb(220,174,154)" rx="2" ry="2" onmouseover="s(&quot;node`uv_rwlock_rdlock (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="38.3" y="387" width="2.5" height="15.0" fill="rgb(218,170,152)" rx="2" ry="2" onmouseover="s(&quot;node`int_new_ex_data (13 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="40.8" y="323" width="1.0" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_cache_alloc (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="40.8" y="339" width="1.0" height="15.0" fill="rgb(223,182,156)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_alloc (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="40.8" y="355" width="1.0" height="15.0" fill="rgb(222,178,155)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`malloc (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="40.8" y="371" width="1.0" height="15.0" fill="rgb(220,174,154)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_malloc (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="40.8" y="387" width="1.0" height="15.0" fill="rgb(218,171,153)" rx="2" ry="2" onmouseover="s(&quot;node`ssl_cert_dup (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="37.2" y="403" width="5.4" height="15.0" fill="rgb(216,167,151)" rx="2" ry="2" onmouseover="s(&quot;node`SSL_new (28 samples, 0.46%)&quot;)" onmouseout="c()" />
+    <rect x="44.1" y="371" width="1.7" height="15.0" fill="rgb(220,174,154)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`memset (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="47.2" y="259" width="1.2" height="15.0" fill="rgb(232,201,162)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`vmem_xalloc (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="47.0" y="275" width="1.3" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`vmem_alloc (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="46.6" y="291" width="1.9" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`vmem_xalloc (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="46.4" y="307" width="2.1" height="15.0" fill="rgb(227,189,158)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`vmem_alloc (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="46.4" y="323" width="2.1" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_alloc (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="46.4" y="339" width="2.3" height="15.0" fill="rgb(223,182,156)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`malloc (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="46.4" y="355" width="2.3" height="15.0" fill="rgb(222,178,155)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_malloc (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="46.2" y="371" width="2.5" height="15.0" fill="rgb(220,174,154)" rx="2" ry="2" onmouseover="s(&quot;node`BUF_MEM_grow (13 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="49.3" y="371" width="1.9" height="15.0" fill="rgb(220,174,154)" rx="2" ry="2" onmouseover="s(&quot;node`ERR_clear_error (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="54.5" y="307" width="1.5" height="15.0" fill="rgb(227,189,159)" rx="2" ry="2" onmouseover="s(&quot;node`int_new_ex_data (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="54.3" y="323" width="1.7" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;node`BIO_set (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="54.3" y="339" width="2.3" height="15.0" fill="rgb(223,182,156)" rx="2" ry="2" onmouseover="s(&quot;node`BIO_new (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="54.3" y="355" width="2.3" height="15.0" fill="rgb(222,178,155)" rx="2" ry="2" onmouseover="s(&quot;node`ssl_init_wbio_buffer (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="52.0" y="371" width="4.6" height="15.0" fill="rgb(220,174,153)" rx="2" ry="2" onmouseover="s(&quot;node`ssl23_get_client_hello (24 samples, 0.39%)&quot;)" onmouseout="c()" />
+    <rect x="60.3" y="339" width="1.0" height="15.0" fill="rgb(223,182,156)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_finish_mac (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="62.2" y="323" width="1.5" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;node`do_ssl3_write (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="63.8" y="323" width="1.2" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_write_pending (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="61.3" y="339" width="3.9" height="15.0" fill="rgb(223,181,156)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_write_bytes (20 samples, 0.33%)&quot;)" onmouseout="c()" />
+    <rect x="59.9" y="355" width="5.2" height="15.0" fill="rgb(222,178,154)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_do_write (27 samples, 0.44%)&quot;)" onmouseout="c()" />
+    <rect x="68.0" y="339" width="1.2" height="15.0" fill="rgb(223,182,156)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_choose_cipher (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="69.8" y="291" width="1.0" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`def_get_class (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="69.8" y="307" width="1.3" height="15.0" fill="rgb(227,189,159)" rx="2" ry="2" onmouseover="s(&quot;node`int_free_ex_data (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="69.6" y="323" width="2.3" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;node`BIO_free (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="69.2" y="339" width="4.0" height="15.0" fill="rgb(223,181,156)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_digest_cached_records (21 samples, 0.34%)&quot;)" onmouseout="c()" />
+    <rect x="75.0" y="243" width="1.0" height="15.0" fill="rgb(234,205,163)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_cache_alloc (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="74.8" y="259" width="1.2" height="15.0" fill="rgb(232,201,162)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_alloc (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="74.6" y="275" width="1.3" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`malloc (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="73.8" y="291" width="2.1" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`realloc (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="73.8" y="307" width="2.1" height="15.0" fill="rgb(227,189,158)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_realloc (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="73.8" y="323" width="2.1" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;node`sk_insert (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="76.1" y="307" width="1.2" height="15.0" fill="rgb(227,189,159)" rx="2" ry="2" onmouseover="s(&quot;node`OBJ_bsearch_ex_ (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="76.1" y="323" width="1.9" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_get_cipher_by_char (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="73.2" y="339" width="4.8" height="15.0" fill="rgb(223,181,156)" rx="2" ry="2" onmouseover="s(&quot;node`ssl_bytes_to_cipher_list (25 samples, 0.41%)&quot;)" onmouseout="c()" />
+    <rect x="80.0" y="307" width="1.0" height="15.0" fill="rgb(227,189,159)" rx="2" ry="2" onmouseover="s(&quot;node`int_new_ex_data (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="79.8" y="323" width="1.2" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;node`SSL_SESSION_new (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="85.6" y="227" width="1.0" height="15.0" fill="rgb(236,208,164)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`queue_lock (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="85.4" y="243" width="1.3" height="15.0" fill="rgb(234,204,163)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`rwlock_lock (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="85.0" y="259" width="1.9" height="15.0" fill="rgb(232,200,161)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`rw_wrlock_impl (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="85.0" y="275" width="1.9" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`pthread_rwlock_wrlock (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="85.0" y="291" width="1.9" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`uv_rwlock_wrlock (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="86.9" y="259" width="1.0" height="15.0" fill="rgb(232,201,162)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`rw_queue_release (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="86.9" y="275" width="1.3" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`pthread_rwlock_unlock (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="86.9" y="291" width="1.3" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`uv_rwlock_wrunlock (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="82.5" y="307" width="5.8" height="15.0" fill="rgb(227,189,158)" rx="2" ry="2" onmouseover="s(&quot;node`ssleay_rand_bytes (30 samples, 0.49%)&quot;)" onmouseout="c()" />
+    <rect x="81.3" y="323" width="6.9" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;node`def_generate_session_id (36 samples, 0.59%)&quot;)" onmouseout="c()" />
+    <rect x="79.0" y="339" width="9.6" height="15.0" fill="rgb(223,181,155)" rx="2" ry="2" onmouseover="s(&quot;node`ssl_get_new_session (50 samples, 0.82%)&quot;)" onmouseout="c()" />
+    <rect x="91.5" y="243" width="1.0" height="15.0" fill="rgb(234,205,163)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`spin_lock_set (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="91.5" y="259" width="1.0" height="15.0" fill="rgb(232,201,162)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`queue_lock (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="91.5" y="275" width="1.0" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`rwlock_lock (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="91.2" y="291" width="1.3" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`rw_wrlock_impl (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="91.2" y="307" width="1.3" height="15.0" fill="rgb(227,189,159)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`pthread_rwlock_wrlock (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="91.2" y="323" width="1.3" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;node`uv_rwlock_wrlock (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="92.5" y="307" width="1.0" height="15.0" fill="rgb(227,189,159)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`pthread_rwlock_unlock (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="92.5" y="323" width="1.2" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;node`uv_rwlock_wrunlock (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="88.8" y="339" width="5.0" height="15.0" fill="rgb(223,181,156)" rx="2" ry="2" onmouseover="s(&quot;node`ssleay_rand_bytes (26 samples, 0.42%)&quot;)" onmouseout="c()" />
+    <rect x="65.1" y="355" width="28.9" height="15.0" fill="rgb(222,175,151)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_get_client_hello (150 samples, 2.45%)&quot;)" onmouseout="c()" />
+    <rect x="94.4" y="323" width="1.0" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`memset (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="98.7" y="307" width="1.2" height="15.0" fill="rgb(227,189,159)" rx="2" ry="2" onmouseover="s(&quot;node`int_new_ex_data (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="97.5" y="323" width="2.3" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;node`X509_STORE_CTX_init (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="101.2" y="307" width="1.0" height="15.0" fill="rgb(227,189,159)" rx="2" ry="2" onmouseover="s(&quot;node`check_issued (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="100.0" y="323" width="2.3" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;node`X509_verify_cert (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="104.5" y="243" width="1.0" height="15.0" fill="rgb(234,205,163)" rx="2" ry="2" onmouseover="s(&quot;node`asn1_i2d_ex_primitive (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="103.5" y="259" width="2.7" height="15.0" fill="rgb(232,200,161)" rx="2" ry="2" onmouseover="s(&quot;node`ASN1_item_ex_i2d (14 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="103.5" y="275" width="3.1" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`asn1_template_ex_i2d (16 samples, 0.26%)&quot;)" onmouseout="c()" />
+    <rect x="103.3" y="291" width="3.3" height="15.0" fill="rgb(229,193,159)" rx="2" ry="2" onmouseover="s(&quot;node`ASN1_item_ex_i2d (17 samples, 0.28%)&quot;)" onmouseout="c()" />
+    <rect x="103.1" y="307" width="3.5" height="15.0" fill="rgb(227,189,158)" rx="2" ry="2" onmouseover="s(&quot;node`asn1_item_flags_i2d (18 samples, 0.29%)&quot;)" onmouseout="c()" />
+    <rect x="102.9" y="323" width="3.7" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_add_cert_to_buf (19 samples, 0.31%)&quot;)" onmouseout="c()" />
+    <rect x="94.2" y="339" width="12.3" height="15.0" fill="rgb(223,181,155)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_output_cert_chain (64 samples, 1.05%)&quot;)" onmouseout="c()" />
+    <rect x="94.1" y="355" width="12.5" height="15.0" fill="rgb(222,177,153)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_send_server_certificate (65 samples, 1.06%)&quot;)" onmouseout="c()" />
+    <rect x="108.3" y="339" width="1.0" height="15.0" fill="rgb(223,182,156)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestInit_ex (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="110.6" y="275" width="1.2" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`queue_lock (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="110.2" y="291" width="1.7" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`rwlock_lock (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="109.7" y="307" width="2.5" height="15.0" fill="rgb(227,189,158)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`rw_wrlock_impl (13 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="109.7" y="323" width="2.5" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`pthread_rwlock_wrlock (13 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="109.7" y="339" width="2.5" height="15.0" fill="rgb(223,182,156)" rx="2" ry="2" onmouseover="s(&quot;node`uv_rwlock_wrlock (13 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="107.2" y="355" width="5.6" height="15.0" fill="rgb(222,178,154)" rx="2" ry="2" onmouseover="s(&quot;node`ssleay_rand_add (29 samples, 0.47%)&quot;)" onmouseout="c()" />
+    <rect x="56.7" y="371" width="56.3" height="15.0" fill="rgb(220,169,146)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_accept (292 samples, 4.77%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="59.65250776016991" y="381.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`ssl3_accept (292 samples, 4.77%)&quot;)" onmouseout="c()" >node`s..</text>
+    <rect x="113.3" y="259" width="1.0" height="15.0" fill="rgb(232,201,162)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`rw_wrlock_impl (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="113.3" y="275" width="1.0" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`pthread_rwlock_wrlock (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="113.3" y="291" width="1.0" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`uv_rwlock_wrlock (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="113.3" y="307" width="1.0" height="15.0" fill="rgb(227,189,159)" rx="2" ry="2" onmouseover="s(&quot;node`def_get_class (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="113.3" y="323" width="1.7" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;node`int_new_ex_data (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="113.1" y="339" width="1.9" height="15.0" fill="rgb(223,182,156)" rx="2" ry="2" onmouseover="s(&quot;node`BIO_set (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="113.1" y="355" width="2.3" height="15.0" fill="rgb(222,178,155)" rx="2" ry="2" onmouseover="s(&quot;node`BIO_new (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="113.1" y="371" width="2.3" height="15.0" fill="rgb(220,174,154)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_init_finished_mac (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="117.2" y="355" width="1.0" height="15.0" fill="rgb(222,178,155)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestFinal_ex (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="119.9" y="275" width="1.0" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`spin_lock_set (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="119.9" y="291" width="1.0" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`queue_lock (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="119.5" y="307" width="1.5" height="15.0" fill="rgb(227,189,159)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`rwlock_lock (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="119.1" y="323" width="1.9" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`rw_wrlock_impl (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="119.1" y="339" width="1.9" height="15.0" fill="rgb(223,182,156)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`pthread_rwlock_wrlock (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="119.1" y="355" width="1.9" height="15.0" fill="rgb(222,178,155)" rx="2" ry="2" onmouseover="s(&quot;node`uv_rwlock_wrlock (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="116.2" y="371" width="5.2" height="15.0" fill="rgb(220,174,153)" rx="2" ry="2" onmouseover="s(&quot;node`ssleay_rand_add (27 samples, 0.44%)&quot;)" onmouseout="c()" />
+    <rect x="43.7" y="387" width="77.7" height="15.0" fill="rgb(218,163,142)" rx="2" ry="2" onmouseover="s(&quot;node`ssl23_accept (403 samples, 6.58%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="46.73631759516419" y="397.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`ssl23_accept (403 samples, 6.58%)&quot;)" onmouseout="c()" >node`ssl2..</text>
+    <rect x="43.5" y="403" width="77.9" height="15.0" fill="rgb(216,159,141)" rx="2" ry="2" onmouseover="s(&quot;node`ssl23_read (404 samples, 6.60%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="46.54353863747754" y="413.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`ssl23_read (404 samples, 6.60%)&quot;)" onmouseout="c()" >node`ssl2..</text>
+    <rect x="126.1" y="355" width="1.2" height="15.0" fill="rgb(222,178,155)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`memset (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="128.6" y="227" width="1.0" height="15.0" fill="rgb(236,208,164)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`vmem_xfree (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="128.4" y="243" width="1.2" height="15.0" fill="rgb(234,204,163)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`vmem_free (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="127.6" y="259" width="1.9" height="15.0" fill="rgb(232,200,161)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`vmem_xfree (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="127.6" y="275" width="1.9" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`vmem_free (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="127.6" y="291" width="1.9" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_free (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="127.6" y="307" width="1.9" height="15.0" fill="rgb(227,189,158)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`process_free (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="127.6" y="323" width="1.9" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`free (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="127.6" y="339" width="1.9" height="15.0" fill="rgb(223,182,156)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_free (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="127.4" y="355" width="2.1" height="15.0" fill="rgb(222,178,155)" rx="2" ry="2" onmouseover="s(&quot;node`BUF_MEM_free (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="129.5" y="355" width="1.2" height="15.0" fill="rgb(222,178,155)" rx="2" ry="2" onmouseover="s(&quot;node`ERR_clear_error (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="133.6" y="307" width="1.0" height="15.0" fill="rgb(227,189,159)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_read_n (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="132.8" y="323" width="1.7" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_read_bytes (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="131.6" y="339" width="2.9" height="15.0" fill="rgb(223,181,156)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_get_message (15 samples, 0.25%)&quot;)" onmouseout="c()" />
+    <rect x="131.6" y="355" width="2.9" height="15.0" fill="rgb(222,178,155)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_check_client_hello (15 samples, 0.25%)&quot;)" onmouseout="c()" />
+    <rect x="134.9" y="339" width="1.7" height="15.0" fill="rgb(223,182,156)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_write_bytes (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="134.7" y="355" width="1.9" height="15.0" fill="rgb(222,178,155)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_do_write (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="139.4" y="291" width="1.2" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_change_cipher_state (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="142.1" y="99" width="1.2" height="15.0" fill="rgb(250,240,160)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_cache_free (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="142.1" y="115" width="1.2" height="15.0" fill="rgb(248,237,165)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_free (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="141.9" y="131" width="1.3" height="15.0" fill="rgb(246,232,165)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`process_free (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="141.9" y="147" width="1.3" height="15.0" fill="rgb(244,228,165)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`free (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="141.9" y="163" width="1.3" height="15.0" fill="rgb(243,224,165)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_free (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="141.7" y="179" width="1.5" height="15.0" fill="rgb(241,220,165)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="141.5" y="195" width="1.7" height="15.0" fill="rgb(239,216,165)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_cleanup (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="141.5" y="211" width="1.7" height="15.0" fill="rgb(237,212,164)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_cleanup (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="141.3" y="227" width="1.9" height="15.0" fill="rgb(236,208,163)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_free (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="141.3" y="243" width="1.9" height="15.0" fill="rgb(234,204,162)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="144.2" y="195" width="1.0" height="15.0" fill="rgb(239,216,166)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_copy (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="143.8" y="211" width="2.1" height="15.0" fill="rgb(237,212,164)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_copy (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="143.2" y="227" width="2.7" height="15.0" fill="rgb(236,208,162)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_dup (14 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="143.2" y="243" width="2.7" height="15.0" fill="rgb(234,204,162)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_copy_ex (14 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="141.3" y="259" width="5.4" height="15.0" fill="rgb(232,199,159)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestSignFinal (28 samples, 0.46%)&quot;)" onmouseout="c()" />
+    <rect x="147.5" y="195" width="1.3" height="15.0" fill="rgb(239,216,165)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="147.5" y="211" width="1.3" height="15.0" fill="rgb(237,212,165)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_cleanup (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="147.5" y="227" width="1.3" height="15.0" fill="rgb(236,208,164)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_cleanup (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="146.9" y="243" width="2.1" height="15.0" fill="rgb(234,204,162)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_free (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="146.7" y="259" width="2.3" height="15.0" fill="rgb(232,200,161)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="150.5" y="227" width="1.0" height="15.0" fill="rgb(236,208,164)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_new (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="150.5" y="243" width="1.2" height="15.0" fill="rgb(234,204,163)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_keygen (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="151.7" y="243" width="1.0" height="15.0" fill="rgb(234,205,163)" rx="2" ry="2" onmouseover="s(&quot;node`int_ctx_new (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="149.6" y="259" width="3.1" height="15.0" fill="rgb(232,200,161)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_new_mac_key (16 samples, 0.26%)&quot;)" onmouseout="c()" />
+    <rect x="158.2" y="179" width="1.3" height="15.0" fill="rgb(241,220,166)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestInit_ex (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="153.6" y="195" width="6.2" height="15.0" fill="rgb(239,214,158)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_Init_ex (32 samples, 0.52%)&quot;)" onmouseout="c()" />
+    <rect x="152.7" y="211" width="7.3" height="15.0" fill="rgb(237,210,157)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_ctrl (38 samples, 0.62%)&quot;)" onmouseout="c()" />
+    <rect x="152.7" y="227" width="7.3" height="15.0" fill="rgb(236,206,158)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_ctrl (38 samples, 0.62%)&quot;)" onmouseout="c()" />
+    <rect x="152.7" y="243" width="7.3" height="15.0" fill="rgb(234,202,158)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestInit_ex (38 samples, 0.62%)&quot;)" onmouseout="c()" />
+    <rect x="160.6" y="243" width="1.7" height="15.0" fill="rgb(234,204,162)" rx="2" ry="2" onmouseover="s(&quot;node`int_ctx_new (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="152.7" y="259" width="9.6" height="15.0" fill="rgb(232,198,157)" rx="2" ry="2" onmouseover="s(&quot;node`do_sigver_init (50 samples, 0.82%)&quot;)" onmouseout="c()" />
+    <rect x="141.1" y="275" width="21.8" height="15.0" fill="rgb(230,195,157)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_PRF.constprop.0 (113 samples, 1.85%)&quot;)" onmouseout="c()" />
+    <rect x="140.5" y="291" width="22.4" height="15.0" fill="rgb(229,191,156)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_final_finish_mac (116 samples, 1.90%)&quot;)" onmouseout="c()" />
+    <rect x="167.9" y="163" width="1.7" height="15.0" fill="rgb(243,224,164)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_cache_free (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="167.3" y="179" width="2.3" height="15.0" fill="rgb(241,220,163)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_free (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="166.9" y="195" width="2.7" height="15.0" fill="rgb(239,216,163)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`process_free (14 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="166.9" y="211" width="2.7" height="15.0" fill="rgb(237,212,163)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`free (14 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="166.9" y="227" width="2.7" height="15.0" fill="rgb(236,208,162)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_free (14 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="170.2" y="163" width="1.0" height="15.0" fill="rgb(243,224,167)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_free (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="170.2" y="179" width="1.0" height="15.0" fill="rgb(241,220,166)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`process_free (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="170.0" y="195" width="1.2" height="15.0" fill="rgb(239,216,166)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`free (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="170.0" y="211" width="1.2" height="15.0" fill="rgb(237,212,165)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_free (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="178.9" y="67" width="1.0" height="15.0" fill="rgb(253,249,133)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`mutex_unlock_queue (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="178.7" y="83" width="1.2" height="15.0" fill="rgb(251,245,151)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`mutex_unlock (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="176.9" y="99" width="2.9" height="15.0" fill="rgb(250,238,138)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_cache_free (15 samples, 0.25%)&quot;)" onmouseout="c()" />
+    <rect x="176.0" y="115" width="3.9" height="15.0" fill="rgb(248,234,145)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_free (20 samples, 0.33%)&quot;)" onmouseout="c()" />
+    <rect x="175.4" y="131" width="4.4" height="15.0" fill="rgb(246,229,149)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`process_free (23 samples, 0.38%)&quot;)" onmouseout="c()" />
+    <rect x="174.8" y="147" width="5.0" height="15.0" fill="rgb(244,225,149)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`free (26 samples, 0.42%)&quot;)" onmouseout="c()" />
+    <rect x="174.2" y="163" width="5.6" height="15.0" fill="rgb(243,221,152)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_free (29 samples, 0.47%)&quot;)" onmouseout="c()" />
+    <rect x="172.3" y="179" width="7.5" height="15.0" fill="rgb(241,216,152)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (39 samples, 0.64%)&quot;)" onmouseout="c()" />
+    <rect x="180.0" y="179" width="2.7" height="15.0" fill="rgb(241,219,163)" rx="2" ry="2" onmouseover="s(&quot;node`OPENSSL_cleanse (14 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="171.5" y="195" width="11.2" height="15.0" fill="rgb(239,212,151)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_cleanup (58 samples, 0.95%)&quot;)" onmouseout="c()" />
+    <rect x="171.2" y="211" width="11.6" height="15.0" fill="rgb(237,208,152)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_cleanup (60 samples, 0.98%)&quot;)" onmouseout="c()" />
+    <rect x="169.6" y="227" width="13.9" height="15.0" fill="rgb(236,203,151)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_free (72 samples, 1.18%)&quot;)" onmouseout="c()" />
+    <rect x="166.2" y="243" width="17.4" height="15.0" fill="rgb(234,199,150)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (90 samples, 1.47%)&quot;)" onmouseout="c()" />
+    <rect x="186.0" y="131" width="1.0" height="15.0" fill="rgb(246,233,167)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`mutex_lock_impl (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="186.0" y="147" width="1.0" height="15.0" fill="rgb(244,228,167)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`mutex_lock (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="185.6" y="163" width="2.3" height="15.0" fill="rgb(243,223,162)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_cache_alloc (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="184.9" y="179" width="3.1" height="15.0" fill="rgb(241,219,162)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_alloc (16 samples, 0.26%)&quot;)" onmouseout="c()" />
+    <rect x="184.9" y="195" width="3.3" height="15.0" fill="rgb(239,215,163)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`malloc (17 samples, 0.28%)&quot;)" onmouseout="c()" />
+    <rect x="184.5" y="211" width="3.7" height="15.0" fill="rgb(237,211,162)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_malloc (19 samples, 0.31%)&quot;)" onmouseout="c()" />
+    <rect x="190.2" y="195" width="1.5" height="15.0" fill="rgb(239,216,165)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_init (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="192.2" y="179" width="1.3" height="15.0" fill="rgb(241,220,166)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`memcpy (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="198.3" y="83" width="1.5" height="15.0" fill="rgb(251,244,143)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`mutex_lock_impl (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="198.3" y="99" width="1.5" height="15.0" fill="rgb(250,240,155)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`mutex_lock (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="199.9" y="99" width="1.5" height="15.0" fill="rgb(250,240,155)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`mutex_unlock (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="197.4" y="115" width="4.0" height="15.0" fill="rgb(248,234,143)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_cache_alloc (21 samples, 0.34%)&quot;)" onmouseout="c()" />
+    <rect x="195.1" y="131" width="6.4" height="15.0" fill="rgb(246,228,139)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_alloc (33 samples, 0.54%)&quot;)" onmouseout="c()" />
+    <rect x="194.5" y="147" width="6.9" height="15.0" fill="rgb(244,223,141)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`malloc (36 samples, 0.59%)&quot;)" onmouseout="c()" />
+    <rect x="194.3" y="163" width="7.1" height="15.0" fill="rgb(243,219,147)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_malloc (37 samples, 0.60%)&quot;)" onmouseout="c()" />
+    <rect x="201.4" y="163" width="1.3" height="15.0" fill="rgb(243,224,165)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="202.8" y="163" width="1.2" height="15.0" fill="rgb(243,224,166)" rx="2" ry="2" onmouseover="s(&quot;node`default_malloc_ex (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="193.9" y="179" width="10.0" height="15.0" fill="rgb(241,215,146)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_copy_ex (52 samples, 0.85%)&quot;)" onmouseout="c()" />
+    <rect x="203.9" y="179" width="1.3" height="15.0" fill="rgb(241,220,166)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_init (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="191.8" y="195" width="13.5" height="15.0" fill="rgb(239,211,148)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_copy (70 samples, 1.14%)&quot;)" onmouseout="c()" />
+    <rect x="206.6" y="99" width="1.0" height="15.0" fill="rgb(250,241,162)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`mutex_lock_impl (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="206.6" y="115" width="1.0" height="15.0" fill="rgb(248,237,166)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`mutex_lock (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="206.1" y="131" width="2.3" height="15.0" fill="rgb(246,231,160)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_cache_alloc (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="205.9" y="147" width="2.5" height="15.0" fill="rgb(244,227,160)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_alloc (13 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="205.9" y="163" width="2.7" height="15.0" fill="rgb(243,223,161)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`malloc (14 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="205.9" y="179" width="2.7" height="15.0" fill="rgb(241,219,163)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_malloc (14 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="205.3" y="195" width="4.4" height="15.0" fill="rgb(239,215,161)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_init (23 samples, 0.38%)&quot;)" onmouseout="c()" />
+    <rect x="189.1" y="211" width="20.6" height="15.0" fill="rgb(237,204,141)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_copy (107 samples, 1.75%)&quot;)" onmouseout="c()" />
+    <rect x="184.1" y="227" width="25.6" height="15.0" fill="rgb(236,199,139)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_dup (133 samples, 2.17%)&quot;)" onmouseout="c()" />
+    <rect x="183.5" y="243" width="26.4" height="15.0" fill="rgb(234,196,143)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_copy_ex (137 samples, 2.24%)&quot;)" onmouseout="c()" />
+    <rect x="211.5" y="195" width="1.0" height="15.0" fill="rgb(239,216,166)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`memset (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="211.3" y="211" width="2.5" height="15.0" fill="rgb(237,212,163)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestFinal_ex (13 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="210.1" y="227" width="5.0" height="15.0" fill="rgb(236,207,160)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_Final (26 samples, 0.42%)&quot;)" onmouseout="c()" />
+    <rect x="209.9" y="243" width="5.2" height="15.0" fill="rgb(234,203,160)" rx="2" ry="2" onmouseover="s(&quot;node`hmac_signctx (27 samples, 0.44%)&quot;)" onmouseout="c()" />
+    <rect x="166.0" y="259" width="49.2" height="15.0" fill="rgb(232,187,132)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestSignFinal (255 samples, 4.17%)&quot;)" onmouseout="c()" />
+    <rect x="217.4" y="131" width="1.2" height="15.0" fill="rgb(246,232,166)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_free (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="217.2" y="147" width="1.3" height="15.0" fill="rgb(244,228,165)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`process_free (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="217.2" y="163" width="1.3" height="15.0" fill="rgb(243,224,165)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`free (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="217.2" y="179" width="1.3" height="15.0" fill="rgb(241,220,166)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_free (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="216.9" y="195" width="1.7" height="15.0" fill="rgb(239,216,165)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="216.9" y="211" width="2.1" height="15.0" fill="rgb(237,212,164)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_cleanup (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="216.9" y="227" width="2.1" height="15.0" fill="rgb(236,208,163)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_cleanup (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="215.5" y="243" width="3.5" height="15.0" fill="rgb(234,204,161)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_free (18 samples, 0.29%)&quot;)" onmouseout="c()" />
+    <rect x="215.1" y="259" width="3.9" height="15.0" fill="rgb(232,200,160)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (20 samples, 0.33%)&quot;)" onmouseout="c()" />
+    <rect x="219.6" y="259" width="2.3" height="15.0" fill="rgb(232,200,161)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_new_mac_key (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="238.8" y="179" width="1.5" height="15.0" fill="rgb(241,220,165)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestInit_ex (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="240.9" y="131" width="1.0" height="15.0" fill="rgb(246,233,167)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_alloc (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="240.9" y="147" width="1.0" height="15.0" fill="rgb(244,228,167)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`malloc (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="240.9" y="163" width="1.0" height="15.0" fill="rgb(243,224,167)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_malloc (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="241.9" y="163" width="1.0" height="15.0" fill="rgb(243,224,167)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="240.6" y="179" width="2.3" height="15.0" fill="rgb(241,220,163)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_copy_ex (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="224.2" y="195" width="20.0" height="15.0" fill="rgb(239,208,138)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_Init_ex (104 samples, 1.70%)&quot;)" onmouseout="c()" />
+    <rect x="223.4" y="211" width="22.9" height="15.0" fill="rgb(237,203,138)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_ctrl (119 samples, 1.94%)&quot;)" onmouseout="c()" />
+    <rect x="223.4" y="227" width="22.9" height="15.0" fill="rgb(236,200,142)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_ctrl (119 samples, 1.94%)&quot;)" onmouseout="c()" />
+    <rect x="223.2" y="243" width="23.3" height="15.0" fill="rgb(234,197,145)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestInit_ex (121 samples, 1.98%)&quot;)" onmouseout="c()" />
+    <rect x="221.9" y="259" width="26.0" height="15.0" fill="rgb(232,194,146)" rx="2" ry="2" onmouseover="s(&quot;node`do_sigver_init (135 samples, 2.21%)&quot;)" onmouseout="c()" />
+    <rect x="248.7" y="243" width="1.0" height="15.0" fill="rgb(234,205,163)" rx="2" ry="2" onmouseover="s(&quot;node`SHA1_Update (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="247.9" y="259" width="1.9" height="15.0" fill="rgb(232,200,161)" rx="2" ry="2" onmouseover="s(&quot;node`int_update (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="165.4" y="275" width="84.6" height="15.0" fill="rgb(230,190,146)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_PRF.constprop.0 (439 samples, 7.17%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="168.37983989544193" y="285.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`tls1_PRF.constprop.0 (439 samples, 7.17%)&quot;)" onmouseout="c()" >node`tls1_..</text>
+    <rect x="162.9" y="291" width="87.1" height="15.0" fill="rgb(229,186,145)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_setup_key_block (452 samples, 7.38%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="165.87371344551545" y="301.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`tls1_setup_key_block (452 samples, 7.38%)&quot;)" onmouseout="c()" >node`tls1_..</text>
+    <rect x="138.6" y="307" width="111.4" height="15.0" fill="rgb(227,180,141)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_do_change_cipher_spec (578 samples, 9.44%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="141.58356477699724" y="317.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`ssl3_do_change_cipher_spec (578 samples, 9.44%)&quot;)" onmouseout="c()" >node`ssl3_do_..</text>
+    <rect x="250.2" y="291" width="1.3" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`BIO_read (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="250.0" y="307" width="1.5" height="15.0" fill="rgb(227,189,159)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_read_n (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="137.8" y="323" width="114.1" height="15.0" fill="rgb(225,175,140)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_read_bytes (592 samples, 9.67%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="140.8124489462506" y="333.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`ssl3_read_bytes (592 samples, 9.67%)&quot;)" onmouseout="c()" >node`ssl3_rea..</text>
+    <rect x="254.6" y="179" width="1.0" height="15.0" fill="rgb(241,220,166)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`free (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="254.6" y="195" width="1.0" height="15.0" fill="rgb(239,216,166)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_free (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="254.6" y="211" width="1.0" height="15.0" fill="rgb(237,212,165)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="254.4" y="227" width="1.3" height="15.0" fill="rgb(236,208,164)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_cleanup (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="254.3" y="243" width="1.5" height="15.0" fill="rgb(234,204,163)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_cleanup (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="254.1" y="259" width="1.7" height="15.0" fill="rgb(232,200,161)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_free (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="253.5" y="275" width="2.3" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="256.8" y="147" width="1.0" height="15.0" fill="rgb(244,228,167)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_cache_alloc (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="256.6" y="163" width="1.2" height="15.0" fill="rgb(243,224,166)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_alloc (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="256.6" y="179" width="1.2" height="15.0" fill="rgb(241,220,166)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`malloc (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="256.6" y="195" width="1.2" height="15.0" fill="rgb(239,216,166)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_malloc (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="256.6" y="211" width="1.2" height="15.0" fill="rgb(237,212,165)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_copy_ex (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="256.4" y="227" width="1.5" height="15.0" fill="rgb(236,208,163)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_copy (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="256.2" y="243" width="1.9" height="15.0" fill="rgb(234,204,162)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_copy (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="255.8" y="259" width="2.3" height="15.0" fill="rgb(232,200,161)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_dup (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="255.8" y="275" width="2.7" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_copy_ex (14 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="253.3" y="291" width="6.0" height="15.0" fill="rgb(229,193,159)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestSignFinal (31 samples, 0.51%)&quot;)" onmouseout="c()" />
+    <rect x="260.2" y="243" width="1.2" height="15.0" fill="rgb(234,204,163)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_cleanup (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="260.2" y="259" width="1.2" height="15.0" fill="rgb(232,201,162)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_cleanup (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="259.8" y="275" width="1.7" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_free (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="259.3" y="291" width="2.3" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="263.3" y="275" width="1.2" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_keygen (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="264.5" y="275" width="1.2" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`int_ctx_new (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="261.8" y="291" width="3.9" height="15.0" fill="rgb(229,193,159)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_new_mac_key (20 samples, 0.33%)&quot;)" onmouseout="c()" />
+    <rect x="270.3" y="179" width="1.0" height="15.0" fill="rgb(241,220,166)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`malloc (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="270.3" y="195" width="1.0" height="15.0" fill="rgb(239,216,166)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_malloc (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="269.9" y="211" width="1.7" height="15.0" fill="rgb(237,212,164)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestInit_ex (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="266.0" y="227" width="6.4" height="15.0" fill="rgb(236,206,158)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_Init_ex (33 samples, 0.54%)&quot;)" onmouseout="c()" />
+    <rect x="265.8" y="243" width="6.7" height="15.0" fill="rgb(234,203,158)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_ctrl (35 samples, 0.57%)&quot;)" onmouseout="c()" />
+    <rect x="265.8" y="259" width="6.7" height="15.0" fill="rgb(232,199,158)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_ctrl (35 samples, 0.57%)&quot;)" onmouseout="c()" />
+    <rect x="265.8" y="275" width="6.9" height="15.0" fill="rgb(230,196,160)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestInit_ex (36 samples, 0.59%)&quot;)" onmouseout="c()" />
+    <rect x="272.8" y="275" width="1.2" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`int_ctx_new (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="265.6" y="291" width="8.3" height="15.0" fill="rgb(229,192,159)" rx="2" ry="2" onmouseover="s(&quot;node`do_sigver_init (43 samples, 0.70%)&quot;)" onmouseout="c()" />
+    <rect x="252.9" y="307" width="21.8" height="15.0" fill="rgb(227,187,155)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_PRF.constprop.0 (113 samples, 1.85%)&quot;)" onmouseout="c()" />
+    <rect x="252.1" y="323" width="22.6" height="15.0" fill="rgb(225,183,154)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_final_finish_mac (117 samples, 1.91%)&quot;)" onmouseout="c()" />
+    <rect x="136.8" y="339" width="137.8" height="15.0" fill="rgb(223,169,136)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_get_message (715 samples, 11.68%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="139.84855415781735" y="349.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`ssl3_get_message (715 samples, 11.68%)&quot;)" onmouseout="c()" >node`ssl3_get_me..</text>
+    <rect x="136.7" y="355" width="138.0" height="15.0" fill="rgb(222,165,135)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_get_cert_verify (716 samples, 11.70%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="139.6557752001307" y="365.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`ssl3_get_cert_verify (716 samples, 11.70%)&quot;)" onmouseout="c()" >node`ssl3_get_ce..</text>
+    <rect x="276.2" y="243" width="1.0" height="15.0" fill="rgb(234,205,163)" rx="2" ry="2" onmouseover="s(&quot;node`bn_mul_add_words (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="275.5" y="259" width="1.7" height="15.0" fill="rgb(232,200,161)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_mul_montgomery (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="274.9" y="275" width="2.3" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_exp_mont (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="280.7" y="243" width="1.3" height="15.0" fill="rgb(234,204,163)" rx="2" ry="2" onmouseover="s(&quot;node`BN_CTX_get (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="282.0" y="243" width="1.7" height="15.0" fill="rgb(234,204,162)" rx="2" ry="2" onmouseover="s(&quot;node`BN_lshift (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="278.5" y="259" width="6.0" height="15.0" fill="rgb(232,199,159)" rx="2" ry="2" onmouseover="s(&quot;node`BN_div (31 samples, 0.51%)&quot;)" onmouseout="c()" />
+    <rect x="284.5" y="259" width="1.0" height="15.0" fill="rgb(232,201,162)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mul (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="277.2" y="275" width="10.0" height="15.0" fill="rgb(230,196,159)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_inverse (52 samples, 0.85%)&quot;)" onmouseout="c()" />
+    <rect x="274.7" y="291" width="12.7" height="15.0" fill="rgb(229,192,158)" rx="2" ry="2" onmouseover="s(&quot;node`BN_BLINDING_create_param (66 samples, 1.08%)&quot;)" onmouseout="c()" />
+    <rect x="290.7" y="227" width="1.0" height="15.0" fill="rgb(236,208,164)" rx="2" ry="2" onmouseover="s(&quot;node`bn_expand2 (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="290.7" y="243" width="1.0" height="15.0" fill="rgb(234,205,163)" rx="2" ry="2" onmouseover="s(&quot;node`BN_lshift (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="288.2" y="259" width="3.7" height="15.0" fill="rgb(232,200,160)" rx="2" ry="2" onmouseover="s(&quot;node`BN_div (19 samples, 0.31%)&quot;)" onmouseout="c()" />
+    <rect x="292.0" y="259" width="1.7" height="15.0" fill="rgb(232,200,161)" rx="2" ry="2" onmouseover="s(&quot;node`bn_mul_words (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="293.8" y="259" width="1.2" height="15.0" fill="rgb(232,201,162)" rx="2" ry="2" onmouseover="s(&quot;node`bn_sub_words (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="288.0" y="275" width="6.9" height="15.0" fill="rgb(230,196,160)" rx="2" ry="2" onmouseover="s(&quot;node`BN_nnmod (36 samples, 0.59%)&quot;)" onmouseout="c()" />
+    <rect x="294.9" y="275" width="1.3" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`BN_sqr (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="287.6" y="291" width="8.9" height="15.0" fill="rgb(229,192,159)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_mul (46 samples, 0.75%)&quot;)" onmouseout="c()" />
+    <rect x="274.7" y="307" width="22.0" height="15.0" fill="rgb(227,187,155)" rx="2" ry="2" onmouseover="s(&quot;node`BN_BLINDING_update (114 samples, 1.86%)&quot;)" onmouseout="c()" />
+    <rect x="297.4" y="275" width="1.5" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`BN_div (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="297.4" y="291" width="2.9" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`BN_nnmod (15 samples, 0.25%)&quot;)" onmouseout="c()" />
+    <rect x="296.7" y="307" width="3.7" height="15.0" fill="rgb(227,189,158)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_mul (19 samples, 0.31%)&quot;)" onmouseout="c()" />
+    <rect x="274.7" y="323" width="25.8" height="15.0" fill="rgb(225,183,154)" rx="2" ry="2" onmouseover="s(&quot;node`BN_BLINDING_convert_ex (134 samples, 2.19%)&quot;)" onmouseout="c()" />
+    <rect x="301.1" y="227" width="1.0" height="15.0" fill="rgb(236,208,164)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_cache_free (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="300.9" y="243" width="1.3" height="15.0" fill="rgb(234,204,163)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_free (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="300.7" y="259" width="1.5" height="15.0" fill="rgb(232,200,162)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`process_free (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="300.7" y="275" width="1.5" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`free (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="300.7" y="291" width="1.5" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_free (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="300.7" y="307" width="1.5" height="15.0" fill="rgb(227,189,159)" rx="2" ry="2" onmouseover="s(&quot;node`BN_clear_free (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="300.5" y="323" width="2.5" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;node`BN_CTX_free (13 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="304.2" y="323" width="1.0" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;node`BN_bin2bn (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="307.5" y="291" width="1.0" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`bn_mul_words (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="306.7" y="307" width="1.9" height="15.0" fill="rgb(227,189,158)" rx="2" ry="2" onmouseover="s(&quot;node`BN_nnmod (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="305.9" y="323" width="2.7" height="15.0" fill="rgb(225,185,157)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_mul (14 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="310.3" y="307" width="4.8" height="15.0" fill="rgb(227,189,158)" rx="2" ry="2" onmouseover="s(&quot;node`BN_div (25 samples, 0.41%)&quot;)" onmouseout="c()" />
+    <rect x="315.2" y="307" width="3.7" height="15.0" fill="rgb(227,189,158)" rx="2" ry="2" onmouseover="s(&quot;node`BN_is_bit_set (19 samples, 0.31%)&quot;)" onmouseout="c()" />
+    <rect x="319.6" y="275" width="1.0" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`bn_mul_add_words (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="319.6" y="291" width="1.0" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`BN_from_montgomery (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="321.1" y="275" width="3.1" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`BN_from_montgomery_word (16 samples, 0.26%)&quot;)" onmouseout="c()" />
+    <rect x="324.2" y="275" width="1.9" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mul (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="326.7" y="259" width="1.0" height="15.0" fill="rgb(232,201,162)" rx="2" ry="2" onmouseover="s(&quot;node`bn_add_words (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="327.9" y="259" width="5.8" height="15.0" fill="rgb(232,199,159)" rx="2" ry="2" onmouseover="s(&quot;node`bn_sqr_comba8 (30 samples, 0.49%)&quot;)" onmouseout="c()" />
+    <rect x="333.7" y="259" width="1.3" height="15.0" fill="rgb(232,201,162)" rx="2" ry="2" onmouseover="s(&quot;node`bn_sqr_recursive (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="326.2" y="275" width="9.4" height="15.0" fill="rgb(230,196,160)" rx="2" ry="2" onmouseover="s(&quot;node`BN_sqr (49 samples, 0.80%)&quot;)" onmouseout="c()" />
+    <rect x="335.6" y="275" width="12.1" height="15.0" fill="rgb(230,196,159)" rx="2" ry="2" onmouseover="s(&quot;node`bn_mul_add_words (63 samples, 1.03%)&quot;)" onmouseout="c()" />
+    <rect x="347.7" y="275" width="1.0" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`bn_sub_words (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="320.6" y="291" width="28.1" height="15.0" fill="rgb(229,191,155)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_mul_montgomery (146 samples, 2.39%)&quot;)" onmouseout="c()" />
+    <rect x="318.8" y="307" width="30.1" height="15.0" fill="rgb(227,187,154)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_exp_mont (156 samples, 2.55%)&quot;)" onmouseout="c()" />
+    <rect x="378.8" y="291" width="7.7" height="15.0" fill="rgb(229,192,159)" rx="2" ry="2" onmouseover="s(&quot;node`BN_CTX_end (40 samples, 0.65%)&quot;)" onmouseout="c()" />
+    <rect x="386.5" y="291" width="1.0" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`BN_CTX_get (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="387.5" y="291" width="1.2" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`BN_CTX_start (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="388.8" y="275" width="1.0" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`BN_from_montgomery_word (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="388.6" y="291" width="1.2" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`BN_from_montgomery (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="403.5" y="275" width="3.1" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`BN_CTX_end (16 samples, 0.26%)&quot;)" onmouseout="c()" />
+    <rect x="418.1" y="259" width="4.8" height="15.0" fill="rgb(232,200,160)" rx="2" ry="2" onmouseover="s(&quot;node`BN_set_word (25 samples, 0.41%)&quot;)" onmouseout="c()" />
+    <rect x="406.5" y="275" width="16.4" height="15.0" fill="rgb(230,196,158)" rx="2" ry="2" onmouseover="s(&quot;node`BN_CTX_get (85 samples, 1.39%)&quot;)" onmouseout="c()" />
+    <rect x="422.9" y="275" width="7.3" height="15.0" fill="rgb(230,196,160)" rx="2" ry="2" onmouseover="s(&quot;node`BN_CTX_start (38 samples, 0.62%)&quot;)" onmouseout="c()" />
+    <rect x="430.3" y="275" width="113.2" height="15.0" fill="rgb(230,187,141)" rx="2" ry="2" onmouseover="s(&quot;node`BN_from_montgomery_word (587 samples, 9.59%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="433.25812775690247" y="285.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`BN_from_montgomery_word (587 samples, 9.59%)&quot;)" onmouseout="c()" >node`BN_from_..</text>
+    <rect x="543.4" y="275" width="6.0" height="15.0" fill="rgb(230,196,160)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mul (31 samples, 0.51%)&quot;)" onmouseout="c()" />
+    <rect x="549.4" y="275" width="1.2" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`BN_set_word (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="565.0" y="243" width="2.9" height="15.0" fill="rgb(234,204,161)" rx="2" ry="2" onmouseover="s(&quot;node`BN_set_word (15 samples, 0.25%)&quot;)" onmouseout="c()" />
+    <rect x="559.8" y="259" width="8.1" height="15.0" fill="rgb(232,199,158)" rx="2" ry="2" onmouseover="s(&quot;node`BN_CTX_get (42 samples, 0.69%)&quot;)" onmouseout="c()" />
+    <rect x="567.9" y="259" width="5.0" height="15.0" fill="rgb(232,200,159)" rx="2" ry="2" onmouseover="s(&quot;node`BN_CTX_start (26 samples, 0.42%)&quot;)" onmouseout="c()" />
+    <rect x="572.9" y="259" width="1.0" height="15.0" fill="rgb(232,201,162)" rx="2" ry="2" onmouseover="s(&quot;node`BN_set_word (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="550.6" y="275" width="23.3" height="15.0" fill="rgb(230,195,157)" rx="2" ry="2" onmouseover="s(&quot;node`BN_sqr (121 samples, 1.98%)&quot;)" onmouseout="c()" />
+    <rect x="573.9" y="275" width="263.5" height="15.0" fill="rgb(230,174,114)" rx="2" ry="2" onmouseover="s(&quot;node`bn_mul_add_words (1367 samples, 22.33%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="576.8784512334586" y="285.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`bn_mul_add_words (1367 samples, 22.33%)&quot;)" onmouseout="c()" >node`bn_mul_add_words</text>
+    <rect x="837.4" y="275" width="36.2" height="15.0" fill="rgb(230,194,155)" rx="2" ry="2" onmouseover="s(&quot;node`bn_mul_comba8 (188 samples, 3.07%)&quot;)" onmouseout="c()" />
+    <rect x="873.6" y="275" width="121.5" height="15.0" fill="rgb(230,186,139)" rx="2" ry="2" onmouseover="s(&quot;node`bn_sqr_comba8 (630 samples, 10.29%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="876.6497304362033" y="285.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`bn_sqr_comba8 (630 samples, 10.29%)&quot;)" onmouseout="c()" >node`bn_sqr_co..</text>
+    <rect x="995.1" y="275" width="24.1" height="15.0" fill="rgb(230,195,157)" rx="2" ry="2" onmouseover="s(&quot;node`bn_sub_words (125 samples, 2.04%)&quot;)" onmouseout="c()" />
+    <rect x="390.0" y="291" width="629.2" height="15.0" fill="rgb(229,138,53)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_mul_montgomery (3264 samples, 53.32%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="392.9673256003921" y="301.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`BN_mod_mul_montgomery (3264 samples, 53.32%)&quot;)" onmouseout="c()" >node`BN_mod_mul_montgomery</text>
+    <rect x="1019.4" y="291" width="1.0" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`BN_sqr (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="348.9" y="307" width="671.4" height="15.0" fill="rgb(227,131,53)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_exp_mont_consttime (3483 samples, 56.90%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="351.90540761313514" y="317.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`BN_mod_exp_mont_consttime (3483 samples, 56.90%)&quot;)" onmouseout="c()" >node`BN_mod_exp_mont_consttime</text>
+    <rect x="1020.4" y="307" width="2.1" height="15.0" fill="rgb(227,189,158)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_mul_montgomery (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="1023.2" y="307" width="1.0" height="15.0" fill="rgb(227,189,159)" rx="2" ry="2" onmouseover="s(&quot;node`bn_sub_words (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="309.0" y="323" width="715.2" height="15.0" fill="rgb(225,121,48)" rx="2" ry="2" onmouseover="s(&quot;node`RSA_eay_mod_exp (3710 samples, 60.61%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="312.00016337199804" y="333.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`RSA_eay_mod_exp (3710 samples, 60.61%)&quot;)" onmouseout="c()" >node`RSA_eay_mod_exp</text>
+    <rect x="274.7" y="339" width="750.1" height="15.0" fill="rgb(223,112,45)" rx="2" ry="2" onmouseover="s(&quot;node`RSA_eay_private_decrypt (3891 samples, 63.57%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="277.6855089037739" y="349.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`RSA_eay_private_decrypt (3891 samples, 63.57%)&quot;)" onmouseout="c()" >node`RSA_eay_private_decrypt</text>
+    <rect x="1026.7" y="259" width="1.2" height="15.0" fill="rgb(232,201,162)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`free (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="1026.5" y="275" width="1.3" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_free (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="1030.2" y="115" width="1.0" height="15.0" fill="rgb(248,237,166)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`mutex_lock_impl (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1030.2" y="131" width="1.0" height="15.0" fill="rgb(246,233,167)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`mutex_lock (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1029.8" y="147" width="1.7" height="15.0" fill="rgb(244,228,164)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_cache_free (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="1029.6" y="163" width="1.9" height="15.0" fill="rgb(243,224,164)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_free (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="1029.4" y="179" width="2.1" height="15.0" fill="rgb(241,220,164)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`process_free (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="1029.4" y="195" width="2.1" height="15.0" fill="rgb(239,216,164)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`free (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="1029.4" y="211" width="2.1" height="15.0" fill="rgb(237,212,164)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_free (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="1028.8" y="227" width="2.7" height="15.0" fill="rgb(236,208,162)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (14 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="1028.3" y="243" width="4.0" height="15.0" fill="rgb(234,204,161)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_cleanup (21 samples, 0.34%)&quot;)" onmouseout="c()" />
+    <rect x="1028.3" y="259" width="4.0" height="15.0" fill="rgb(232,200,160)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_cleanup (21 samples, 0.34%)&quot;)" onmouseout="c()" />
+    <rect x="1027.9" y="275" width="4.6" height="15.0" fill="rgb(230,197,160)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_free (24 samples, 0.39%)&quot;)" onmouseout="c()" />
+    <rect x="1026.5" y="291" width="6.0" height="15.0" fill="rgb(229,193,159)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (31 samples, 0.51%)&quot;)" onmouseout="c()" />
+    <rect x="1036.9" y="195" width="1.3" height="15.0" fill="rgb(239,216,165)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`malloc (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="1036.7" y="211" width="1.5" height="15.0" fill="rgb(237,212,164)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_malloc (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="1038.3" y="211" width="1.0" height="15.0" fill="rgb(237,212,165)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1035.6" y="227" width="3.9" height="15.0" fill="rgb(236,207,161)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_copy_ex (20 samples, 0.33%)&quot;)" onmouseout="c()" />
+    <rect x="1034.8" y="243" width="4.8" height="15.0" fill="rgb(234,203,160)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_copy (25 samples, 0.41%)&quot;)" onmouseout="c()" />
+    <rect x="1040.0" y="195" width="1.2" height="15.0" fill="rgb(239,216,166)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_alloc (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="1039.8" y="211" width="1.3" height="15.0" fill="rgb(237,212,165)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`malloc (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="1039.8" y="227" width="1.3" height="15.0" fill="rgb(236,208,164)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_malloc (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="1039.6" y="243" width="1.5" height="15.0" fill="rgb(234,204,163)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_init (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="1034.0" y="259" width="7.1" height="15.0" fill="rgb(232,199,158)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_copy (37 samples, 0.60%)&quot;)" onmouseout="c()" />
+    <rect x="1032.9" y="275" width="8.3" height="15.0" fill="rgb(230,196,160)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_dup (43 samples, 0.70%)&quot;)" onmouseout="c()" />
+    <rect x="1032.5" y="291" width="9.1" height="15.0" fill="rgb(229,192,159)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_copy_ex (47 samples, 0.77%)&quot;)" onmouseout="c()" />
+    <rect x="1041.8" y="259" width="1.0" height="15.0" fill="rgb(232,201,162)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestFinal_ex (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1041.6" y="275" width="1.5" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_Final (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="1041.6" y="291" width="1.5" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`hmac_signctx (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="1025.9" y="307" width="17.2" height="15.0" fill="rgb(227,188,156)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestSignFinal (89 samples, 1.45%)&quot;)" onmouseout="c()" />
+    <rect x="1043.3" y="259" width="1.0" height="15.0" fill="rgb(232,201,162)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_free_it (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1043.3" y="275" width="1.0" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_free (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1044.3" y="259" width="1.0" height="15.0" fill="rgb(232,201,162)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_cleanup (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1044.3" y="275" width="1.0" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_cleanup (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1043.1" y="291" width="2.1" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_free (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="1043.1" y="307" width="2.1" height="15.0" fill="rgb(227,189,158)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="1047.0" y="259" width="1.3" height="15.0" fill="rgb(232,201,162)" rx="2" ry="2" onmouseover="s(&quot;node`ASN1_STRING_dup (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="1046.8" y="275" width="1.9" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_keygen (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="1046.6" y="291" width="2.1" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_keygen (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="1049.5" y="275" width="1.0" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_init (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1048.9" y="291" width="1.5" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`int_ctx_new (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="1045.4" y="307" width="5.0" height="15.0" fill="rgb(227,189,158)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_new_mac_key (26 samples, 0.42%)&quot;)" onmouseout="c()" />
+    <rect x="1059.1" y="227" width="1.7" height="15.0" fill="rgb(236,208,163)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestInit_ex (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="1060.8" y="227" width="1.0" height="15.0" fill="rgb(236,208,164)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_copy_ex (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1053.3" y="243" width="9.4" height="15.0" fill="rgb(234,202,156)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_Init_ex (49 samples, 0.80%)&quot;)" onmouseout="c()" />
+    <rect x="1051.6" y="259" width="11.8" height="15.0" fill="rgb(232,198,155)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_ctrl (61 samples, 1.00%)&quot;)" onmouseout="c()" />
+    <rect x="1051.4" y="275" width="12.0" height="15.0" fill="rgb(230,196,159)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_ctrl (62 samples, 1.01%)&quot;)" onmouseout="c()" />
+    <rect x="1051.2" y="291" width="12.1" height="15.0" fill="rgb(229,192,158)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestInit_ex (63 samples, 1.03%)&quot;)" onmouseout="c()" />
+    <rect x="1063.3" y="291" width="1.2" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`int_ctx_new (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="1050.8" y="307" width="13.7" height="15.0" fill="rgb(227,188,157)" rx="2" ry="2" onmouseover="s(&quot;node`do_sigver_init (71 samples, 1.16%)&quot;)" onmouseout="c()" />
+    <rect x="1064.7" y="307" width="1.0" height="15.0" fill="rgb(227,189,159)" rx="2" ry="2" onmouseover="s(&quot;node`int_update (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1025.6" y="323" width="40.1" height="15.0" fill="rgb(225,182,151)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_PRF.constprop.0 (208 samples, 3.40%)&quot;)" onmouseout="c()" />
+    <rect x="1025.0" y="339" width="40.7" height="15.0" fill="rgb(223,178,150)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_generate_master_secret (211 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="274.7" y="355" width="791.0" height="15.0" fill="rgb(222,103,40)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_get_client_key_exchange (4103 samples, 67.03%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="277.6855089037739" y="365.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`ssl3_get_client_key_exchange (4103 samples, 67.03%)&quot;)" onmouseout="c()" >node`ssl3_get_client_key_exchange</text>
+    <rect x="1069.7" y="211" width="1.0" height="15.0" fill="rgb(237,212,165)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_free (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1069.1" y="227" width="1.5" height="15.0" fill="rgb(236,208,163)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="1069.1" y="243" width="1.9" height="15.0" fill="rgb(234,204,162)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_cleanup (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="1068.9" y="259" width="2.1" height="15.0" fill="rgb(232,200,161)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_cleanup (11 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="1068.4" y="275" width="2.7" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_free (14 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="1068.0" y="291" width="3.1" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (16 samples, 0.26%)&quot;)" onmouseout="c()" />
+    <rect x="1072.2" y="163" width="1.2" height="15.0" fill="rgb(243,224,166)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_cache_alloc (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="1072.0" y="179" width="1.3" height="15.0" fill="rgb(241,220,166)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_alloc (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="1072.0" y="195" width="1.3" height="15.0" fill="rgb(239,216,165)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`malloc (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="1072.0" y="211" width="1.3" height="15.0" fill="rgb(237,212,165)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_malloc (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="1071.8" y="227" width="1.5" height="15.0" fill="rgb(236,208,163)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_copy_ex (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="1071.8" y="243" width="1.5" height="15.0" fill="rgb(234,204,163)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_copy (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="1071.4" y="259" width="1.9" height="15.0" fill="rgb(232,200,161)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_copy (10 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="1071.1" y="275" width="2.3" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_dup (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="1071.1" y="291" width="2.3" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_copy_ex (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="1068.0" y="307" width="5.6" height="15.0" fill="rgb(227,189,158)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestSignFinal (29 samples, 0.47%)&quot;)" onmouseout="c()" />
+    <rect x="1073.9" y="211" width="1.0" height="15.0" fill="rgb(237,212,165)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_cache_free (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1073.9" y="227" width="1.0" height="15.0" fill="rgb(236,208,164)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_free (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1073.9" y="243" width="1.0" height="15.0" fill="rgb(234,205,163)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`process_free (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1073.9" y="259" width="1.0" height="15.0" fill="rgb(232,201,162)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`free (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1073.8" y="275" width="1.2" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_free (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="1075.5" y="163" width="1.0" height="15.0" fill="rgb(243,224,167)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_cache_free (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1075.5" y="179" width="1.0" height="15.0" fill="rgb(241,220,166)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_free (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1075.3" y="195" width="1.2" height="15.0" fill="rgb(239,216,166)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`process_free (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="1075.3" y="211" width="1.2" height="15.0" fill="rgb(237,212,165)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`free (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="1075.3" y="227" width="1.2" height="15.0" fill="rgb(236,208,164)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_free (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="1075.3" y="243" width="1.2" height="15.0" fill="rgb(234,204,163)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="1075.3" y="259" width="1.2" height="15.0" fill="rgb(232,201,162)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_cleanup (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="1075.3" y="275" width="1.2" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_cleanup (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="1073.8" y="291" width="2.7" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_free (14 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="1073.6" y="307" width="2.9" height="15.0" fill="rgb(227,189,158)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (15 samples, 0.25%)&quot;)" onmouseout="c()" />
+    <rect x="1077.4" y="275" width="1.0" height="15.0" fill="rgb(230,197,161)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_keygen (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1077.4" y="291" width="1.0" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_keygen (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1076.6" y="307" width="2.3" height="15.0" fill="rgb(227,189,158)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_new_mac_key (12 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="1080.1" y="243" width="4.6" height="15.0" fill="rgb(234,203,160)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_Init_ex (24 samples, 0.39%)&quot;)" onmouseout="c()" />
+    <rect x="1079.7" y="259" width="5.6" height="15.0" fill="rgb(232,199,159)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_ctrl (29 samples, 0.47%)&quot;)" onmouseout="c()" />
+    <rect x="1079.7" y="275" width="5.6" height="15.0" fill="rgb(230,197,160)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_ctrl (29 samples, 0.47%)&quot;)" onmouseout="c()" />
+    <rect x="1079.2" y="291" width="6.6" height="15.0" fill="rgb(229,193,159)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestInit_ex (34 samples, 0.56%)&quot;)" onmouseout="c()" />
+    <rect x="1085.7" y="291" width="1.5" height="15.0" fill="rgb(229,193,160)" rx="2" ry="2" onmouseover="s(&quot;node`int_ctx_new (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="1079.0" y="307" width="8.3" height="15.0" fill="rgb(227,189,157)" rx="2" ry="2" onmouseover="s(&quot;node`do_sigver_init (43 samples, 0.70%)&quot;)" onmouseout="c()" />
+    <rect x="1087.2" y="307" width="1.0" height="15.0" fill="rgb(227,189,159)" rx="2" ry="2" onmouseover="s(&quot;node`int_update (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1067.8" y="323" width="20.4" height="15.0" fill="rgb(225,184,154)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_PRF.constprop.0 (106 samples, 1.73%)&quot;)" onmouseout="c()" />
+    <rect x="1066.0" y="339" width="22.2" height="15.0" fill="rgb(223,180,153)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_final_finish_mac (115 samples, 1.88%)&quot;)" onmouseout="c()" />
+    <rect x="1065.9" y="355" width="22.4" height="15.0" fill="rgb(222,176,152)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_send_finished (116 samples, 1.90%)&quot;)" onmouseout="c()" />
+    <rect x="1088.2" y="339" width="1.2" height="15.0" fill="rgb(223,182,156)" rx="2" ry="2" onmouseover="s(&quot;node`BIO_free (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="1088.2" y="355" width="1.5" height="15.0" fill="rgb(222,178,155)" rx="2" ry="2" onmouseover="s(&quot;node`ssl_free_wbio_buffer (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="1091.3" y="339" width="1.5" height="15.0" fill="rgb(223,182,156)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestInit_ex (8 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="1089.9" y="355" width="5.0" height="15.0" fill="rgb(222,178,154)" rx="2" ry="2" onmouseover="s(&quot;node`ssleay_rand_add (26 samples, 0.42%)&quot;)" onmouseout="c()" />
+    <rect x="1095.0" y="355" width="1.2" height="15.0" fill="rgb(222,178,155)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_cert_verify_mac (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="1096.1" y="355" width="1.2" height="15.0" fill="rgb(222,178,155)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_change_cipher_state (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="123.7" y="371" width="973.5" height="15.0" fill="rgb(220,79,16)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_accept (5050 samples, 82.50%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="126.73958503512499" y="381.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`ssl3_accept (5050 samples, 82.50%)&quot;)" onmouseout="c()" >node`ssl3_accept</text>
+    <rect x="1099.6" y="355" width="1.0" height="15.0" fill="rgb(222,178,155)" rx="2" ry="2" onmouseover="s(&quot;node`aesni_cbc_encrypt (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="1098.8" y="371" width="2.5" height="15.0" fill="rgb(220,174,154)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_enc (13 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="122.0" y="387" width="979.3" height="15.0" fill="rgb(218,72,16)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_read_bytes (5080 samples, 82.99%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="125.00457441594511" y="397.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`ssl3_read_bytes (5080 samples, 82.99%)&quot;)" onmouseout="c()" >node`ssl3_read_bytes</text>
+    <rect x="121.4" y="403" width="979.9" height="15.0" fill="rgb(216,65,16)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_read_internal (5083 samples, 83.04%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="124.42623754288515" y="413.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`ssl3_read_internal (5083 samples, 83.04%)&quot;)" onmouseout="c()" >node`ssl3_read_internal</text>
+    <rect x="1101.5" y="355" width="1.3" height="15.0" fill="rgb(222,178,155)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_enc (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="1101.5" y="371" width="1.3" height="15.0" fill="rgb(220,174,154)" rx="2" ry="2" onmouseover="s(&quot;node`do_ssl3_write (7 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="1103.2" y="371" width="1.2" height="15.0" fill="rgb(220,174,154)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_enc (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="1101.5" y="387" width="2.9" height="15.0" fill="rgb(218,170,152)" rx="2" ry="2" onmouseover="s(&quot;node`do_ssl3_write (15 samples, 0.25%)&quot;)" onmouseout="c()" />
+    <rect x="1101.3" y="403" width="3.5" height="15.0" fill="rgb(216,167,151)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_write_bytes (18 samples, 0.29%)&quot;)" onmouseout="c()" />
+    <rect x="1105.4" y="387" width="1.2" height="15.0" fill="rgb(218,171,152)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`__write (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="1104.8" y="403" width="1.7" height="15.0" fill="rgb(216,167,151)" rx="2" ry="2" onmouseover="s(&quot;node`uv_async_send (9 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="1109.6" y="355" width="1.2" height="15.0" fill="rgb(222,178,155)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_enc (6 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="1107.7" y="371" width="3.1" height="15.0" fill="rgb(220,174,153)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_read_bytes (16 samples, 0.26%)&quot;)" onmouseout="c()" />
+    <rect x="1106.7" y="387" width="4.2" height="15.0" fill="rgb(218,170,152)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_shutdown (22 samples, 0.36%)&quot;)" onmouseout="c()" />
+    <rect x="1106.5" y="403" width="4.4" height="15.0" fill="rgb(216,167,151)" rx="2" ry="2" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy6Socket8ShutdownEv (23 samples, 0.38%)&quot;)" onmouseout="c()" />
+    <rect x="32.4" y="419" width="1079.8" height="15.0" fill="rgb(215,47,3)" rx="2" ry="2" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy6Socket7OnEventEv (5601 samples, 91.50%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="35.36235909165169" y="429.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy6Socket7OnEventEv (5601 samples, 91.50%)&quot;)" onmouseout="c()" >tlsnappy.node`_ZN8tlsnappy6Socket7OnEventEv</text>
+    <rect x="11.9" y="435" width="1100.2" height="15.0" fill="rgb(213,37,0)" rx="2" ry="2" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy7Context7RunLoopEv (5707 samples, 93.24%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="14.927789576866525" y="445.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy7Context7RunLoopEv (5707 samples, 93.24%)&quot;)" onmouseout="c()" >tlsnappy.node`_ZN8tlsnappy7Context7RunLoopEv</text>
+    <rect x="11.0" y="451" width="1101.2" height="15.0" fill="rgb(211,29,0)" rx="2" ry="2" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy7Context4LoopEPv (5712 samples, 93.32%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="13.963894788433263" y="461.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy7Context4LoopEPv (5712 samples, 93.32%)&quot;)" onmouseout="c()" >tlsnappy.node`_ZN8tlsnappy7Context4LoopEPv</text>
+    <rect x="11.0" y="467" width="1101.2" height="15.0" fill="rgb(209,22,0)" rx="2" ry="2" onmouseover="s(&quot;node`uv__thread_start (5712 samples, 93.32%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="13.963894788433263" y="477.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`uv__thread_start (5712 samples, 93.32%)&quot;)" onmouseout="c()" >node`uv__thread_start</text>
+    <rect x="10.2" y="483" width="1101.9" height="15.0" fill="rgb(208,14,0)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`_thrp_setup (5716 samples, 93.38%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="13.192778957686652" y="493.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;libc.so.1`_thrp_setup (5716 samples, 93.38%)&quot;)" onmouseout="c()" >libc.so.1`_thrp_setup</text>
+    <rect x="10.2" y="499" width="1101.9" height="15.0" fill="rgb(206,16,10)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`_lwp_start (5716 samples, 93.38%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="13.192778957686652" y="509.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;libc.so.1`_lwp_start (5716 samples, 93.38%)&quot;)" onmouseout="c()" >libc.so.1`_lwp_start</text>
+    <rect x="1112.5" y="499" width="31.2" height="15.0" fill="rgb(206,142,140)" rx="2" ry="2" onmouseover="s(&quot;node`md5_block_data_order (162 samples, 2.65%)&quot;)" onmouseout="c()" />
+    <rect x="1143.7" y="499" width="45.3" height="15.0" fill="rgb(206,141,139)" rx="2" ry="2" onmouseover="s(&quot;node`sha1_block_data_order (235 samples, 3.84%)&quot;)" onmouseout="c()" />
+    <rect x="1189.0" y="499" width="1.0" height="15.0" fill="rgb(206,146,144)" rx="2" ry="2" onmouseover="s(&quot;node`sha1_block_data_order_ssse3 (5 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="10.0" y="515" width="1180.0" height="15.0" fill="rgb(204,0,0)" rx="2" ry="2" onmouseover="s(&quot;all samples (6121 samples, 100%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="13" y="525.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;all samples (6121 samples, 100%)&quot;)" onmouseout="c()" ></text>
+</svg>
