@@ -22,6 +22,7 @@
 
     back.click(function(e) {
       e.preventDefault();
+
       if (typeof Worker === 'undefined') {
         alert('Your browser doesn\'t support web workers. You can\'t vote');
         return;
@@ -39,6 +40,10 @@
 
       var w = new Worker('/js/worker.js');
       w.addEventListener('message', function(e) {
+        if (typeof _gaq !== 'undefined') {
+          _gaq.push(['_trackEvent', 'Posts', 'Vote']);
+        }
+
         $.ajax({
           type: 'POST',
           url: '/rate/' + id,
