@@ -7,7 +7,7 @@
   -o-box-sizing: border-box;
   -ms-box-sizing: border-box;
 
-  font-family: 'Indie Flower', cursive;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 html, body, #wrapper {
@@ -15,7 +15,16 @@ html, body, #wrapper {
 }
 
 body {
-  background: #31353a url(/images/bg.png) repeat repeat;
+  background: #fff;
+  color: #333;
+  font-size: 105%;
+}
+
+h1, h2, h3, h4, h5 {
+  color: #222;
+  font-weight: bold;
+  text-rendering: optimizelegibility;
+  margin: 1em 0;
 }
 
 /*
@@ -36,63 +45,73 @@ a:visited {
 
 #wrapper {
   position: relative;
-
   width: 800px;
   margin: 0 auto;
-  background: rgba(255,255,255,0.94);
-  -webkit-box-shadow: 0 0 12px #3a7edc;
-  -moz-box-shadow: 0 0 12px #3a7edc;
-  -o-box-shadow: 0 0 12px #3a7edc;
-  -ms-box-shadow: 0 0 12px #3a7edc;
-  box-shadow: 0 0 12px #3a7edc;
 }
 
 header {
-  height: 90px;
-  padding-bottom: 6px;
   border-bottom: 3px solid #20467a;
+  padding: 1em;
+  position: relative;
 }
 
 header h1 {
-  padding: 18px 33px 18px 0;
   text-align: center;
+  color: #31353a;
+  font-size: 3em;
+  margin: 0;
 }
 
 header .home-link {
-  margin-right: 33px;
+  position: absolute;
+  bottom: 0em;
+  left: 0;
+  line-height: 2em;
+  text-decoration: none;
 }
 
 #content {
-  padding: 3px 21px 32px 12px;
-  font-size: 21px;
+  padding: 1em 0px;
 }
 
 footer {
+  font-size: 0.8em;
   width: 800px;
-  margin-top: 18px;
-  padding: 3px 6px 0 6px;
-  height: 30px;
+  margin-top: 1em;
+  padding: 1em;
   text-align: right;
-  font-size: 15px;
 }
 
 span.date {
-  font-size: 11px;
+  font-size: 0.6em;
 }
 
 div.date {
   text-align: right;
+  font-size: 0.8em;
+  margin: 1em;
 }
 
-section.post.big .rate {
+section.post.teaser {
+  margin: 0.2em 0;
+  position: relative;
+  font-size: 1.2em;
+}
+
+
+section.post h1 {
+  font-size: 1.5em;
+}
+
+div.rate {
   position: absolute;
-  right: -60px;
-  top: 27px;
-  width: 120px;
-  height: 120px;
+  right: -40px;
+  bottom: -40px;
+  width: 80px;
+  height: 80px;
   text-align: center;
-  line-height: 108px;
-  font-size: 45px;
+  line-height: 70px;
+  font-size: 30px;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -108,7 +127,7 @@ section.post.big .rate {
   cursor: pointer;
 }
 
-section.post .rate .wrapper {
+div.rate .wrapper {
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
@@ -121,8 +140,8 @@ section.post .rate .wrapper {
   -ms-transition: -ms-transform 0.3s linear;
 }
 
-section.post .rate.voting .wrapper,
-section.post .rate.can-vote:hover .wrapper {
+div.rate.voting .wrapper,
+div.rate.can-vote:hover .wrapper {
   transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
   -moz-transform: rotateY(180deg);
@@ -130,28 +149,22 @@ section.post .rate.can-vote:hover .wrapper {
   -ms-transform: rotateY(180deg);
 }
 
-section.post.big .rate .front,
-section.post.big .rate .back {
+div.rate .front,
+div.rate .back {
   position: absolute;
   top: 0;
   left: 0;
-  width: 120px;
-  height: 120px;
-  border: 6px solid #2e63ad;
+  width: 80px;
+  height: 80px;
+  border: 6px solid #20467a;
   border-radius: 60px;
   -webkit-border-radius: 60px;
   -moz-border-radius: 60px;
   -o-border-radius: 60px;
   -ms-border-radius: 60px;
-
-  -webkit-box-shadow: 0 0 3px rgba(34,34,34,0.6);
-  -moz-box-shadow: 0 0 3px rgba(34,34,34,0.6);
-  -o-box-shadow: 0 0 3px rgba(34,34,34,0.6);
-  -ms-box-shadow: 0 0 3px rgba(34,34,34,0.6);
-  box-shadow: 0 0 3px rgba(34,34,34,0.6);
 }
 
-section.post.big .rate .front {
+div.rate .front {
   background: white;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -161,12 +174,11 @@ section.post.big .rate .front {
   z-index: 2;
 }
 
-section.post.big .rate .back {
+div.rate .back {
   display: block;
   color: white;
   background: #ee4966;
   text-decoration: none;
-  font-size: 50px;
   z-index: 1;
   -webkit-transform: scale(-1, 1);
   -moz-transform: scale(-1, 1);
@@ -177,38 +189,37 @@ section.post.big .rate .back {
 
 /* Text formatting */
 
+.post-content {
+}
 section.post-content p,
 section.post-content a,
 section.post-content li,
 section.post-content b,
 section.post-content strong,
 section.post-content i {
-  font-family: Helvetica;
-  font-size: 15px;
 }
 
 section.post-content p {
-  margin: 15px 0;
+  margin: 1em 0;
 }
 
 section.post-content ul,
 section.post-content ol {
-  padding: 0 0 0 21px;
+  padding: 0 0 0 1em;
 }
 
 section.post-content img {
   display: block;
-  margin: 0 auto;
+  margin: 1em auto;
 }
 
 section.post-content pre {
-  background: white;
-  border: 1px solid #20467a;
-  padding: 3px 6px;
+  background: #eee;
+  padding: 0.5em 0.8em;
 }
 
 section.post-content pre code {
   font-family: 'Bitstream Vera Sans Mono', 'Courier', monospace;
-  font-size: 15px;
-  line-height: 18px;
+  font-size: 0.75em;
+  line-height: 1.2;
 }

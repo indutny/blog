@@ -4,7 +4,7 @@
   var ids = [];
 
   // Listen for each post's update
-  $('.post .rate').each(function(i, rate) {
+  $('.rate').each(function(i, rate) {
     rate = $(rate);
     var front = rate.find('.front'),
         back = rate.find('.back'),

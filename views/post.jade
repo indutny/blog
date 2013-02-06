@@ -1,11 +1,15 @@
 extends layout
 
+
+
+block append header
+  include rate
+
 block prepend header
   a.home-link(href='/')= '&lt;&lt;'
 
 block content
   section.post.big
-    include rate
     section.post-content
       != post.content
       div.date
