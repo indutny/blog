@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  h2.index Posts
   - posts.forEach(function (post) {
     section.post.teaser
       span.num= post.id + '. '

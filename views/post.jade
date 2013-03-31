@@ -1,13 +1,10 @@
 extends layout
 
-block prepend header
-  a.home-link(href='/')= '&lt;&lt;'
-
 block content
   section.post.big
     include rate
     section.post-content
+      a.home-link(href='/')!= '&lt;&lt; Home'
       != post.content
       div.date
         = 'Created at: ' + post.created_at
-      div#disqus_thread
