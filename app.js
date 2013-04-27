@@ -9,7 +9,7 @@ var express = require('express'),
 var vhosts = Object.keys(config).map(function(host) {
   var base = host.replace(/([^a-z0-9])/g, '\\$1');
   return {
-    re: new RegExp('^' + base + '(:\d+)?$'),
+    re: new RegExp('^' + base + '(:\d+)?$', 'i'),
     handler: require(config[host])
   };
 });
