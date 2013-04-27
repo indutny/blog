@@ -3,9 +3,31 @@ var express = require('express'),
     jade = require('jade'),
     path = require('path'),
     http = require('http'),
-    app = express();
+    app = express(),
+    config = require('./config.json');
 
-var server = http.createServer(app);
+var vhosts = Object.keys(config).map(function(host) {
+  var base = host.replace(/([^a-z0-9])/g, '\\$1');
+  return {
+    re: new RegExp('^' + base + '(:\d+)?$'),
+    handler: require(config[host])
+  };
+});
+
+var server = http.createServer(function(req, res) {
+  var host = req.headers.host;
+  if (host) {
+    for (var i = 0; i < vhosts.length; i++) {
+      var entry = vhosts[i];
+      if (host.match(entry.re)) {
+        entry.handler(req, res);
+        return;
+      }
+    }
+  }
+
+  app(req, res);
+});
 
 app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(express.bodyParser());
