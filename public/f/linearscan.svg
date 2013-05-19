@@ -112,7 +112,7 @@ Normal range
 <text x="32" y="68" font-family="Raleway" dominant-baseline="middle">
 Any use
 </text>
-<rect x="8" y="80" width="16" height="16" class="use-register">
+<rect x="8" y="80" width="16" height="16" class="use-reg">
 </rect>
 <text x="32" y="92" font-family="Raleway" dominant-baseline="middle">
 Register use
