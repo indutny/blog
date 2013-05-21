@@ -38,10 +38,10 @@
   ]]>
 </style>
 <script type="text/ecmascript">
-<![CDATA[var intervals =[{"physical":false,"id":0,"children":[13],"uses":[{"kind":{"type":"reg"},"pos":12},{"pos":10,"kind":{"type":"any"}},{"kind":{"type":"any"},"pos":5}],"ranges":[{"start":5,"end":12}],"value":"r0","parent":null},{"value":"r0","parent":null,"id":1,"ranges":[{"end":12,"start":1}],"physical":false,"children":[12],"uses":[{"kind":{"type":"reg"},"pos":1}]},{"value":"r1","parent":null,"id":2,"ranges":[{"end":4,"start":3}],"uses":[{"kind":{"type":"any"},"pos":4},{"kind":{"type":"reg"},"pos":3}],"children":[],"physical":false},{"id":3,"children":[],"value":"r1","parent":null,"physical":false,"uses":[{"pos":10,"kind":{"type":"any"}},{"pos":9,"kind":{"type":"reg"}}],"ranges":[{"end":10,"start":9}]},{"ranges":[{"start":10,"end":11}],"uses":[{"pos":10,"kind":{"type":"reg"}}],"physical":false,"id":4,"value":"r2","parent":null,"children":[]},{"uses":[{"pos":14,"kind":{"type":"any"}},{"pos":13,"kind":{"type":"reg"}}],"value":"r0","ranges":[{"end":14,"start":13}],"id":5,"parent":null,"children":[],"physical":false},{"children":[],"ranges":[{"end":16,"start":15}],"uses":[{"pos":15,"kind":{"type":"reg"}}],"value":"r0","id":6,"physical":false,"parent":null},{"parent":null,"children":[],"uses":[{"kind":{"type":"any"},"pos":20},{"pos":19,"kind":{"type":"reg"}}],"id":7,"physical":false,"ranges":[{"end":20,"start":19}],"value":"r0"},{"id":8,"uses":[],"physical":true,"children":[],"parent":null,"ranges":[{"end":13,"start":12}],"value":"r0"},{"physical":true,"id":9,"children":[],"ranges":[{"start":12,"end":13}],"uses":[],"parent":null,"value":"r1"},{"children":[],"uses":[],"id":10,"value":"r2","parent":null,"physical":true,"ranges":[{"end":13,"start":12}]},{"uses":[],"value":"r3","physical":true,"parent":null,"children":[],"ranges":[{"start":12,"end":13}],"id":11},{"ranges":[{"start":12,"end":24}],"value":"s1","parent":1,"physical":false,"id":12,"uses":[{"pos":24,"kind":{"value":0,"type":"fixed"}}],"children":[]},{"ranges":[{"end":18,"start":12},{"start":21,"end":24}],"id":13,"uses":[{"pos":21,"kind":{"type":"any"}},{"pos":18,"kind":{"type":"any"}}],"parent":0,"value":"s0","physical":false,"children":[]}]]]>
+<![CDATA[var intervals =[{"uses":[{"kind":{"type":"reg"},"pos":12},{"pos":10,"kind":{"type":"any"}},{"kind":{"type":"any"},"pos":5}],"physical":false,"value":"r0","ranges":[{"end":12,"start":5}],"parent":null,"id":0,"children":[13]},{"parent":null,"children":[12],"id":1,"physical":false,"ranges":[{"start":0,"end":12}],"uses":[{"kind":{"type":"reg"},"pos":0}],"value":"r0"},{"id":2,"parent":null,"value":"r1","uses":[{"kind":{"type":"any"},"pos":4},{"pos":2,"kind":{"type":"reg"}}],"children":[],"physical":false,"ranges":[{"start":2,"end":4}]},{"parent":null,"value":"r1","physical":false,"ranges":[{"start":8,"end":10}],"children":[],"uses":[{"pos":10,"kind":{"type":"any"}},{"pos":8,"kind":{"type":"reg"}}],"id":3},{"id":4,"ranges":[{"start":10,"end":11}],"uses":[{"kind":{"type":"reg"},"pos":10}],"physical":false,"parent":null,"value":"r2","children":[]},{"children":[],"parent":null,"physical":false,"uses":[{"kind":{"type":"any"},"pos":14},{"pos":13,"kind":{"type":"reg"}}],"ranges":[{"end":14,"start":13}],"value":"r0","id":5},{"parent":null,"ranges":[{"start":14,"end":15}],"children":[],"uses":[{"kind":{"type":"reg"},"pos":14}],"value":"r1","id":6,"physical":false},{"parent":null,"id":7,"ranges":[{"end":20,"start":18}],"physical":false,"uses":[{"kind":{"type":"any"},"pos":20},{"pos":18,"kind":{"type":"reg"}}],"children":[],"value":"r0"},{"value":"r0","uses":[],"parent":null,"ranges":[{"start":12,"end":13}],"children":[],"id":8,"physical":true},{"value":"r1","ranges":[{"end":13,"start":12}],"uses":[],"id":9,"physical":true,"parent":null,"children":[]},{"physical":true,"ranges":[{"start":12,"end":13}],"value":"r2","children":[],"uses":[],"parent":null,"id":10},{"ranges":[{"start":12,"end":13}],"parent":null,"children":[],"uses":[],"physical":true,"id":11,"value":"r3"},{"children":[],"uses":[{"pos":24,"kind":{"value":0,"type":"fixed"}}],"physical":false,"value":"s1","id":12,"parent":1,"ranges":[{"start":12,"end":24}]},{"id":13,"uses":[{"kind":{"type":"any"},"pos":21},{"kind":{"type":"any"},"pos":18}],"parent":0,"physical":false,"ranges":[{"end":18,"start":12},{"end":24,"start":21}],"value":"s0","children":[]}]]]>
 </script>
 <script type="text/ecmascript">
-<![CDATA[var instructions={"0":{"output":1,"id":0,"block":0,"temporary":[],"inputs":[],"kind":"Zero"},"2":{"id":2,"output":2,"kind":"Zero","temporary":[],"inputs":[],"block":0},"4":{"kind":"~to_phi","temporary":[],"block":0,"output":0,"id":4,"inputs":[2]},"6":{"block":0,"kind":"Goto","inputs":[],"id":6,"temporary":[],"output":null},"8":{"id":8,"block":1,"inputs":[],"temporary":[],"output":3,"kind":"Ten"},"10":{"temporary":[4],"id":10,"kind":"BranchIfBigger","output":null,"inputs":[0,3],"block":1},"12":{"temporary":[],"output":5,"block":2,"inputs":[0],"id":12,"kind":"Print"},"14":{"output":6,"temporary":[],"kind":"Increment","inputs":[5],"id":14,"block":2},"16":{"inputs":[],"id":16,"kind":"Goto","output":null,"temporary":[],"block":2},"18":{"temporary":[],"output":7,"kind":"Increment","block":3,"inputs":[0],"id":18},"20":{"inputs":[7],"kind":"~to_phi","id":20,"temporary":[],"output":0,"block":3},"22":{"temporary":[],"id":22,"output":null,"kind":"Goto","block":3,"inputs":[]},"24":{"block":4,"id":24,"output":null,"temporary":[],"kind":"Return","inputs":[1]}}]]>
+<![CDATA[var instructions={"0":{"output":1,"inputs":[],"block":0,"kind":"Zero","id":0,"temporary":[]},"2":{"temporary":[],"inputs":[],"output":2,"block":0,"kind":"Zero","id":2},"4":{"kind":"~to_phi","output":0,"temporary":[],"inputs":[2],"id":4,"block":0},"6":{"block":0,"kind":"Goto","inputs":[],"temporary":[],"id":6,"output":null},"8":{"id":8,"temporary":[],"inputs":[],"block":1,"output":3,"kind":"Ten"},"10":{"inputs":[0,3],"output":null,"temporary":[4],"block":1,"kind":"BranchIfBigger","id":10},"12":{"inputs":[0],"temporary":[],"kind":"Print","id":12,"output":5,"block":2},"14":{"id":14,"temporary":[],"kind":"Increment","output":6,"block":2,"inputs":[5]},"16":{"kind":"Goto","block":2,"inputs":[],"output":null,"id":16,"temporary":[]},"18":{"kind":"Increment","block":3,"temporary":[],"output":7,"inputs":[0],"id":18},"20":{"kind":"~to_phi","output":0,"temporary":[],"block":3,"id":20,"inputs":[7]},"22":{"inputs":[],"output":null,"block":3,"temporary":[],"id":22,"kind":"Goto"},"24":{"inputs":[1],"temporary":[],"id":24,"output":null,"block":4,"kind":"Return"}}]]>
 </script>
 <script type="text/ecmascript">
 <![CDATA[
@@ -201,7 +201,7 @@ BranchIfBigger(<tspan class="r-0">r0</tspan>, <tspan class="r-3">r1</tspan>) | t
 14
 </text>
 <text class="instruction-text" onmouseover="h({c:14})" x="36" y="366">
-<tspan class="r-6">r0</tspan> = Increment(<tspan class="r-5">r0</tspan>)
+<tspan class="r-6">r1</tspan> = Increment(<tspan class="r-5">r0</tspan>)
 </text>
 <rect class="instruction-marker c-16" onmouseover="h({c:16})" x="16" y="376" width="16" height="16">
 </rect>
@@ -392,6 +392,8 @@ Return(<tspan class="r-1">s1</tspan>)
 </rect>
 <rect class=" c-25 interval-empty" onmouseover="h({r:1,c:25})" x="688" y="48" width="14" height="14">
 </rect>
+<rect onmouseover="h({r:1,c:0})" x="288" y="48" width="16" height="14" class="range-normal">
+</rect>
 <rect onmouseover="h({r:1,c:1})" x="304" y="48" width="16" height="14" class="range-normal">
 </rect>
 <rect onmouseover="h({r:1,c:2})" x="320" y="48" width="16" height="14" class="range-normal">
@@ -414,7 +416,7 @@ Return(<tspan class="r-1">s1</tspan>)
 </rect>
 <rect onmouseover="h({r:1,c:11})" x="464" y="48" width="14" height="14" class="range-normal">
 </rect>
-<rect onmouseover="h({r:1,c: 1})" x="304" y="48" width="5" height="14" class="use-reg">
+<rect onmouseover="h({r:1,c: 0})" x="288" y="48" width="5" height="14" class="use-reg">
 </rect>
 <rect class="r-2 c-0 interval-empty" onmouseover="h({r:2,c:0})" x="288" y="64" width="16" height="14">
 </rect>
@@ -468,11 +470,13 @@ Return(<tspan class="r-1">s1</tspan>)
 </rect>
 <rect class="r-2 c-25 interval-empty" onmouseover="h({r:2,c:25})" x="688" y="64" width="14" height="14">
 </rect>
+<rect onmouseover="h({r:2,c:2})" x="320" y="64" width="16" height="14" class="range-normal">
+</rect>
 <rect onmouseover="h({r:2,c:3})" x="336" y="64" width="14" height="14" class="range-normal">
 </rect>
 <rect onmouseover="h({r:2,c: 4})" x="352" y="64" width="5" height="14" class="use-any">
 </rect>
-<rect onmouseover="h({r:2,c: 3})" x="336" y="64" width="5" height="14" class="use-reg">
+<rect onmouseover="h({r:2,c: 2})" x="320" y="64" width="5" height="14" class="use-reg">
 </rect>
 <rect class="r-3 c-0 interval-empty" onmouseover="h({r:3,c:0})" x="288" y="80" width="16" height="14">
 </rect>
@@ -526,11 +530,13 @@ Return(<tspan class="r-1">s1</tspan>)
 </rect>
 <rect class="r-3 c-25 interval-empty" onmouseover="h({r:3,c:25})" x="688" y="80" width="14" height="14">
 </rect>
+<rect onmouseover="h({r:3,c:8})" x="416" y="80" width="16" height="14" class="range-normal">
+</rect>
 <rect onmouseover="h({r:3,c:9})" x="432" y="80" width="14" height="14" class="range-normal">
 </rect>
 <rect onmouseover="h({r:3,c: 10})" x="448" y="80" width="5" height="14" class="use-any">
 </rect>
-<rect onmouseover="h({r:3,c: 9})" x="432" y="80" width="5" height="14" class="use-reg">
+<rect onmouseover="h({r:3,c: 8})" x="416" y="80" width="5" height="14" class="use-reg">
 </rect>
 <rect class="r-4 c-0 interval-empty" onmouseover="h({r:4,c:0})" x="288" y="96" width="16" height="14">
 </rect>
@@ -698,9 +704,9 @@ Return(<tspan class="r-1">s1</tspan>)
 </rect>
 <rect class="r-6 c-25 interval-empty" onmouseover="h({r:6,c:25})" x="688" y="128" width="14" height="14">
 </rect>
-<rect onmouseover="h({r:6,c:15})" x="528" y="128" width="14" height="14" class="range-normal">
+<rect onmouseover="h({r:6,c:14})" x="512" y="128" width="14" height="14" class="range-normal">
 </rect>
-<rect onmouseover="h({r:6,c: 15})" x="528" y="128" width="5" height="14" class="use-reg">
+<rect onmouseover="h({r:6,c: 14})" x="512" y="128" width="5" height="14" class="use-reg">
 </rect>
 <rect class="r-7 c-0 interval-empty" onmouseover="h({r:7,c:0})" x="288" y="144" width="16" height="14">
 </rect>
@@ -754,11 +760,13 @@ Return(<tspan class="r-1">s1</tspan>)
 </rect>
 <rect class="r-7 c-25 interval-empty" onmouseover="h({r:7,c:25})" x="688" y="144" width="14" height="14">
 </rect>
+<rect onmouseover="h({r:7,c:18})" x="576" y="144" width="16" height="14" class="range-normal">
+</rect>
 <rect onmouseover="h({r:7,c:19})" x="592" y="144" width="14" height="14" class="range-normal">
 </rect>
 <rect onmouseover="h({r:7,c: 20})" x="608" y="144" width="5" height="14" class="use-any">
 </rect>
-<rect onmouseover="h({r:7,c: 19})" x="592" y="144" width="5" height="14" class="use-reg">
+<rect onmouseover="h({r:7,c: 18})" x="576" y="144" width="5" height="14" class="use-reg">
 </rect>
 <rect class="r-8 c-0 interval-empty" onmouseover="h({r:8,c:0})" x="288" y="160" width="16" height="14">
 </rect>
