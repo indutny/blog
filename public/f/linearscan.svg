@@ -38,7 +38,7 @@
   ]]>
 </style>
 <script type="text/ecmascript">
-<![CDATA[var instructions={"0":{"output":1,"inputs":[],"block":0,"kind":"Zero","id":0,"temporary":[]},"2":{"temporary":[],"inputs":[],"output":2,"block":0,"kind":"Zero","id":2},"4":{"kind":"~to_phi","output":0,"temporary":[],"inputs":[2],"id":4,"block":0},"6":{"block":0,"kind":"Goto","inputs":[],"temporary":[],"id":6,"output":null},"8":{"id":8,"temporary":[],"inputs":[],"block":1,"output":3,"kind":"Ten"},"10":{"inputs":[0,3],"output":null,"temporary":[4],"block":1,"kind":"BranchIfBigger","id":10},"12":{"inputs":[0],"temporary":[],"kind":"Print","id":12,"output":5,"block":2},"14":{"id":14,"temporary":[],"kind":"Increment","output":6,"block":2,"inputs":[5]},"16":{"kind":"Goto","block":2,"inputs":[],"output":null,"id":16,"temporary":[]},"18":{"kind":"Increment","block":3,"temporary":[],"output":7,"inputs":[0],"id":18},"20":{"kind":"~to_phi","output":0,"temporary":[],"block":3,"id":20,"inputs":[7]},"22":{"inputs":[],"output":null,"block":3,"temporary":[],"id":22,"kind":"Goto"},"24":{"inputs":[1],"temporary":[],"id":24,"output":null,"block":4,"kind":"Return"}}]]>
+<![CDATA[var instructions={"0":{"output":1,"temporary":[],"kind":"Zero","id":0,"inputs":[],"block":0},"2":{"id":2,"block":0,"kind":"Zero","inputs":[],"temporary":[],"output":2},"4":{"block":0,"temporary":[],"kind":"~to_phi","output":0,"id":4,"inputs":[2]},"6":{"kind":"Goto","output":null,"temporary":[],"block":0,"id":6,"inputs":[]},"8":{"temporary":[],"block":1,"inputs":[],"output":3,"kind":"Ten","id":8},"10":{"output":null,"inputs":[0,3],"kind":"BranchIfBigger","block":1,"temporary":[4],"id":10},"12":{"output":5,"inputs":[0],"temporary":[],"block":2,"kind":"Print","id":12},"14":{"id":14,"temporary":[],"output":6,"inputs":[5],"kind":"Increment","block":2},"16":{"block":2,"temporary":[],"kind":"Goto","inputs":[],"id":16,"output":null},"18":{"id":18,"inputs":[0],"temporary":[],"block":3,"kind":"Increment","output":7},"20":{"kind":"~to_phi","temporary":[],"block":3,"inputs":[7],"id":20,"output":0},"22":{"block":3,"temporary":[],"inputs":[],"kind":"Goto","output":null,"id":22},"24":{"block":4,"id":24,"kind":"Return","output":null,"temporary":[],"inputs":[1]}}]]>
 </script>
 <script type="text/ecmascript">
 <![CDATA[
@@ -158,7 +158,7 @@ Instruction's temporary
 4
 </text>
 <text class="instruction-text" onmouseover="h({c:4})" x="28" y="266">
-<tspan class="r-0">r0</tspan> = ~to_phi(<tspan class="r-2">r1</tspan>)
+<tspan class="r-0">r1</tspan> = ~to_phi(<tspan class="r-2">r1</tspan>)
 </text>
 <rect class="instruction-marker c-6" onmouseover="h({c:6})" x="8" y="276" width="16" height="16">
 </rect>
@@ -174,7 +174,7 @@ Goto()
 8
 </text>
 <text class="instruction-text" onmouseover="h({c:8})" x="36" y="306">
-<tspan class="r-3">r1</tspan> = Ten()
+<tspan class="r-3">r2</tspan> = Ten()
 </text>
 <rect class="instruction-marker c-10" onmouseover="h({c:10})" x="16" y="316" width="16" height="16">
 </rect>
@@ -182,7 +182,7 @@ Goto()
 10
 </text>
 <text class="instruction-text" onmouseover="h({c:10})" x="36" y="326">
-BranchIfBigger(<tspan class="r-0">r0</tspan>, <tspan class="r-3">r1</tspan>) | tmp: <tspan class="r-4">r2</tspan>
+BranchIfBigger(<tspan class="r-0">r1</tspan>, <tspan class="r-3">r2</tspan>) | tmp: <tspan class="r-4">r3</tspan>
 </text>
 <rect class="instruction-marker c-12" onmouseover="h({c:12})" x="16" y="336" width="16" height="16">
 </rect>
@@ -190,7 +190,7 @@ BranchIfBigger(<tspan class="r-0">r0</tspan>, <tspan class="r-3">r1</tspan>) | t
 12
 </text>
 <text class="instruction-text" onmouseover="h({c:12})" x="36" y="346">
-<tspan class="r-5">r0</tspan> = Print(<tspan class="r-0">r0</tspan>)
+<tspan class="r-5">r0</tspan> = Print(<tspan class="r-0">r1</tspan>)
 </text>
 <rect class="instruction-marker c-14" onmouseover="h({c:14})" x="16" y="356" width="16" height="16">
 </rect>
@@ -222,7 +222,7 @@ Goto()
 20
 </text>
 <text class="instruction-text" onmouseover="h({c:20})" x="36" y="426">
-<tspan class="r-0">r0</tspan> = ~to_phi(<tspan class="r-7">r0</tspan>)
+<tspan class="r-0">r1</tspan> = ~to_phi(<tspan class="r-7">r0</tspan>)
 </text>
 <rect class="instruction-marker c-22" onmouseover="h({c:22})" x="16" y="436" width="16" height="16">
 </rect>
@@ -238,29 +238,29 @@ Goto()
 24
 </text>
 <text class="instruction-text" onmouseover="h({c:24})" x="28" y="466">
-Return(<tspan class="r-1">s1</tspan>)
+Return(<tspan class="r-1">r0</tspan>)
 </text>
-<rect x="288" y="8" rx="3" ry="3" width="126" height="251" class="block-fill">
+<rect x="288" y="8" rx="3" ry="3" width="126" height="267" class="block-fill">
 </rect>
 <text dominant-baseline="middle" font-family="Raleway" x="291" y="20">
 0
 </text>
-<rect x="416" y="8" rx="3" ry="3" width="62" height="251" class="block-fill">
+<rect x="416" y="8" rx="3" ry="3" width="62" height="267" class="block-fill">
 </rect>
 <text dominant-baseline="middle" font-family="Raleway" x="419" y="20">
 1
 </text>
-<rect x="480" y="8" rx="3" ry="3" width="94" height="251" class="block-fill">
+<rect x="480" y="8" rx="3" ry="3" width="94" height="267" class="block-fill">
 </rect>
 <text dominant-baseline="middle" font-family="Raleway" x="483" y="20">
 2
 </text>
-<rect x="576" y="8" rx="3" ry="3" width="94" height="251" class="block-fill">
+<rect x="576" y="8" rx="3" ry="3" width="94" height="267" class="block-fill">
 </rect>
 <text dominant-baseline="middle" font-family="Raleway" x="579" y="20">
 3
 </text>
-<rect x="672" y="8" rx="3" ry="3" width="30" height="251" class="block-fill">
+<rect x="672" y="8" rx="3" ry="3" width="30" height="267" class="block-fill">
 </rect>
 <text dominant-baseline="middle" font-family="Raleway" x="675" y="20">
 4
@@ -1057,8 +1057,6 @@ Return(<tspan class="r-1">s1</tspan>)
 </rect>
 <rect onmouseover="h({r:1,c:23})" x="656" y="224" width="14" height="14" class="range-normal">
 </rect>
-<rect onmouseover="h({r:1,c: 24})" x="672" y="224" width="5" height="14" class="use-fixed">
-</rect>
 <rect class=" c-0 interval-empty" onmouseover="h({r:0,c:0})" x="288" y="240" width="16" height="14">
 </rect>
 <rect class=" c-1 interval-empty" onmouseover="h({r:0,c:1})" x="304" y="240" width="16" height="14">
@@ -1133,14 +1131,68 @@ Return(<tspan class="r-1">s1</tspan>)
 </rect>
 <rect onmouseover="h({r:0,c: 18})" x="576" y="240" width="5" height="14" class="use-any">
 </rect>
-<path d="M 414 136.5 C 414.5 136.5 415.5 136.5 416 136.5" class="arrow" stroke-width="2" marker-end="url(#arrow)">
+<rect class=" c-0 interval-empty" onmouseover="h({r:12,c:0})" x="288" y="256" width="16" height="14">
+</rect>
+<rect class=" c-1 interval-empty" onmouseover="h({r:12,c:1})" x="304" y="256" width="16" height="14">
+</rect>
+<rect class=" c-2 interval-empty" onmouseover="h({r:12,c:2})" x="320" y="256" width="16" height="14">
+</rect>
+<rect class=" c-3 interval-empty" onmouseover="h({r:12,c:3})" x="336" y="256" width="16" height="14">
+</rect>
+<rect class=" c-4 interval-empty" onmouseover="h({r:12,c:4})" x="352" y="256" width="16" height="14">
+</rect>
+<rect class=" c-5 interval-empty" onmouseover="h({r:12,c:5})" x="368" y="256" width="16" height="14">
+</rect>
+<rect class=" c-6 interval-empty" onmouseover="h({r:12,c:6})" x="384" y="256" width="16" height="14">
+</rect>
+<rect class=" c-7 interval-empty" onmouseover="h({r:12,c:7})" x="400" y="256" width="14" height="14">
+</rect>
+<rect class=" c-8 interval-empty" onmouseover="h({r:12,c:8})" x="416" y="256" width="16" height="14">
+</rect>
+<rect class=" c-9 interval-empty" onmouseover="h({r:12,c:9})" x="432" y="256" width="16" height="14">
+</rect>
+<rect class=" c-10 interval-empty" onmouseover="h({r:12,c:10})" x="448" y="256" width="16" height="14">
+</rect>
+<rect class=" c-11 interval-empty" onmouseover="h({r:12,c:11})" x="464" y="256" width="14" height="14">
+</rect>
+<rect class=" c-12 interval-empty" onmouseover="h({r:12,c:12})" x="480" y="256" width="16" height="14">
+</rect>
+<rect class=" c-13 interval-empty" onmouseover="h({r:12,c:13})" x="496" y="256" width="16" height="14">
+</rect>
+<rect class=" c-14 interval-empty" onmouseover="h({r:12,c:14})" x="512" y="256" width="16" height="14">
+</rect>
+<rect class=" c-15 interval-empty" onmouseover="h({r:12,c:15})" x="528" y="256" width="16" height="14">
+</rect>
+<rect class=" c-16 interval-empty" onmouseover="h({r:12,c:16})" x="544" y="256" width="16" height="14">
+</rect>
+<rect class=" c-17 interval-empty" onmouseover="h({r:12,c:17})" x="560" y="256" width="14" height="14">
+</rect>
+<rect class=" c-18 interval-empty" onmouseover="h({r:12,c:18})" x="576" y="256" width="16" height="14">
+</rect>
+<rect class=" c-19 interval-empty" onmouseover="h({r:12,c:19})" x="592" y="256" width="16" height="14">
+</rect>
+<rect class=" c-20 interval-empty" onmouseover="h({r:12,c:20})" x="608" y="256" width="16" height="14">
+</rect>
+<rect class=" c-21 interval-empty" onmouseover="h({r:12,c:21})" x="624" y="256" width="16" height="14">
+</rect>
+<rect class=" c-22 interval-empty" onmouseover="h({r:12,c:22})" x="640" y="256" width="16" height="14">
+</rect>
+<rect class=" c-23 interval-empty" onmouseover="h({r:12,c:23})" x="656" y="256" width="14" height="14">
+</rect>
+<rect class="r-12 c-24 interval-empty" onmouseover="h({r:12,c:24})" x="672" y="256" width="16" height="14">
+</rect>
+<rect class="r-12 c-25 interval-empty" onmouseover="h({r:12,c:25})" x="688" y="256" width="14" height="14">
+</rect>
+<rect onmouseover="h({r:12,c: 24})" x="672" y="256" width="5" height="14" class="use-fixed">
+</rect>
+<path d="M 414 144.5 C 414.5 144.5 415.5 144.5 416 144.5" class="arrow" stroke-width="2" marker-end="url(#arrow)">
 </path>
-<path d="M 478 136.5 C 478.5 136.5 479.5 136.5 480 136.5" class="arrow" stroke-width="2" marker-end="url(#arrow)">
+<path d="M 478 144.5 C 478.5 144.5 479.5 144.5 480 144.5" class="arrow" stroke-width="2" marker-end="url(#arrow)">
 </path>
-<path d="M 447 262 C 507 299.08983528956855 627 299.08983528956855 687 262" class="arrow" stroke-width="2" marker-end="url(#arrow)">
+<path d="M 447 278 C 507 315.08983528956855 627 315.08983528956855 687 278" class="arrow" stroke-width="2" marker-end="url(#arrow)">
 </path>
-<path d="M 574 136.5 C 574.5 136.5 575.5 136.5 576 136.5" class="arrow" stroke-width="2" marker-end="url(#arrow)">
+<path d="M 574 144.5 C 574.5 144.5 575.5 144.5 576 144.5" class="arrow" stroke-width="2" marker-end="url(#arrow)">
 </path>
-<path d="M 623 262 C 579 282.74954322336305 491 282.74954322336305 447 262" class="arrow" stroke-width="2" marker-end="url(#arrow)">
+<path d="M 623 278 C 579 298.74954322336305 491 298.74954322336305 447 278" class="arrow" stroke-width="2" marker-end="url(#arrow)">
 </path>
 </svg>
