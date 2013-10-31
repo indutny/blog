@@ -2,7 +2,8 @@ var fs = require('fs'),
     path = require('path'),
     crypto = require('crypto'),
     client = require('redis').createClient(),
-    marked = require('marked');
+    marked = require('marked'),
+    highlight = require('highlight.js');
 
 var posts = [];
 var map = {},
@@ -15,28 +16,40 @@ function loadPost(filename) {
   var slug = filename.replace(/\.md$/, ''),
       fullpath = path.resolve(dir, filename),
       content = fs.readFileSync(fullpath).toString(),
-      title = content.match(/^# (.*)$/m)[1],
+      title = content.match(/^# (.*)$/m),
       body = content.replace(/^# (.*)$/m, ''),
       stat = fs.statSync(fullpath);
 
-  var rendered = marked(body);
+  if (title)
+    title = title[1];
+  else
+    title = '...';
 
-  var post = {
-    id: slug.replace(/\..*$/, ''),
-    slug: slug,
-    title: title,
-    ctime: stat.ctime,
-    created_at: stat.ctime.toUTCString(),
-    content: rendered
-  };
+  marked(body, {
+    highlight: function(code, lang, callback) {
+      callback(null, highlight.highlightAuto(code).value);
+    }
+  }, function(err, rendered) {
+    if (err)
+      return;
 
-  map[post.id] = post;
-  slugMap[post.slug] = post;
+    var post = {
+      id: slug.replace(/\..*$/, ''),
+      slug: slug,
+      title: title,
+      ctime: stat.ctime,
+      created_at: stat.ctime.toUTCString(),
+      content: rendered
+    };
 
-  posts = posts.filter(function(p) {
-    return p !== post.id;
+    map[post.id] = post;
+    slugMap[post.slug] = post;
+
+    posts = posts.filter(function(p) {
+      return p !== post.id;
+    });
+    posts.push(post);
   });
-  posts.push(post);
 }
 
 files.forEach(function(filename) {
