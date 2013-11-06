@@ -30,7 +30,10 @@ function loadPost(filename, callback) {
 
   marked(body, {
     highlight: function(code, lang, callback) {
-      callback(null, highlight.highlightAuto(code).value);
+      if (lang === 'javascript')
+        callback(null, highlight.highlight(lang, code).value);
+      else
+        callback(null, highlight.highlightAuto(code).value);
     }
   }, function(err, rendered) {
     if (err)
