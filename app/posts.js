@@ -12,7 +12,7 @@ var map = {},
 var dir = path.resolve(__dirname, '..', 'posts'),
     files = fs.readdirSync(dir);
 
-function loadPost(filename) {
+function loadPost(filename, callback) {
   var slug = filename.replace(/\.md$/, ''),
       fullpath = path.resolve(dir, filename),
       content = fs.readFileSync(fullpath).toString(),
@@ -25,13 +25,16 @@ function loadPost(filename) {
   else
     title = '...';
 
+  if (!callback)
+    callback = function() {};
+
   marked(body, {
     highlight: function(code, lang, callback) {
       callback(null, highlight.highlightAuto(code).value);
     }
   }, function(err, rendered) {
     if (err)
-      return;
+      return callback(err);
 
     var post = {
       id: slug.replace(/\..*$/, ''),
@@ -42,13 +45,22 @@ function loadPost(filename) {
       content: rendered
     };
 
+    // Remove stale version of post
+    posts = posts.filter(function(p) {
+      return p.id !== post.id;
+    });
+
+    // Replace post
     map[post.id] = post;
     slugMap[post.slug] = post;
-
-    posts = posts.filter(function(p) {
-      return p !== post.id;
-    });
     posts.push(post);
+
+    // Sort posts (newer first, older last)
+    posts = posts.sort(function(a, b) {
+      return b.id > a.id ? 1 : b.id < a.id ? -1 : 0;
+    });
+
+    callback(null, post);
   });
 }
 
@@ -58,11 +70,6 @@ files.forEach(function(filename) {
   if (process.env.NODE_ENV !== 'production') {
     fs.watch(path.resolve(dir, filename), loadPost.bind(null, filename));
   }
-});
-
-// Sort posts (newer first, older last)
-posts = posts.sort(function(a, b) {
-  return b.ctime - a.ctime;
 });
 
 exports.list = function list(callback) {
