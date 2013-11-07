@@ -3,6 +3,7 @@ var express = require('express'),
     jade = require('jade'),
     path = require('path'),
     http = require('http'),
+    gzip = require('crafity-gzip'),
     app = express(),
     config = require('./config.json');
 
@@ -29,6 +30,8 @@ var server = http.createServer(function(req, res) {
   app(req, res);
 });
 
+app.use(express.staticCache());
+app.use(gzip.gzip({ matchType: /css|javascript|woff/ }));
 app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(express.bodyParser());
 app.use(app.router);
@@ -39,6 +42,7 @@ app.engine('jade', jade.__express);
 require('./app/routes').add(app);
 
 io = io.listen(server);
+io.enable('browser client minification');
 
 app.io = io;
 
