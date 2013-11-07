@@ -1,1 +1,6 @@
 # No robots
+Disallow: /f/
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /js/
+Disallow: /images/
