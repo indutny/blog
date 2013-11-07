@@ -43,6 +43,7 @@ require('./app/routes').add(app);
 
 io = io.listen(server);
 io.enable('browser client minification');
+io.disable('log');
 
 app.io = io;
 
