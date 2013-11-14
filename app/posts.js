@@ -71,7 +71,7 @@ files.forEach(function(filename) {
   loadPost(filename);
 
   if (process.env.NODE_ENV !== 'production') {
-    fs.watch(path.resolve(dir, filename), loadPost.bind(null, filename));
+    fs.watch(path.resolve(dir, filename), loadPost.bind(null, filename, null));
   }
 });
 
