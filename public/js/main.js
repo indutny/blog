@@ -1,4 +1,9 @@
 (function() {
+  // Redirect to https
+  if (document.location.protocol === 'http:') {
+    document.location.href = document.location.href.replace(/http:/, 'https:');
+    return;
+  }
   var socket = io.connect();
 
   var ids = [];

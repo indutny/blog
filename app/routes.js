@@ -6,7 +6,7 @@ exports.add = function add(app) {
       if (err) return next(err);
 
       res.render('index.jade', {
-        title: null,
+        title: 'Fedor Indutny\'s blog',
         posts: posts
       });
     });
