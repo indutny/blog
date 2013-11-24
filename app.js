@@ -1,4 +1,5 @@
-var express = require('express'),
+var spdy = require('spdy'),
+    express = require('express'),
     io = require('socket.io'),
     jade = require('jade'),
     path = require('path'),
@@ -15,7 +16,7 @@ var vhosts = Object.keys(config).map(function(host) {
   };
 });
 
-var server = http.createServer(function(req, res) {
+var server = spdy.createServer({ plain: true, ssl: false }, function(req, res) {
   var host = req.headers.host;
   if (host) {
     for (var i = 0; i < vhosts.length; i++) {
