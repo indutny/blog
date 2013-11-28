@@ -3,7 +3,8 @@ var posts = require('./posts');
 exports.add = function add(app) {
   app.get('/', function(req, res, next) {
     posts.list(function(err, posts) {
-      if (err) return next(err);
+      if (err)
+        return next(err);
 
       res.render('index.jade', {
         title: 'Fedor Indutny\'s blog',
@@ -14,7 +15,8 @@ exports.add = function add(app) {
 
   app.get('/:id', function(req, res, next) {
     posts.get(req.params.id, function(err, post) {
-      if (err) return next(err);
+      if (err)
+        return next();
 
       res.render('post.jade', {
         title: post.title,
@@ -25,10 +27,12 @@ exports.add = function add(app) {
 
   app.get('/rate/:id', function(req, res, next) {
     posts.get(req.params.id, function(err, post) {
-      if (err) return next(err);
+      if (err)
+        return next(err);
 
       posts.getRating(post.id, function(err, rate) {
-        if (err) return next(err);
+        if (err)
+          return next(err);
 
         res.json({
           id: post.id,
@@ -38,13 +42,14 @@ exports.add = function add(app) {
     });
   });
 
-  // TODO: Verify client's nonce
   app.post('/rate/:id', function(req, res, next) {
     posts.get(req.params.id, function(err, post) {
-      if (err) return next(err);
+      if (err)
+        return next(err);
 
       posts.updateRate(post.id, req.body, function(err, rate) {
-        if (err) return next(err);
+        if (err)
+          return next(err);
 
         // Send broadcast to clients
         app.io.sockets.emit('rating:' + req.params.id, {
