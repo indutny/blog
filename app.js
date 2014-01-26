@@ -41,6 +41,13 @@ var server = spdy.createServer({ plain: true, ssl: false }, function(req, res) {
   app(req, res);
 });
 
+app.use(function(req, res, next) {
+  if (req.headers.host === 'blog.indutny.com') {
+    res.setHeader('Strict-Transport-Security',
+                  'max-age=31536000; includeSubDomains');
+  }
+  next();
+});
 app.use(express.staticCache());
 app.use(gzip.gzip({ matchType: /css|javascript|woff/ }));
 app.use(express.static(path.resolve(__dirname, 'public')));
