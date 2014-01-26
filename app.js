@@ -16,6 +16,16 @@ var vhosts = Object.keys(config).map(function(host) {
   };
 });
 
+vhosts.unshift({
+  re: /^(www\.)?indutny.com(:\d+)?$/,
+  handler: function(res, res) {
+    res.writeHead(301, {
+      Location: 'https://blog.indutny.com/'
+    });
+    res.end('Redirecting you to https://blog.indutny.com/');
+  }
+});
+
 var server = spdy.createServer({ plain: true, ssl: false }, function(req, res) {
   var host = req.headers.host;
   if (host) {
