@@ -1,6 +1,7 @@
 (function() {
   // Redirect to https
-  if (document.location.protocol === 'http:') {
+  if (document.location.protocol === 'http:' &&
+      /blog.indutny.com/.test(document.location.href)) {
     document.location.href = document.location.href.replace(/http:/, 'https:');
     return;
   }

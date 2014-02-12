@@ -26,20 +26,7 @@ vhosts.unshift({
   }
 });
 
-var server = spdy.createServer({ plain: true, ssl: false }, function(req, res) {
-  var host = req.headers.host;
-  if (host) {
-    for (var i = 0; i < vhosts.length; i++) {
-      var entry = vhosts[i];
-      if (host.match(entry.re)) {
-        entry.handler(req, res);
-        return;
-      }
-    }
-  }
-
-  app(req, res);
-});
+var server = spdy.createServer({ plain: true, ssl: false }, app);
 
 app.use(function(req, res, next) {
   if (req.headers.host === 'blog.indutny.com') {
@@ -64,6 +51,30 @@ io.enable('browser client minification');
 io.disable('log');
 
 app.io = io;
+
+function wrap(event) {
+  var def = server.listeners(event)[0];
+  server.removeAllListeners(event);
+  if (!def)
+    return;
+
+  server.on(event, function(req, a1, a2, a3) {
+    var host = req.headers.host;
+    if (host) {
+      for (var i = 0; i < vhosts.length; i++) {
+        var entry = vhosts[i];
+        if (host.match(entry.re)) {
+          entry.handler.emit(event, req, a1, a2, a3);
+          return;
+        }
+      }
+    }
+
+    def.call(this, req, a1, a2, a3);
+  });
+};
+wrap('request');
+wrap('upgrade');
 
 server.listen(process.env.SERVER_PORT || 8080, function() {
   var addr = this.address();
