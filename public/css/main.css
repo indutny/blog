@@ -120,6 +120,7 @@ section#content ol {
 section#content img {
   display: block;
   margin: 0 auto;
+  max-width: 100%;
 }
 
 section#content pre {
@@ -233,10 +234,6 @@ code {
 }
 
 @media screen and (max-width: 767px) {
-  img {
-    max-width: 100%;
-  }
-
   nav {
     position: inherit;
     float: none;
