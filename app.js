@@ -30,6 +30,8 @@ var server = spdy.createServer({ plain: true, ssl: false }, app);
 
 app.use(function(req, res, next) {
   if (req.headers.host === 'blog.indutny.com') {
+    if (req.headers['x-forwarded-for'])
+      res.setHeader('X-Got-Forwarded-For', req.headers['x-forwarded-for']);
     res.setHeader('Strict-Transport-Security',
                   'max-age=31536000; includeSubDomains');
   }
