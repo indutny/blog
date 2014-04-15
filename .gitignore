@@ -3,3 +3,4 @@ npm-debug.log
 config.json
 deps/
 public/css/*.gz
+public/rss.xml

@@ -1,8 +1,10 @@
 var fs = require('fs'),
+    async = require('async'),
     path = require('path'),
     crypto = require('crypto'),
     client = require('redis').createClient(),
     marked = require('marked'),
+    rss = require('rss'),
     highlight = require('highlight.js');
 
 var posts = [];
@@ -67,13 +69,13 @@ function loadPost(filename, callback) {
   });
 }
 
-files.forEach(function(filename) {
-  loadPost(filename);
+async.each(files, function(filename, cb) {
+  loadPost(filename, cb);
 
   if (process.env.NODE_ENV !== 'production') {
     fs.watch(path.resolve(dir, filename), loadPost.bind(null, filename, null));
   }
-});
+}, generateRSS);
 
 exports.list = function list(callback) {
   callback(null, posts.slice());
@@ -123,3 +125,28 @@ exports.updateRate = function updateRate(id, data, callback) {
     });
   });
 };
+
+function generateRSS() {
+  var feed = new rss({
+    title: 'Fedor Indutny\'s blog',
+    description: 'Node.js, Compilers, Bears, Security',
+    feed_url: 'https://blog.indutny.com/rss.xml',
+    site_url: 'https://blog.indutny.com/',
+    author: 'Fedor Indutny',
+    copyright: '2014 Fedor Indutny',
+    language: 'en',
+    ttl: '60'
+  });
+
+  posts.forEach(function(post) {
+    feed.item({
+      title: post.title,
+      description: post.content.slice(0, 500) + '...',
+      url: 'https://blog.indutny.com/' + post.slug,
+      date: post.ctime
+    });
+  });
+
+  fs.writeFileSync(path.resolve(__dirname, '..', 'public', 'rss.xml'),
+                   feed.xml());
+}
