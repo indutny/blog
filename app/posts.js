@@ -141,7 +141,7 @@ function generateRSS() {
   posts.forEach(function(post) {
     feed.item({
       title: post.title,
-      description: post.content.slice(0, 500) + '...',
+      description: post.content,
       url: 'https://blog.indutny.com/' + post.slug,
       date: post.ctime
     });
