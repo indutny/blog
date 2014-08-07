@@ -257,6 +257,7 @@ code {
   section#content {
     padding: 24px 8px 8px 8px;
     max-width: none;
+    width: 100%;
   }
 
   section#content a.home-link {
