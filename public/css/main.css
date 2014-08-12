@@ -233,7 +233,7 @@ code {
   font-family: Consolas, "Liberation Mono", Courier, monospace;
 }
 
-@media screen and (max-width: 1190px) {
+@media screen and (max-width: 1195px) {
   nav {
     position: inherit;
     float: none;
