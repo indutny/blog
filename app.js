@@ -80,5 +80,7 @@ wrap('upgrade');
 
 server.listen(process.env.SERVER_PORT || 8080, function() {
   var addr = this.address();
+  if (process.env.NODE_ENV === 'production')
+    process.setuid('www');
   console.log('Server started on %s:%d', addr.address, addr.port);
 });
