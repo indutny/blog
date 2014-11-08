@@ -45,8 +45,8 @@ function loadPost(filename, callback) {
       id: slug.replace(/\..*$/, ''),
       slug: slug,
       title: title,
-      ctime: stat.ctime,
-      created_at: stat.ctime.toUTCString(),
+      ctime: stat.mtime,
+      created_at: stat.mtime.toUTCString(),
       content: rendered
     };
 
