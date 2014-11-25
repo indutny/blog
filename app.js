@@ -17,7 +17,7 @@ var vhosts = Object.keys(config).map(function(host) {
 });
 
 vhosts.unshift({
-  re: /^(www\.)?(indutny.com(:\d+)?|fedor\.rocks)?$/,
+  re: /^(www\.)?(indutny.com(:\d+)?|fedor\.rocks|donejs.org)?$/,
   handler: http.createServer(function(res, res) {
     res.writeHead(301, {
       Location: 'https://blog.indutny.com/'
