@@ -7,17 +7,17 @@ by my findings during v8 bug triaging or just random code exploration.
 The interesting thing about v8 that I was always passionate about, but never
 truly understood, was the Deoptimizer. The idea here is that v8 optimizes
 code to make it run faster, but this optimization relies on assumptions
-about types, ranges, actual values, const-ness, etc. These assumptions imply that
-the optimized code won't run when these conditions are not met,
+about types, ranges, actual values, const-ness, etc. These assumptions imply
+that the optimized code won't run when these conditions are not met,
 since the compiler needs to "deoptimize" it by returning to the previous
 "no-assumptions" version of generated code when the assumptions are failing.
 
 Technically it means that the compiler is in fact two compilers:
-a base compiler and an "optimizer". (Or even more, if we are talking about JSC and
-SpiderMonkey). The concept is quite sound and can yield incredible performance,
-but there is a nuance: the optimized code may be "deoptimized" in various places,
-not just at the entry point, meaning that the environment (local variables,
-arguments, context) should be mapped and moved around.
+a base compiler and an "optimizer". (Or even more, if we are talking about JSC
+and SpiderMonkey). The concept is quite sound and can yield incredible
+performance, but there is a nuance: the optimized code may be "deoptimized" in
+various places, not just at the entry point, meaning that the environment (local
+variables, arguments, context) should be mapped and moved around.
 
 ## Stack machines
 
@@ -40,8 +40,8 @@ add     ; pop 2 values and push `arg0 + arg`
 ret     ; pop and return value
 ```
 
-The interpreter will execute instructions one-by-one, maintaining the stack at every
-point.
+The interpreter will execute instructions one-by-one, maintaining the stack at
+every point.
 
 Now we let's imagine some register machine (like x86_64), and write down
 the same program in assembly language. To make it a bit more interesting,
@@ -90,10 +90,10 @@ mov rbx, [slot0]
 add rax, rbx
 ```
 
-So in such an uncommon case, where the argument of `mul` is not a small integer, this
-code should somehow be "deoptimized" from assembly code to the stack machine and
-continue execution in the interpreted version. Here is the position in the
-optimized code where it will stop:
+So in such an uncommon case, where the argument of `mul` is not a small integer,
+this code should somehow be "deoptimized" from assembly code to the stack
+machine and continue execution in the interpreted version. Here is the position
+in the optimized code where it will stop:
 
 ```
 mov [slot0], a
@@ -164,7 +164,7 @@ t20 Constant ... <|@
 v25 Simulate id=26 pop 1, push t19, var[3] = t2, var[4] = t20 <|@
 ```
 
-(Note that you could obtain such IR by running node.js with `--trace-hydrogen`
+(Note that you can obtain such IR by running node.js with `--trace-hydrogen`
 flag, which will print it out into the `hydrogen.cfg` or `hydrogen-<pid>.cfg`
 file).
 
@@ -196,10 +196,10 @@ v25: var = { 3: t13, 4: t20 }, stack = [ t3, t4, t19 ]
 _Note that this "simulation" happens at compile-time, not when actually
 deoptimizing._
 
-These states could be used to map the values from optimized to unoptimized code.
-For example, if we would like to "deoptimize" at `t56`, we will have to find the latest
-state which was at `v17`: `var = { 3: t13 }, stack = [ t3, t4, t8 ]`, and just
-place the present values into a proper stack slots and local variables (for
+These states can be used to map the values from optimized to unoptimized code.
+For example, if we would like to "deoptimize" at `t56`, we will have to find the
+latest state which was at `v17`: `var = { 3: t13 }, stack = [ t3, t4, t8 ]`, and
+just place the present values into a proper stack slots and local variables (for
 `var` ones).
 
 With the `--trace-deopt` flag v8 will give us some insights on how it is doing
@@ -221,8 +221,9 @@ translating outer => node=24, height=8
 0x7fff5fbff3a0: [top + 0] <- 0x341ad2004121 ; rax 0x341ad2004121 <undefined>
 ```
 
-Arrows here indicate the direction of movement. Output frame of the unoptimized
-code is on the left side, and on the right side - optimized code's values.
+Arrows here indicate the direction of movement. The output frame of the
+unoptimized code is on the left side, and on the right side - optimized code's
+values.
 
 The mentioned frame is an on-stack structure used for storing the caller address
 (to make `return` statements work), caller's frame address, and sometimes some
@@ -248,20 +249,20 @@ The high-level IR of the code that generated this trace contained:
 
 There is only one simulate instruction, and the state is: `stack = [t3, t4]`.
 (Sorry ignoring the local variables for this blog post).
-Thus the deoptimizer needs to put the values of the `t3` and `t4` instructions into the
-stack slots. This information was stored ahead of time, and will be looked up
-right when deoptimizing the things. Here `t3` was in the `[sp + 24]` stack slot in
-the optimized code, and `t4` was in the `rax` register. This process is called a
-"translation of frame". After it the execution will be redirected to the unoptimized
-code which will just continue operating on the values at the place where the
-optimized code has been "deoptimized".
+Thus, the deoptimizer needs to put the values of the `t3` and `t4` instructions
+into the stack slots. This information was stored ahead of time, and will be
+looked up right when deoptimizing the code. Here, `t3` was in the `[sp + 24]`
+stack slot in the optimized code, and `t4` was in `rax`. This process is called
+a "frame translation". Afterwards the execution will be redirected to the
+unoptimized code, which will just continue operating on the values at the place
+where the optimized code has been "deoptimized".
 
-## Culmination
+## Conclusion
 
-The "deoptimizer" is really an interesting tool, and it is the one of the main
+The "deoptimizer" is really an interesting tool, and it is one of the main
 cogs in [Crankshaft][1]'s engine. This instrument helps the compiler in
-executing the dynamic-language code as if it have been written in C++, because
-it could always return to the slow unoptimized code with "true" JavaScript
+executing the dynamic-language code as if it had been written in C++, because
+it can always return to the slow unoptimized code with "true" JavaScript
 semantics.
 
 _Note that things are a bit more tricky with inlined functions, but this is a
@@ -271,6 +272,7 @@ _Big kudos to_:
 
 * _Vyacheslav Egorov_
 * _Ben Noordhuis_
+* _Jeremiah Senkpiel_
 
 _for proof-reading this and providing valuable feedback._
 
