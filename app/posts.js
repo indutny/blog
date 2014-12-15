@@ -1,4 +1,5 @@
 var fs = require('fs'),
+    assert = require('assert'),
     async = require('async'),
     path = require('path'),
     crypto = require('crypto'),
@@ -43,12 +44,14 @@ function loadPost(filename, callback) {
 
     var post = {
       id: slug.replace(/\..*$/, ''),
+      num: 0,
       slug: slug,
       title: title,
       ctime: stat.mtime,
-      created_at: stat.mtime.toUTCString(),
+      created_at: stat.mtime.toDateString(),
       content: rendered
     };
+    post.num = parseInt(post.id, 16);
 
     // Remove stale version of post
     posts = posts.filter(function(p) {
@@ -62,7 +65,8 @@ function loadPost(filename, callback) {
 
     // Sort posts (newer first, older last)
     posts = posts.sort(function(a, b) {
-      return b.id > a.id ? 1 : b.id < a.id ? -1 : 0;
+      return b.num > a.num ? 1 : b.num < a.num ? -1 :
+             b.id > a.id ? 1 : b.id < a.id ? -1 : 0;
     });
 
     callback(null, post);
