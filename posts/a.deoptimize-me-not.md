@@ -2,20 +2,20 @@
 
 Compilers are awesome, right? If any programming concept may exist, it will
 probably be used in compiler implementation at some point. I am always amazed
-by the findings during v8 bug triaging or just random code exploration.
+by my findings during v8 bug triaging or just random code exploration.
 
 The interesting thing about v8 that I was always passionate about, but never
-truly understood was the Deoptimizer. The idea here is that v8 optimizes
+truly understood, was the Deoptimizer. The idea here is that v8 optimizes
 code to make it run faster, but this optimization relies on assumptions
-about types, ranges, actual values, const-ness, etc. Assuming this implies that
+about types, ranges, actual values, const-ness, etc. These assumptions imply that
 the optimized code won't run when these conditions are not met,
-the compiler needs to "deoptimize" it by returning to the previous
+since the compiler needs to "deoptimize" it by returning to the previous
 "no-assumptions" version of generated code when the assumptions are failing.
 
 Technically it means that the compiler is in fact two compilers:
-baseline and optimized. (Or even more, if we are talking about JSC and
+a base compiler and an "optimizer". (Or even more, if we are talking about JSC and
 SpiderMonkey). The concept is quite sound and can yield incredible performance,
-but there is a nuance: the optimized code may "deoptimize" in various places,
+but there is a nuance: the optimized code may be "deoptimized" in various places,
 not just at the entry point, meaning that the environment (local variables,
 arguments, context) should be mapped and moved around.
 
@@ -40,13 +40,13 @@ add     ; pop 2 values and push `arg0 + arg`
 ret     ; pop and return value
 ```
 
-Interpreter will execute instructions one-by-one, maintaining the stack at every
+The interpreter will execute instructions one-by-one, maintaining the stack at every
 point.
 
 Now we let's imagine some register machine (like x86_64), and write down
-the same program in assembly language. To make it a bit more interesting -
+the same program in assembly language. To make it a bit more interesting,
 consider that the target architecture has only two registers and the rest of the
-values needs to be stored in memory (on-stack).
+values need to be stored in memory (on-stack).
 
 ```asm
 mov [slot0], a   ; store value in 0 memory slot
@@ -59,21 +59,21 @@ mov rbx, [slot0] ; load value from 0 memory slot
 add rax, rbx     ; rax = b * c * d + a
 ```
 
-Instructions are executed one-by-one, maintaining the register values and
+The instructions are executed one-by-one, maintaining the register values and
 memory slots.
 
-In terms of our compiler the former code is an unoptimized version of our
+In terms of our compiler, the former code is an unoptimized version of our
 program, and the latter one is optimized. In fact, this is a completely valid
 claim if we would like to run it on x86_64 platform, as assembly has much higher
 execution speed than interpreted code that needs to be emulated.
 
 Suppose that the second `mul` instruction in assembly works only when the `d`
 (which is in `rbx` register) is a small integer. Now if the execution will
-reach the `mul` and find that there is a JavaScript string - it will just fail
+reach the `mul` and find that there is a JavaScript string, it will just fail
 to do the "right thing". This `mul(num, str)` operation will definitely require
 some sort of type coercion, and could be easily handled by the interpreter.
 Doing it in assembly will very likely be much more costly in terms of
-performance. To deal with this compiler inserts check instructions:
+performance. To deal with this the compiler inserts check instructions:
 
 ```
 mov [slot0], a
@@ -90,10 +90,10 @@ mov rbx, [slot0]
 add rax, rbx
 ```
 
-So in such uncommon case, where the argument of mul is not a small integer this
-code should somehow "deoptimize" from assembly code to the stack machine and
-continue execution in the interpreted version. Here is the position in
-optimized code, where it will stop:
+So in such an uncommon case, where the argument of `mul` is not a small integer, this
+code should somehow be "deoptimized" from assembly code to the stack machine and
+continue execution in the interpreted version. Here is the position in the
+optimized code where it will stop:
 
 ```
 mov [slot0], a
@@ -110,7 +110,7 @@ mov rbx, [slot0]
 add rax, rbx
 ```
 
-...and position in unoptimized code, where we do wish it to continue:
+...and position in unoptimized code, where would like it to continue:
 
 ```
 push a
@@ -123,10 +123,10 @@ add
 ret
 ```
 
-How could it do that? The simplest way is to just re-execute all code from the
+How could it do that? The simplest way is just to re-execute all code from the
 program's entry point using the input arguments. This solution is very limited
 though, because it is possible only if the optimized function was pure, or in
-other words had no instructions with side effects (like function call, ...).
+other words had no instructions with side effects (like function calls, etc...).
 
 The more general solution is to find all live values (the ones that may be used
 by later functions) at the deoptimization point, find their locations in both
@@ -168,7 +168,7 @@ v25 Simulate id=26 pop 1, push t19, var[3] = t2, var[4] = t20 <|@
 flag, which will print it out into the `hydrogen.cfg` or `hydrogen-<pid>.cfg`
 file).
 
-The thing is called `Simulate` not without a reason. Strip away all other
+The thing is called `Simulate` with good reason. Strip away all other
 instructions:
 
 ```
@@ -197,7 +197,7 @@ _Note that this "simulation" happens at compile-time, not when actually
 deoptimizing._
 
 These states could be used to map the values from optimized to unoptimized code.
-For example, if we would like to "deoptimize" at `t56` - we will find the latest
+For example, if we would like to "deoptimize" at `t56`, we will have to find the latest
 state which was at `v17`: `var = { 3: t13 }, stack = [ t3, t4, t8 ]`, and just
 place the present values into a proper stack slots and local variables (for
 `var` ones).
@@ -230,7 +230,7 @@ additional stuff (like JS context, `this`, arguments, and the function itself):
 
 ![Callstack](/images/callstack.png)
 
-Ignoring all internal frame things, the interesting part would be:
+Ignoring all the internal frame things, the interesting part would be:
 
 ```
 translating outer => node=24, height=8
@@ -248,20 +248,20 @@ The high-level IR of the code that generated this trace contained:
 
 There is only one simulate instruction, and the state is: `stack = [t3, t4]`.
 (Sorry ignoring the local variables for this blog post).
-Thus deoptimizer needs to put values of `t3` and `t4` instructions into the
+Thus the deoptimizer needs to put the values of the `t3` and `t4` instructions into the
 stack slots. This information was stored ahead of time, and will be looked up
-right when deoptimizing the things. Here `t3` was in `[sp + 24]` stack slot in
-optimized code, and `t4` was in `rax` register. This process is called
-"translation of frame". After it the execution will be redirected to unoptimized
-code which will just continue operating on the values at the place, where the
+right when deoptimizing the things. Here `t3` was in the `[sp + 24]` stack slot in
+the optimized code, and `t4` was in the `rax` register. This process is called a
+"translation of frame". After it the execution will be redirected to the unoptimized
+code which will just continue operating on the values at the place where the
 optimized code has been "deoptimized".
 
 ## Culmination
 
 The "deoptimizer" is really an interesting tool, and it is the one of the main
-cogs in the [Crankshaft][1]'s engine. This instrument helps compiler in
+cogs in [Crankshaft][1]'s engine. This instrument helps the compiler in
 executing the dynamic-language code as if it have been written in C++, because
-it could always return to the slow unoptimized code with a "true" JavaScript
+it could always return to the slow unoptimized code with "true" JavaScript
 semantics.
 
 _Note that things are a bit more tricky with inlined functions, but this is a
