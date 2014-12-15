@@ -5,19 +5,18 @@ probably be used in compiler implementation at some point. I am always amazed
 by the findings during v8 bug triaging or just random code exploration.
 
 The interesting thing about v8 that I was always passionate about, but never
-truly understood was Deoptimizer. The idea here is that the v8 is optimizing
-some code to make it run faster, but this optimization relies on assumptions
+truly understood was the Deoptimizer. The idea here is that v8 optimizes
+code to make it run faster, but this optimization relies on assumptions
 about types, ranges, actual values, const-ness, etc. Assuming this implies that
-the optimized code won't run when these conditions are not met, and since the
-program should not change it's behavior the compiler needs to "deoptimize" it by
-returning to the previous "no-assumptions" version of generated code when the
-assumptions are failing.
+the optimized code won't run when these conditions are not met,
+the compiler needs to "deoptimize" it by returning to the previous
+"no-assumptions" version of generated code when the assumptions are failing.
 
 Technically it means that the compiler is in fact two compilers:
 baseline and optimized. (Or even more, if we are talking about JSC and
-SpiderMonkey). The concept is quite sound and yields incredible performance, but
-there is a nuance: the optimized code may "deoptimize" in various places, not
-just at the entry point, meaning that the environment (local variables,
+SpiderMonkey). The concept is quite sound and can yield incredible performance,
+but there is a nuance: the optimized code may "deoptimize" in various places,
+not just at the entry point, meaning that the environment (local variables,
 arguments, context) should be mapped and moved around.
 
 ## Stack machines
@@ -45,9 +44,9 @@ Interpreter will execute instructions one-by-one, maintaining the stack at every
 point.
 
 Now we let's imagine some register machine (like x86_64), and write down
-the same program in the assembly language. To make it a bit more interesting -
+the same program in assembly language. To make it a bit more interesting -
 consider that the target architecture has only two registers and the rest of the
-values needs to be stored in the memory (on-stack).
+values needs to be stored in memory (on-stack).
 
 ```asm
 mov [slot0], a   ; store value in 0 memory slot
@@ -63,10 +62,10 @@ add rax, rbx     ; rax = b * c * d + a
 Instructions are executed one-by-one, maintaining the register values and
 memory slots.
 
-In terms of our compiler the former code is unoptimized version of our program,
-and the latter one is optimized. In fact, this is a completely valid claim if we
-would like to run it on x86_64 platform, as assembly has much higher execution
-speed than interpreted code that needs to be emulated.
+In terms of our compiler the former code is an unoptimized version of our
+program, and the latter one is optimized. In fact, this is a completely valid
+claim if we would like to run it on x86_64 platform, as assembly has much higher
+execution speed than interpreted code that needs to be emulated.
 
 Suppose that the second `mul` instruction in assembly works only when the `d`
 (which is in `rbx` register) is a small integer. Now if the execution will
@@ -91,7 +90,7 @@ mov rbx, [slot0]
 add rax, rbx
 ```
 
-So in such weird case, where the argument of mul is not a small integer this
+So in such uncommon case, where the argument of mul is not a small integer this
 code should somehow "deoptimize" from assembly code to the stack machine and
 continue execution in the interpreted version. Here is the position in
 optimized code, where it will stop:
@@ -134,8 +133,8 @@ by later functions) at the deoptimization point, find their locations in both
 optimized and unoptimized code, and copy the values from the registers/memory
 to stack machine's slot.
 
-This is exactly what "deoptimizer" in v8 does. The main difference from our
-imaginer example is that both unoptimized and optimized codes are in `x86_64`
+This is exactly what the "deoptimizer" in v8 does. The main difference from our
+imaginary example is that both unoptimized and optimized codes are in `x86_64`
 assembly language.
 
 ## Simulates
@@ -268,8 +267,12 @@ semantics.
 _Note that things are a bit more tricky with inlined functions, but this is a
 topic for another blog post._
 
-_Big kudos to Vyacheslav Egorov for proof-reading this and providing some
-feedback_
+_Big kudos to_:
+
+* _Vyacheslav Egorov_
+* _Ben Noordhuis_
+
+_for proof-reading this and providing valuable feedback._
 
 [0]: https://www.youtube.com/watch?v=tf6YTgO6Org
 [1]: http://blog.chromium.org/2010/12/new-crankshaft-for-v8.html
