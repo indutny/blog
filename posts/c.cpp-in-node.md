@@ -45,7 +45,7 @@ class Point {
 Avoid storing different types of values in a variables, and avoid passing
 different types of values as an arguments to the function. This principle could
 also be called "Make your code monomorphic", or "don't mess with Compiler".
-This is makes code look like as it has static typing, which is what we do in
+This makes code look like as it has static typing, which is what we do in
 C++.
 
 ```javascript
@@ -68,7 +68,7 @@ int add(int x, int y) {
 ### Cache and Reuse
 
 Cache and reuse instances of objects that are expensive to create and are
-allocated often. This is one is the same as a manual memory allocation in C++.
+allocated often. This is one is similar to manual memory allocation in C++.
 
 ```javascript
 function Parser() {
@@ -95,14 +95,14 @@ delete p;
 To conclude, even if you never wrote C++ code, you actually very likely did it
 in JS.
 
-No surprise we use C++ in io.js/node.js. After all V8 is written in C++ and it
-provides only a limited ECMAScript JavaScript APIs. They are
-definitely cool, but if you got used to the `setTimeout()` / `clearTimeout()` -
-you'll be pretty disappointed to use just a plain ECMA.
+It is no surprise we use C++ in io.js/node.js. After all, V8 is written in C++
+and it provides only a limited set of ECMAScript JavaScript APIs. They are
+definitely cool, but if you got used to `setTimeout()` / `clearTimeout()` -
+you'll be pretty disappointed to use just plain ECMA.
 
 Our C++ layer lives on top of the event-loop and provides all sorts of APIs:
 from net sockets to dns queries, from file system events to the zlib bindings.
-Which is the main reason why node.js was created in a first place!
+Which is the main reason why node.js was created in the first place!
 
 ## Short History of C++ layer
 
@@ -157,7 +157,7 @@ the JavaScript source file, feeding all of these into V8, and starting the HTTP
 server.
 
 Second C++ file was `js_http_request_processor.cc` and it was responsible for
-invoking JavaScript http request handler. Not that much for a separate C++
+invoking the JavaScript http request handler. Not that much for a separate C++
 file, right?
 
 It wasn't working that much at that point, and didn't have any of
@@ -167,7 +167,7 @@ quickly.
 This version is characterized by following:
 
 * One file to setup V8 and let JavaScript know about command-line arguments
-* HTTP server fully implemented in C/C++, not invoking JavaScript for any
+* HTTP server fully implemented in C/C++, not invoking the JavaScript for any
   networking activities
 * One C++ instance per every incoming request, this instance maps some of the
   HTTP fields (like host, url, method) to the JavaScript object.
@@ -186,7 +186,7 @@ And this is the point where node.js has introduced one API to wrap all objects.
 
 `net.Server`, `net.Socket`, and `File` C++ classes are children of this
 `ObjectWrap` class. Which means that for every instance of them -
-there will be one instance of JS object. Invoking methods on this JS object
+there will be one instance of a JS object. Invoking methods on this JS object
 will invoke C++ methods on the corresponding C++ class, and the constructor
 itself is a C++ class constructor.
 
@@ -265,8 +265,8 @@ operation (i.e. http, dns, tls) and which might have the another `AsyncWrap` as
 a parent. Note that `ObjectWrap` lives in `src/node_object_wrap.h`, and
 `AsyncWrap` in `src/async-wrap.h`.
 
-This is a present point of the node.js evolution, and like to stop with the
-Software Archeology at this point.
+This is now the present point of the node.js evolution, and I would like to
+stop with the Software Archeology at this point.
 
 ## Interoperation, handles, wraps, and unicorns!
 
@@ -280,19 +280,19 @@ C++ counterparts.
 When you call `require('fs')` - it does nothing but just executes the contents
 of the `lib/fs.js` file. No magic here.
 
-Now comes the interesting part, JavaScript is not capable of the file system
+Now comes the interesting part, JavaScript is not capable of file system
 operations, nor it is capable of networking. This is actually for the
-best! (You don't want your browser to mess up with the whole file system,
+best! (You don't want your browser to mess up whole file system,
 right?) So when you do `fs.writeFileSync`, or when you are calling
-`http.request()` there are lots of low-level C++ stuff happening outside of the
+`http.request()` there is a lot of low-level C++ stuff happening outside of the
 JS-land.
 
 While the `fs` module is quite simple to explain, it is quite boring too. After
-all, in the most of the cases it is just using number to represent the opened
+all, in most of the cases it is just using number to represent the opened
 file (so called `file descriptor`), and it is passing this number around:
 from C++ to JS, and from JS to C++. Nothing interesting, let's move on!
 
-Certainly much more attracting is the `net` module. We create sockets, get
+Certainly much more attractive is the `net` module. We create sockets, get
 the `connect` events, and expect the `.write()` callbacks to be eventually
 invoked. All of these should be powered by the C++ machinery!
 
@@ -303,19 +303,19 @@ ShutdownWrap.
 
 * `TCP` holds the TCP socket and provides methods for writing and reading
   stuff
-* `*Wrap` objects is what you pass to the `TCP` methods when you expect
+* `*Wrap` objects are what you pass to the `TCP` methods when you expect
   some async action to happen, and need to receive notification (callback) on
-  its completion.
+  their completion.
 
 For example, the normal workflow for `net.connect()` follows:
 
 * Create `TCP` instance in `lib/net.js`, store it in the `_handle` property of
   the `net.Socket` object
-* Parse all arguments to the `net.connect()`
+* Parse all arguments to `net.connect()`
 * Create `TCPConnectWrap` instance (usually named `req`)
 * Invoke `.connect()` method with `req, port, host`
 * Get `req.oncomplete` function invoked eventually, once the connection was
-  established, or once the kernel reported a error
+  established, or once the kernel reported an error
 
 In conclusion: most of the C++ classes are either handles, or requests.
 Requests are very temporary and never outlive the handle that they are bound to,
@@ -328,10 +328,10 @@ is in the `stream_base.cc` file (in io.js).
 
 ## Structure of C++ files
 
-But how does the C++ provide this classes to the JavaScript?
+But how does the C++ provide this classes to JavaScript?
 
-Each binding has `NODE_MODULE_CONTEXT_AWARE_BUILTIN` macro that registers it in
-the `node.cc`. This has the same effect as following JavaScript snippet:
+Each binding has a `NODE_MODULE_CONTEXT_AWARE_BUILTIN` macro that registers it
+in the `node.cc`. This has the same effect as following JavaScript snippet:
 
 ```javascript
 modules[moduleName] = {
@@ -357,11 +357,11 @@ process.binding = function(moduleName) {
 ```
 
 This initialization function receives `exports` object as an input, and exports
-the methods and classes to it in a pretty much the same way as you normally do
-in a CommonJS modules.
+the methods and classes to it in pretty much the same way as you normally do
+in CommonJS modules.
 
 Each of the exported classes are bound to some C++ classes, and most of them are
-actually an `AsyncWrap` C++ class children.
+actually derived from the `AsyncWrap` C++ class.
 
 The Handle instances are destroyed automatically by V8's GC (once they are
 closed in JS), and the Wraps are manually destroyed by the Handle, once they are
@@ -370,7 +370,7 @@ not used anymore.
 Side-note:
 
 there are two types of references to the JS
-objects from C++ land: normal and weak. By default `AsyncWrap`s a referencing
+objects from C++ land: normal and weak. By default `AsyncWrap`s are referencing
 their objects in a `normal` way, which means that the JS objects representing
 the C++ classes won't be garbage collected until C++ class will dispose the
 reference. The weak mode is turned on only when the `MakeWeak` is called
@@ -382,7 +382,7 @@ somewhere in C++. This might be very useful when debugging memory leaks.
 
 You debug some io.js/node.js issue, and find that it is crashing when
 instantiating a class provided by `process.binding('broken')`. Where will you
-attempt to search the C++ source code of that class?
+attempt to search for the C++ source code of that class?
 
 ### Answer
 
@@ -395,17 +395,17 @@ in `src/broken_something.cc`.
 Now comes one of my recent obsessions. The C++ Stream API.
 
 It is a established fact for me that exposing the building blocks of APIs helps
-to renovate, reshape and make them better *a lot*. One of such things that I was
-always keen to re-do was a `StreamWrap` instance.
+to renovate, reshape and make them better *a lot better*. One of such thing
+that I was always keen to re-do was a `StreamWrap` instance.
 
-It was ok-ish in v0.10, but when we moved TLS (SSL) implementation into the C++
-land - it has changed dramatically... and, honestly saying, not in a good way.
+It was ok-ish in v0.10, but when we moved TLS (SSL) implementation into C++
+land it changed dramatically... and, honestly saying, not in a good way.
 
-Previously singular `StreamWrap` instance, now became a monster that was capable
-of passing the incoming data elsewhere, skipping the JavaScript callbacks
-completely and doing some dark-magic OpenSSL machinery on top of it. The
-implementation worked like a charm, providing much better TLS performance, but
-the source code became cluttered and rigid.
+The previously singular `StreamWrap` instance, now became a monster that was
+capable of passing the incoming data elsewhere, skipping the JavaScript
+callbacks completely and doing some dark-magic OpenSSL machinery on top of it.
+The implementation worked like a charm, providing much better TLS performance,
+but the source code became cluttered and rigid.
 
 This "move-parsing-to-elsewhere" thing reminded me a lot about the
 `stream.pipe` that we had for JavaScript streams for ages. The natural thing to
@@ -415,7 +415,7 @@ exactly what was done in io.js, and the results of this live in
 
 ## Next step with the C++ Stream APIs
 
-Now we have very general implementation of this thing that could be reused in
+Now we have a very general implementation of this thing that could be reused in
 many places. The first thing that I expect will be using this might be an
 HTTP2 stream. To do it in core, we should do it in user-land first, and it could
 be accomplished only by exposing the C++ Stream API, in the same way as we did
