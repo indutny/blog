@@ -1,10 +1,11 @@
 var spdy = require('spdy'),
     express = require('express'),
+    st = require('st'),
+    bodyParser = require('body-parser'),
     io = require('socket.io'),
     jade = require('jade'),
     path = require('path'),
     http = require('http'),
-    gzip = require('crafity-gzip'),
     app = express(),
     config = require('./config.json');
 
@@ -37,20 +38,17 @@ app.use(function(req, res, next) {
   }
   next();
 });
-app.use(express.staticCache());
-app.use(gzip.gzip({ matchType: /css|javascript|woff/ }));
-app.use(express.static(path.resolve(__dirname, 'public')));
-app.use(express.bodyParser());
-app.use(app.router);
 
-app.engine('jade', jade.__express);
+app.use(bodyParser.json());
 
 // Add routes
 require('./app/routes').add(app);
 
+app.use(st(path.resolve(__dirname, 'public')));
+
+app.engine('jade', jade.__express);
+
 io = io.listen(server);
-io.enable('browser client minification');
-io.disable('log');
 
 app.io = io;
 
