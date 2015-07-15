@@ -27,7 +27,11 @@ vhosts.unshift({
   })
 });
 
-var server = spdy.createServer({ plain: true, ssl: false }, app);
+var server = spdy.createServer({
+  spdy: {
+    plain: true
+  }
+}, app);
 
 app.use(function(req, res, next) {
   if (req.headers.host === 'blog.indutny.com') {
