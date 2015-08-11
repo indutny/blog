@@ -1,5 +1,6 @@
 var spdy = require('spdy'),
     express = require('express'),
+    heapdump = require('heapdump'),
     st = require('st'),
     bodyParser = require('body-parser'),
     io = require('socket.io'),
