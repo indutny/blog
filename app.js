@@ -36,10 +36,11 @@ var server = spdy.createServer({
 
 app.use(function(req, res, next) {
   if (req.headers.host === 'blog.indutny.com') {
-    if (req.headers['x-forwarded-for'])
-      res.setHeader('X-Got-Forwarded-For', req.headers['x-forwarded-for']);
-    res.setHeader('Strict-Transport-Security',
-                  'max-age=31536000; includeSubDomains');
+    res.writeHead(301, {
+      'Location': 'http://darksi.de' + req.url
+    });
+    res.end();
+    return;
   }
   next();
 });
@@ -47,11 +48,11 @@ app.use(function(req, res, next) {
 app.use(bodyParser.json());
 
 // Add routes
-require('./app/routes').add(app);
+// require('./app/routes').add(app);
 
-app.use(st(path.resolve(__dirname, 'public')));
+// app.use(st(path.resolve(__dirname, 'public')));
 
-app.engine('jade', jade.__express);
+// app.engine('jade', jade.__express);
 
 io = io.listen(server);
 
