@@ -11,7 +11,7 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
-    "deploy": "npm run generate && gh-pages -d dist"
+    "deploy": "npm run generate && push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
     "bootstrap": "^4.1.3",
@@ -29,10 +29,10 @@
     "eslint-loader": "^2.0.0",
     "eslint-plugin-prettier": "2.6.2",
     "eslint-plugin-vue": "^4.0.0",
-    "gh-pages": "^2.0.1",
     "highlight.js": "^9.13.1",
     "nodemon": "^1.11.0",
     "prettier": "1.14.3",
+    "push-dir": "^0.4.1",
     "vue-octicon": "^2.1.1"
   }
 }
