@@ -5,7 +5,7 @@
       <li
         v-for="post in posts"
         :key="post.slug">
-        <nuxt-link :to="`/${post.slug}`">{{ post.title }}</nuxt-link>
+        <nuxt-link :to="`/${post.slug}/`">{{ post.title }}</nuxt-link>
         /
         {{ formatDate(post.date) }}
       </li>

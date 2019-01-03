@@ -8,6 +8,7 @@ import posts from '~/src/posts';
 
 export default {
   components: { mPost },
+  middleware: 'force-dir',
 
   validate({ params }) {
     return posts.some(post => post.slug === params.slug);
