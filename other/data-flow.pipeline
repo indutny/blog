@@ -1,0 +1,34 @@
+pipeline {
+  b0 {
+    i0 = literal 0
+    i1 = array
+    i2 = jump ^b0
+  }
+  b0 -> b1
+  b1 {
+    i3 = ssa:phi ^b1, i0, i15
+    i4 = ssa:phi ^i3, i1, i13
+    i5 = loadArrayLength i4
+    i6 = jump ^i4
+  }
+  b1 -> b2
+  b2 {
+    i7 = cmp "<", i3, i5
+    i8 = if ^b2, i7
+  }
+  b2 -> b3, b4
+  b3 {
+    i9 = checkRange i4, i3
+    i10 = load i9, i3
+    i11 = literal 1
+    i12 = add i10, i11
+    i13 = store ^b3, i9, i3, i12
+    i14 = literal 1
+    i15 = add i3, i14
+    i16 = jump ^i13
+  }
+  b3 -> b1
+  b4 {
+    i17 = return ^b4
+  }
+}
