@@ -28,6 +28,10 @@ export default {
     }
 
     return { post: match };
+  },
+
+  head() {
+    return { title: this.post.title };
   }
 };
 </script>
