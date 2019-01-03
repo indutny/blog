@@ -28,12 +28,6 @@ export default {
     }
 
     return { post: match };
-  },
-
-  head: () => {
-    return {
-      script: [{ src: 'https://vote.wdgt.io/cdn/snippet-v2.js', defer: '' }]
-    };
   }
 };
 </script>

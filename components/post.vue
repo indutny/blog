@@ -18,6 +18,9 @@
         :src="script"
         async/>
     </template>
+    <script
+      src="https://vote.wdgt.io/cdn/snippet-v2.js"
+      async/>
   </section>
 </template>
 
