@@ -1,0 +1,5 @@
+# No robots
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /js/
+Disallow: /images/

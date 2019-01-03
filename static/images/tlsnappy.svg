@@ -1,0 +1,496 @@
+<?xml version="1.0"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" width="1200" height="964" onload="init(evt)" viewBox="0 0 1200 964" xmlns="http://www.w3.org/2000/svg" >
+    <defs >
+        <linearGradient id="background" y1="0" y2="1" x1="0" x2="0" >
+            <stop stop-color="#eeeeee" offset="5%" />
+            <stop stop-color="#eeeeb0" offset="95%" />
+        </linearGradient>
+    </defs>
+    <style type="text/css" >
+	rect[rx]:hover { stroke:black; stroke-width:1; }
+	text:hover { stroke:black; stroke-width:1; stroke-opacity:0.35; }
+    </style>
+    <script type="text/ecmascript" >
+	var details;
+	function init(evt) {
+		details = document.getElementById(&quot;details&quot;).
+		    firstChild;
+	}
+	function s(info) { details.nodeValue = info; }
+	function c() { details.nodeValue = &quot; &quot;; }
+    </script>
+    <rect x="0.0" y="0.0" width="1200.0" height="964.0" fill="url(#background)" />
+    <text text-anchor="middle" x="600" y="24" font-size="17" font-family="Verdana" fill="rgb(0, 0, 0)" >Flame Graph</text>
+    <text text-anchor="left" x="10" y="48" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" >Function:</text>
+    <text text-anchor="left" x="70" y="48" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" id="details" > </text>
+    <rect x="10.8" y="755" width="1.2" height="15.0" fill="rgb(206,146,144)" rx="2" ry="2" onmouseover="s(&quot;node`_sse_AES_encrypt_compact (22 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="10.6" y="771" width="1.4" height="15.0" fill="rgb(205,144,143)" rx="2" ry="2" onmouseover="s(&quot;0x1744975f (26 samples, 0.12%)&quot;)" onmouseout="c()" />
+    <rect x="21.8" y="755" width="1.8" height="15.0" fill="rgb(206,146,144)" rx="2" ry="2" onmouseover="s(&quot;node`_sse_AES_decrypt_compact (33 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="21.7" y="771" width="1.8" height="15.0" fill="rgb(205,144,143)" rx="2" ry="2" onmouseover="s(&quot;0xeadc674f (34 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="26.9" y="643" width="1.3" height="15.0" fill="rgb(213,159,148)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`sema_wait_impl (24 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="26.4" y="659" width="1.9" height="15.0" fill="rgb(212,157,148)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`sema_wait (35 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="26.2" y="675" width="2.1" height="15.0" fill="rgb(211,155,147)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`sem_wait (39 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="26.1" y="691" width="2.3" height="15.0" fill="rgb(210,153,146)" rx="2" ry="2" onmouseover="s(&quot;node`uv_sem_wait (42 samples, 0.19%)&quot;)" onmouseout="c()" />
+    <rect x="28.5" y="675" width="3.7" height="15.0" fill="rgb(211,155,146)" rx="2" ry="2" onmouseover="s(&quot;node`SSL_free (68 samples, 0.31%)&quot;)" onmouseout="c()" />
+    <rect x="28.5" y="691" width="3.8" height="15.0" fill="rgb(210,153,146)" rx="2" ry="2" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy6Socket5CloseEv (70 samples, 0.32%)&quot;)" onmouseout="c()" />
+    <rect x="33.2" y="675" width="1.3" height="15.0" fill="rgb(211,156,147)" rx="2" ry="2" onmouseover="s(&quot;node`SSL_new (24 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="35.7" y="563" width="1.1" height="15.0" fill="rgb(217,169,152)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`vmem_xalloc (21 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="35.6" y="579" width="1.2" height="15.0" fill="rgb(217,167,151)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`vmem_alloc (23 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="35.6" y="595" width="1.2" height="15.0" fill="rgb(216,165,150)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_alloc (23 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="35.6" y="611" width="1.2" height="15.0" fill="rgb(215,163,150)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`malloc (23 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="35.6" y="627" width="1.2" height="15.0" fill="rgb(214,161,149)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_malloc (23 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="35.6" y="643" width="1.2" height="15.0" fill="rgb(213,159,148)" rx="2" ry="2" onmouseover="s(&quot;node`BUF_MEM_grow (23 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="37.2" y="643" width="1.1" height="15.0" fill="rgb(213,159,149)" rx="2" ry="2" onmouseover="s(&quot;node`ssl23_get_client_hello (21 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="40.5" y="611" width="1.3" height="15.0" fill="rgb(215,163,150)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_digest_cached_records (24 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="41.9" y="611" width="1.3" height="15.0" fill="rgb(215,163,150)" rx="2" ry="2" onmouseover="s(&quot;node`ssl_bytes_to_cipher_list (24 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="45.5" y="563" width="1.2" height="15.0" fill="rgb(217,169,152)" rx="2" ry="2" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappyL14crypto_lock_cbEiiPKci (22 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="44.5" y="579" width="2.2" height="15.0" fill="rgb(217,167,151)" rx="2" ry="2" onmouseover="s(&quot;node`ssleay_rand_bytes (40 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="44.3" y="595" width="2.5" height="15.0" fill="rgb(216,165,150)" rx="2" ry="2" onmouseover="s(&quot;node`def_generate_session_id (46 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="43.3" y="611" width="3.5" height="15.0" fill="rgb(215,163,149)" rx="2" ry="2" onmouseover="s(&quot;node`ssl_get_new_session (64 samples, 0.29%)&quot;)" onmouseout="c()" />
+    <rect x="47.7" y="595" width="1.2" height="15.0" fill="rgb(216,165,150)" rx="2" ry="2" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappyL14crypto_lock_cbEiiPKci (22 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="46.7" y="611" width="2.2" height="15.0" fill="rgb(215,163,150)" rx="2" ry="2" onmouseover="s(&quot;node`ssleay_rand_bytes (40 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="39.6" y="627" width="9.3" height="15.0" fill="rgb(214,159,147)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_get_client_hello (172 samples, 0.79%)&quot;)" onmouseout="c()" />
+    <rect x="49.5" y="611" width="3.6" height="15.0" fill="rgb(215,163,149)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_output_cert_chain (66 samples, 0.30%)&quot;)" onmouseout="c()" />
+    <rect x="48.9" y="627" width="4.2" height="15.0" fill="rgb(214,161,148)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_send_server_certificate (78 samples, 0.36%)&quot;)" onmouseout="c()" />
+    <rect x="53.9" y="627" width="1.2" height="15.0" fill="rgb(214,161,149)" rx="2" ry="2" onmouseover="s(&quot;node`ssleay_rand_add (22 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="38.4" y="643" width="16.7" height="15.0" fill="rgb(213,155,144)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_accept (310 samples, 1.42%)&quot;)" onmouseout="c()" />
+    <rect x="56.0" y="643" width="1.1" height="15.0" fill="rgb(213,159,149)" rx="2" ry="2" onmouseover="s(&quot;node`ssleay_rand_add (21 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="34.8" y="659" width="22.4" height="15.0" fill="rgb(212,152,141)" rx="2" ry="2" onmouseover="s(&quot;node`ssl23_accept (415 samples, 1.90%)&quot;)" onmouseout="c()" />
+    <rect x="34.7" y="675" width="22.6" height="15.0" fill="rgb(211,150,141)" rx="2" ry="2" onmouseover="s(&quot;node`ssl23_read (418 samples, 1.91%)&quot;)" onmouseout="c()" />
+    <rect x="60.2" y="611" width="1.0" height="15.0" fill="rgb(215,163,150)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_get_message (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="60.2" y="627" width="1.1" height="15.0" fill="rgb(214,161,149)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_check_client_hello (20 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="61.9" y="579" width="1.2" height="15.0" fill="rgb(217,167,151)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_mac (22 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="61.5" y="595" width="1.6" height="15.0" fill="rgb(216,165,150)" rx="2" ry="2" onmouseover="s(&quot;node`do_ssl3_write (29 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="61.4" y="611" width="1.6" height="15.0" fill="rgb(215,163,150)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_write_bytes (30 samples, 0.14%)&quot;)" onmouseout="c()" />
+    <rect x="61.3" y="627" width="1.7" height="15.0" fill="rgb(214,161,149)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_do_write (32 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="64.1" y="563" width="1.7" height="15.0" fill="rgb(217,169,152)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_change_cipher_state (31 samples, 0.14%)&quot;)" onmouseout="c()" />
+    <rect x="66.6" y="499" width="1.0" height="15.0" fill="rgb(221,177,154)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_free (18 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="66.3" y="515" width="1.2" height="15.0" fill="rgb(220,175,153)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (23 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="67.7" y="483" width="1.0" height="15.0" fill="rgb(222,179,155)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_copy (18 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="67.6" y="499" width="1.1" height="15.0" fill="rgb(221,177,154)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_dup (20 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="67.6" y="515" width="1.1" height="15.0" fill="rgb(220,175,153)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_copy_ex (21 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="66.3" y="531" width="3.0" height="15.0" fill="rgb(219,172,152)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestSignFinal (55 samples, 0.25%)&quot;)" onmouseout="c()" />
+    <rect x="69.3" y="531" width="1.1" height="15.0" fill="rgb(219,173,153)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (20 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="70.4" y="531" width="1.1" height="15.0" fill="rgb(219,173,153)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_new_mac_key (21 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="71.8" y="467" width="2.2" height="15.0" fill="rgb(223,180,154)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_Init_ex (40 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="71.6" y="483" width="2.6" height="15.0" fill="rgb(222,178,153)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_ctrl (48 samples, 0.22%)&quot;)" onmouseout="c()" />
+    <rect x="71.6" y="499" width="2.6" height="15.0" fill="rgb(221,176,152)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_ctrl (48 samples, 0.22%)&quot;)" onmouseout="c()" />
+    <rect x="71.6" y="515" width="2.6" height="15.0" fill="rgb(220,174,152)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestInit_ex (49 samples, 0.22%)&quot;)" onmouseout="c()" />
+    <rect x="71.5" y="531" width="3.1" height="15.0" fill="rgb(219,172,152)" rx="2" ry="2" onmouseover="s(&quot;node`do_sigver_init (57 samples, 0.26%)&quot;)" onmouseout="c()" />
+    <rect x="66.2" y="547" width="8.4" height="15.0" fill="rgb(218,169,150)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_PRF.constprop.0 (155 samples, 0.71%)&quot;)" onmouseout="c()" />
+    <rect x="65.8" y="563" width="8.8" height="15.0" fill="rgb(217,167,149)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_final_finish_mac (163 samples, 0.75%)&quot;)" onmouseout="c()" />
+    <rect x="75.7" y="483" width="1.0" height="15.0" fill="rgb(222,179,155)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`free (18 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="75.7" y="499" width="1.1" height="15.0" fill="rgb(221,177,154)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_free (20 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="79.9" y="371" width="1.8" height="15.0" fill="rgb(229,191,155)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_cache_free (34 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="79.5" y="387" width="2.3" height="15.0" fill="rgb(228,189,154)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_free (42 samples, 0.19%)&quot;)" onmouseout="c()" />
+    <rect x="79.0" y="403" width="2.8" height="15.0" fill="rgb(227,186,153)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`process_free (52 samples, 0.24%)&quot;)" onmouseout="c()" />
+    <rect x="78.7" y="419" width="3.0" height="15.0" fill="rgb(226,184,152)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`free (56 samples, 0.26%)&quot;)" onmouseout="c()" />
+    <rect x="78.6" y="435" width="3.1" height="15.0" fill="rgb(225,182,152)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_free (58 samples, 0.27%)&quot;)" onmouseout="c()" />
+    <rect x="77.9" y="451" width="3.9" height="15.0" fill="rgb(224,180,151)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (72 samples, 0.33%)&quot;)" onmouseout="c()" />
+    <rect x="77.6" y="467" width="4.8" height="15.0" fill="rgb(223,178,150)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_cleanup (89 samples, 0.41%)&quot;)" onmouseout="c()" />
+    <rect x="77.5" y="483" width="4.9" height="15.0" fill="rgb(222,176,150)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_cleanup (91 samples, 0.42%)&quot;)" onmouseout="c()" />
+    <rect x="76.7" y="499" width="5.9" height="15.0" fill="rgb(221,174,149)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_free (110 samples, 0.50%)&quot;)" onmouseout="c()" />
+    <rect x="75.5" y="515" width="7.2" height="15.0" fill="rgb(220,171,148)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (133 samples, 0.61%)&quot;)" onmouseout="c()" />
+    <rect x="85.2" y="451" width="1.4" height="15.0" fill="rgb(224,182,155)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`memcpy (26 samples, 0.12%)&quot;)" onmouseout="c()" />
+    <rect x="89.2" y="371" width="1.0" height="15.0" fill="rgb(229,193,157)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`mutex_unlock (18 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="88.2" y="387" width="2.1" height="15.0" fill="rgb(228,189,154)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_cache_alloc (38 samples, 0.17%)&quot;)" onmouseout="c()" />
+    <rect x="87.5" y="403" width="2.7" height="15.0" fill="rgb(227,187,153)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_alloc (50 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="87.4" y="419" width="2.8" height="15.0" fill="rgb(226,185,153)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`malloc (52 samples, 0.24%)&quot;)" onmouseout="c()" />
+    <rect x="87.2" y="435" width="3.1" height="15.0" fill="rgb(225,182,152)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_malloc (58 samples, 0.27%)&quot;)" onmouseout="c()" />
+    <rect x="86.7" y="451" width="4.3" height="15.0" fill="rgb(224,180,151)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_copy_ex (80 samples, 0.37%)&quot;)" onmouseout="c()" />
+    <rect x="84.8" y="467" width="6.5" height="15.0" fill="rgb(223,177,148)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_copy (121 samples, 0.55%)&quot;)" onmouseout="c()" />
+    <rect x="91.6" y="419" width="1.0" height="15.0" fill="rgb(226,187,156)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_alloc (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="91.5" y="435" width="1.1" height="15.0" fill="rgb(225,185,156)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`malloc (20 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="91.5" y="451" width="1.1" height="15.0" fill="rgb(224,183,155)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_malloc (20 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="91.5" y="467" width="1.7" height="15.0" fill="rgb(223,180,154)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_init (31 samples, 0.14%)&quot;)" onmouseout="c()" />
+    <rect x="84.7" y="483" width="8.4" height="15.0" fill="rgb(222,173,146)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_copy (156 samples, 0.71%)&quot;)" onmouseout="c()" />
+    <rect x="83.2" y="499" width="10.0" height="15.0" fill="rgb(221,171,145)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_dup (186 samples, 0.85%)&quot;)" onmouseout="c()" />
+    <rect x="82.7" y="515" width="10.5" height="15.0" fill="rgb(220,170,145)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_copy_ex (195 samples, 0.89%)&quot;)" onmouseout="c()" />
+    <rect x="94.6" y="483" width="1.3" height="15.0" fill="rgb(222,179,154)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestFinal_ex (24 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="93.5" y="499" width="2.9" height="15.0" fill="rgb(221,176,152)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_Final (53 samples, 0.24%)&quot;)" onmouseout="c()" />
+    <rect x="93.3" y="515" width="3.1" height="15.0" fill="rgb(220,174,152)" rx="2" ry="2" onmouseover="s(&quot;node`hmac_signctx (57 samples, 0.26%)&quot;)" onmouseout="c()" />
+    <rect x="75.4" y="531" width="20.9" height="15.0" fill="rgb(219,164,140)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestSignFinal (388 samples, 1.77%)&quot;)" onmouseout="c()" />
+    <rect x="96.6" y="531" width="1.0" height="15.0" fill="rgb(219,173,153)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="97.9" y="531" width="1.4" height="15.0" fill="rgb(219,173,153)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_new_mac_key (26 samples, 0.12%)&quot;)" onmouseout="c()" />
+    <rect x="100.9" y="467" width="6.5" height="15.0" fill="rgb(223,177,148)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_Init_ex (120 samples, 0.55%)&quot;)" onmouseout="c()" />
+    <rect x="100.3" y="483" width="7.7" height="15.0" fill="rgb(222,174,147)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_ctrl (143 samples, 0.65%)&quot;)" onmouseout="c()" />
+    <rect x="100.1" y="499" width="7.9" height="15.0" fill="rgb(221,172,147)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_ctrl (146 samples, 0.67%)&quot;)" onmouseout="c()" />
+    <rect x="99.8" y="515" width="8.2" height="15.0" fill="rgb(220,171,147)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestInit_ex (152 samples, 0.70%)&quot;)" onmouseout="c()" />
+    <rect x="99.3" y="531" width="9.4" height="15.0" fill="rgb(219,169,148)" rx="2" ry="2" onmouseover="s(&quot;node`do_sigver_init (174 samples, 0.80%)&quot;)" onmouseout="c()" />
+    <rect x="108.7" y="531" width="1.4" height="15.0" fill="rgb(219,173,153)" rx="2" ry="2" onmouseover="s(&quot;node`int_update (26 samples, 0.12%)&quot;)" onmouseout="c()" />
+    <rect x="75.0" y="547" width="35.3" height="15.0" fill="rgb(218,162,139)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_PRF.constprop.0 (654 samples, 2.99%)&quot;)" onmouseout="c()" />
+    <rect x="74.6" y="563" width="35.7" height="15.0" fill="rgb(217,160,139)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_setup_key_block (662 samples, 3.03%)&quot;)" onmouseout="c()" />
+    <rect x="63.8" y="579" width="46.5" height="15.0" fill="rgb(217,156,136)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_do_change_cipher_spec (862 samples, 3.94%)&quot;)" onmouseout="c()" />
+    <rect x="110.6" y="579" width="1.6" height="15.0" fill="rgb(217,167,151)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_mac (30 samples, 0.14%)&quot;)" onmouseout="c()" />
+    <rect x="63.5" y="595" width="48.8" height="15.0" fill="rgb(216,153,135)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_read_bytes (904 samples, 4.13%)&quot;)" onmouseout="c()" />
+    <rect x="113.8" y="515" width="1.0" height="15.0" fill="rgb(220,175,153)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_copy (18 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="113.7" y="531" width="1.1" height="15.0" fill="rgb(219,173,153)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_dup (20 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="113.7" y="547" width="1.1" height="15.0" fill="rgb(218,171,152)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_copy_ex (20 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="112.8" y="563" width="2.3" height="15.0" fill="rgb(217,169,151)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestSignFinal (42 samples, 0.19%)&quot;)" onmouseout="c()" />
+    <rect x="115.4" y="547" width="1.0" height="15.0" fill="rgb(218,171,153)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_free (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="115.2" y="563" width="1.2" height="15.0" fill="rgb(217,169,152)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (23 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="116.5" y="563" width="1.1" height="15.0" fill="rgb(217,169,152)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_new_mac_key (20 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="117.8" y="499" width="2.0" height="15.0" fill="rgb(221,176,153)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_Init_ex (37 samples, 0.17%)&quot;)" onmouseout="c()" />
+    <rect x="117.7" y="515" width="2.2" height="15.0" fill="rgb(220,174,152)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_ctrl (41 samples, 0.19%)&quot;)" onmouseout="c()" />
+    <rect x="117.6" y="531" width="2.3" height="15.0" fill="rgb(219,172,152)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_ctrl (43 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="117.5" y="547" width="2.4" height="15.0" fill="rgb(218,171,152)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestInit_ex (44 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="117.5" y="563" width="2.9" height="15.0" fill="rgb(217,169,151)" rx="2" ry="2" onmouseover="s(&quot;node`do_sigver_init (54 samples, 0.25%)&quot;)" onmouseout="c()" />
+    <rect x="112.8" y="579" width="7.8" height="15.0" fill="rgb(217,166,149)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_PRF.constprop.0 (144 samples, 0.66%)&quot;)" onmouseout="c()" />
+    <rect x="112.3" y="595" width="8.3" height="15.0" fill="rgb(216,163,148)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_final_finish_mac (154 samples, 0.70%)&quot;)" onmouseout="c()" />
+    <rect x="63.2" y="611" width="57.4" height="15.0" fill="rgb(215,149,132)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_get_message (1064 samples, 4.87%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="66.19981710105168" y="621.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`ssl3_get_message (1064 samples, 4.87%)&quot;)" onmouseout="c()" >node`s..</text>
+    <rect x="63.0" y="627" width="57.6" height="15.0" fill="rgb(214,147,131)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_get_cert_verify (1068 samples, 4.88%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="66.0379515317787" y="637.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`ssl3_get_cert_verify (1068 samples, 4.88%)&quot;)" onmouseout="c()" >node`s..</text>
+    <rect x="121.2" y="547" width="1.0" height="15.0" fill="rgb(218,171,153)" rx="2" ry="2" onmouseover="s(&quot;node`BN_div (18 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="121.2" y="563" width="1.0" height="15.0" fill="rgb(217,169,152)" rx="2" ry="2" onmouseover="s(&quot;node`BN_nnmod (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="121.0" y="579" width="1.2" height="15.0" fill="rgb(217,167,151)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_mul (22 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="121.0" y="595" width="1.2" height="15.0" fill="rgb(216,165,150)" rx="2" ry="2" onmouseover="s(&quot;node`BN_BLINDING_invert_ex (23 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="125.5" y="579" width="1.4" height="15.0" fill="rgb(217,167,151)" rx="2" ry="2" onmouseover="s(&quot;node`BN_div (26 samples, 0.12%)&quot;)" onmouseout="c()" />
+    <rect x="126.9" y="579" width="2.1" height="15.0" fill="rgb(217,167,151)" rx="2" ry="2" onmouseover="s(&quot;node`BN_is_bit_set (38 samples, 0.17%)&quot;)" onmouseout="c()" />
+    <rect x="130.1" y="547" width="2.6" height="15.0" fill="rgb(218,171,152)" rx="2" ry="2" onmouseover="s(&quot;node`BN_from_montgomery_word (48 samples, 0.22%)&quot;)" onmouseout="c()" />
+    <rect x="133.8" y="531" width="1.5" height="15.0" fill="rgb(219,173,153)" rx="2" ry="2" onmouseover="s(&quot;node`bn_sqr_recursive (27 samples, 0.12%)&quot;)" onmouseout="c()" />
+    <rect x="133.4" y="547" width="1.8" height="15.0" fill="rgb(218,171,152)" rx="2" ry="2" onmouseover="s(&quot;node`BN_sqr (34 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="129.4" y="563" width="6.3" height="15.0" fill="rgb(217,168,150)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_mul_montgomery (116 samples, 0.53%)&quot;)" onmouseout="c()" />
+    <rect x="128.9" y="579" width="6.7" height="15.0" fill="rgb(217,166,149)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_exp_mont (125 samples, 0.57%)&quot;)" onmouseout="c()" />
+    <rect x="149.6" y="563" width="13.4" height="15.0" fill="rgb(217,166,147)" rx="2" ry="2" onmouseover="s(&quot;node`BN_CTX_end (248 samples, 1.13%)&quot;)" onmouseout="c()" />
+    <rect x="170.7" y="547" width="10.7" height="15.0" fill="rgb(218,168,149)" rx="2" ry="2" onmouseover="s(&quot;node`BN_CTX_end (199 samples, 0.91%)&quot;)" onmouseout="c()" />
+    <rect x="188.9" y="531" width="2.8" height="15.0" fill="rgb(219,172,152)" rx="2" ry="2" onmouseover="s(&quot;node`BN_set_word (51 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="181.4" y="547" width="10.3" height="15.0" fill="rgb(218,169,149)" rx="2" ry="2" onmouseover="s(&quot;node`BN_CTX_get (190 samples, 0.87%)&quot;)" onmouseout="c()" />
+    <rect x="191.7" y="547" width="5.3" height="15.0" fill="rgb(218,170,151)" rx="2" ry="2" onmouseover="s(&quot;node`BN_CTX_start (99 samples, 0.45%)&quot;)" onmouseout="c()" />
+    <rect x="197.0" y="547" width="86.9" height="15.0" fill="rgb(218,147,119)" rx="2" ry="2" onmouseover="s(&quot;node`BN_from_montgomery_word (1611 samples, 7.37%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="200.00868770004573" y="557.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`BN_from_montgomery_word (1611 samples, 7.37%)&quot;)" onmouseout="c()" >node`BN_fr..</text>
+    <rect x="287.5" y="531" width="1.5" height="15.0" fill="rgb(219,173,153)" rx="2" ry="2" onmouseover="s(&quot;node`BN_CTX_get (27 samples, 0.12%)&quot;)" onmouseout="c()" />
+    <rect x="290.6" y="531" width="1.1" height="15.0" fill="rgb(219,173,153)" rx="2" ry="2" onmouseover="s(&quot;node`bn_cmp_words (21 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="292.7" y="531" width="6.7" height="15.0" fill="rgb(219,170,149)" rx="2" ry="2" onmouseover="s(&quot;node`bn_mul_recursive (125 samples, 0.57%)&quot;)" onmouseout="c()" />
+    <rect x="283.9" y="547" width="15.8" height="15.0" fill="rgb(218,167,147)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mul (293 samples, 1.34%)&quot;)" onmouseout="c()" />
+    <rect x="310.5" y="515" width="1.7" height="15.0" fill="rgb(220,174,153)" rx="2" ry="2" onmouseover="s(&quot;node`BN_set_word (32 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="307.1" y="531" width="5.2" height="15.0" fill="rgb(219,171,150)" rx="2" ry="2" onmouseover="s(&quot;node`BN_CTX_get (96 samples, 0.44%)&quot;)" onmouseout="c()" />
+    <rect x="312.3" y="531" width="2.8" height="15.0" fill="rgb(219,172,152)" rx="2" ry="2" onmouseover="s(&quot;node`BN_CTX_start (51 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="315.3" y="531" width="1.0" height="15.0" fill="rgb(219,173,153)" rx="2" ry="2" onmouseover="s(&quot;node`bn_add_words (18 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="316.2" y="531" width="2.5" height="15.0" fill="rgb(219,172,152)" rx="2" ry="2" onmouseover="s(&quot;node`bn_cmp_words (47 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="318.8" y="531" width="3.0" height="15.0" fill="rgb(219,172,152)" rx="2" ry="2" onmouseover="s(&quot;node`bn_sqr_comba8 (55 samples, 0.25%)&quot;)" onmouseout="c()" />
+    <rect x="334.4" y="515" width="3.2" height="15.0" fill="rgb(220,174,152)" rx="2" ry="2" onmouseover="s(&quot;node`bn_sqr_recursive (60 samples, 0.27%)&quot;)" onmouseout="c()" />
+    <rect x="321.8" y="531" width="15.9" height="15.0" fill="rgb(219,166,144)" rx="2" ry="2" onmouseover="s(&quot;node`bn_sqr_recursive (294 samples, 1.34%)&quot;)" onmouseout="c()" />
+    <rect x="337.6" y="531" width="2.2" height="15.0" fill="rgb(219,172,152)" rx="2" ry="2" onmouseover="s(&quot;node`bn_sub_words (41 samples, 0.19%)&quot;)" onmouseout="c()" />
+    <rect x="300.9" y="547" width="38.9" height="15.0" fill="rgb(218,161,138)" rx="2" ry="2" onmouseover="s(&quot;node`BN_sqr (721 samples, 3.30%)&quot;)" onmouseout="c()" />
+    <rect x="339.8" y="547" width="14.4" height="15.0" fill="rgb(218,167,147)" rx="2" ry="2" onmouseover="s(&quot;node`bn_mul_add_words (266 samples, 1.22%)&quot;)" onmouseout="c()" />
+    <rect x="164.8" y="563" width="190.4" height="15.0" fill="rgb(217,119,84)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_mul_montgomery (3529 samples, 16.14%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="167.79743941472336" y="573.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`BN_mod_mul_montgomery (3529 samples, 16.14%)&quot;)" onmouseout="c()" >node`BN_mod_mul_montgo..</text>
+    <rect x="135.7" y="579" width="220.2" height="15.0" fill="rgb(217,112,78)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_exp_mont_consttime (4081 samples, 18.66%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="138.66163694558756" y="589.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`BN_mod_exp_mont_consttime (4081 samples, 18.66%)&quot;)" onmouseout="c()" >node`BN_mod_exp_mont_const..</text>
+    <rect x="124.4" y="595" width="232.2" height="15.0" fill="rgb(216,107,75)" rx="2" ry="2" onmouseover="s(&quot;node`RSA_eay_mod_exp (4304 samples, 19.68%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="127.38500228623685" y="605.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`RSA_eay_mod_exp (4304 samples, 19.68%)&quot;)" onmouseout="c()" >node`RSA_eay_mod_exp</text>
+    <rect x="357.7" y="515" width="2.5" height="15.0" fill="rgb(220,174,152)" rx="2" ry="2" onmouseover="s(&quot;node`BN_div (47 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="357.1" y="531" width="3.6" height="15.0" fill="rgb(219,172,151)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_inverse (67 samples, 0.31%)&quot;)" onmouseout="c()" />
+    <rect x="356.7" y="547" width="4.1" height="15.0" fill="rgb(218,170,151)" rx="2" ry="2" onmouseover="s(&quot;node`BN_BLINDING_create_param (76 samples, 0.35%)&quot;)" onmouseout="c()" />
+    <rect x="360.8" y="515" width="1.8" height="15.0" fill="rgb(220,174,153)" rx="2" ry="2" onmouseover="s(&quot;node`BN_div (33 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="360.8" y="531" width="1.8" height="15.0" fill="rgb(219,173,152)" rx="2" ry="2" onmouseover="s(&quot;node`BN_nnmod (34 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="360.8" y="547" width="2.6" height="15.0" fill="rgb(218,171,152)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_mul (48 samples, 0.22%)&quot;)" onmouseout="c()" />
+    <rect x="356.6" y="563" width="6.7" height="15.0" fill="rgb(217,168,150)" rx="2" ry="2" onmouseover="s(&quot;node`BN_BLINDING_update (125 samples, 0.57%)&quot;)" onmouseout="c()" />
+    <rect x="363.4" y="563" width="1.3" height="15.0" fill="rgb(217,169,152)" rx="2" ry="2" onmouseover="s(&quot;node`BN_mod_mul (24 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="356.6" y="579" width="8.1" height="15.0" fill="rgb(217,165,149)" rx="2" ry="2" onmouseover="s(&quot;node`BN_BLINDING_convert_ex (151 samples, 0.69%)&quot;)" onmouseout="c()" />
+    <rect x="356.6" y="595" width="8.3" height="15.0" fill="rgb(216,163,148)" rx="2" ry="2" onmouseover="s(&quot;node`rsa_blinding_convert (153 samples, 0.70%)&quot;)" onmouseout="c()" />
+    <rect x="120.8" y="611" width="244.2" height="15.0" fill="rgb(215,102,72)" rx="2" ry="2" onmouseover="s(&quot;node`RSA_eay_private_decrypt (4526 samples, 20.70%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="123.82395976223137" y="621.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`RSA_eay_private_decrypt (4526 samples, 20.70%)&quot;)" onmouseout="c()" >node`RSA_eay_private_decrypt</text>
+    <rect x="367.4" y="451" width="1.0" height="15.0" fill="rgb(224,183,156)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`process_free (18 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="367.3" y="467" width="1.0" height="15.0" fill="rgb(223,181,155)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`free (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="367.3" y="483" width="1.0" height="15.0" fill="rgb(222,179,154)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_free (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="367.1" y="499" width="1.2" height="15.0" fill="rgb(221,177,154)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (23 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="367.0" y="515" width="1.8" height="15.0" fill="rgb(220,174,153)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_cleanup (33 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="367.0" y="531" width="1.8" height="15.0" fill="rgb(219,173,152)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_cleanup (33 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="366.5" y="547" width="2.4" height="15.0" fill="rgb(218,171,152)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_free (45 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="365.9" y="563" width="3.0" height="15.0" fill="rgb(217,169,151)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (56 samples, 0.26%)&quot;)" onmouseout="c()" />
+    <rect x="371.6" y="435" width="1.0" height="15.0" fill="rgb(225,185,156)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_cache_alloc (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="371.2" y="451" width="1.3" height="15.0" fill="rgb(224,182,155)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`umem_alloc (25 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="371.2" y="467" width="1.5" height="15.0" fill="rgb(223,180,154)" rx="2" ry="2" onmouseover="s(&quot;libumem.so.1`malloc (27 samples, 0.12%)&quot;)" onmouseout="c()" />
+    <rect x="371.1" y="483" width="1.6" height="15.0" fill="rgb(222,178,154)" rx="2" ry="2" onmouseover="s(&quot;node`CRYPTO_malloc (29 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="370.9" y="499" width="1.9" height="15.0" fill="rgb(221,176,153)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_copy_ex (36 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="370.1" y="515" width="2.8" height="15.0" fill="rgb(220,174,152)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_CTX_copy (52 samples, 0.24%)&quot;)" onmouseout="c()" />
+    <rect x="369.8" y="531" width="3.9" height="15.0" fill="rgb(219,172,151)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_copy (72 samples, 0.33%)&quot;)" onmouseout="c()" />
+    <rect x="369.0" y="547" width="4.7" height="15.0" fill="rgb(218,170,151)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_dup (88 samples, 0.40%)&quot;)" onmouseout="c()" />
+    <rect x="368.9" y="563" width="4.8" height="15.0" fill="rgb(217,168,151)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_copy_ex (89 samples, 0.41%)&quot;)" onmouseout="c()" />
+    <rect x="373.9" y="547" width="1.2" height="15.0" fill="rgb(218,171,152)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_Final (22 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="373.8" y="563" width="1.3" height="15.0" fill="rgb(217,169,152)" rx="2" ry="2" onmouseover="s(&quot;node`hmac_signctx (24 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="365.9" y="579" width="9.2" height="15.0" fill="rgb(217,165,148)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestSignFinal (171 samples, 0.78%)&quot;)" onmouseout="c()" />
+    <rect x="375.2" y="563" width="1.2" height="15.0" fill="rgb(217,169,152)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_free (23 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="375.2" y="579" width="1.3" height="15.0" fill="rgb(217,167,151)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (24 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="376.6" y="579" width="1.6" height="15.0" fill="rgb(217,167,151)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_new_mac_key (30 samples, 0.14%)&quot;)" onmouseout="c()" />
+    <rect x="378.9" y="515" width="3.2" height="15.0" fill="rgb(220,174,152)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_Init_ex (60 samples, 0.27%)&quot;)" onmouseout="c()" />
+    <rect x="378.6" y="531" width="3.6" height="15.0" fill="rgb(219,172,151)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_ctrl (67 samples, 0.31%)&quot;)" onmouseout="c()" />
+    <rect x="378.6" y="547" width="3.7" height="15.0" fill="rgb(218,170,151)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_ctrl (68 samples, 0.31%)&quot;)" onmouseout="c()" />
+    <rect x="378.4" y="563" width="3.9" height="15.0" fill="rgb(217,168,151)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestInit_ex (72 samples, 0.33%)&quot;)" onmouseout="c()" />
+    <rect x="378.3" y="579" width="4.4" height="15.0" fill="rgb(217,166,150)" rx="2" ry="2" onmouseover="s(&quot;node`do_sigver_init (82 samples, 0.37%)&quot;)" onmouseout="c()" />
+    <rect x="365.6" y="595" width="17.6" height="15.0" fill="rgb(216,161,145)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_PRF.constprop.0 (326 samples, 1.49%)&quot;)" onmouseout="c()" />
+    <rect x="365.1" y="611" width="18.0" height="15.0" fill="rgb(215,159,144)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_generate_master_secret (334 samples, 1.53%)&quot;)" onmouseout="c()" />
+    <rect x="120.7" y="627" width="262.5" height="15.0" fill="rgb(214,95,67)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_get_client_key_exchange (4865 samples, 22.25%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="123.66209419295839" y="637.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`ssl3_get_client_key_exchange (4865 samples, 22.25%)&quot;)" onmouseout="c()" >node`ssl3_get_client_key_exchan..</text>
+    <rect x="384.4" y="563" width="1.0" height="15.0" fill="rgb(217,169,152)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="385.5" y="547" width="1.1" height="15.0" fill="rgb(218,171,152)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_dup (20 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="385.5" y="563" width="1.1" height="15.0" fill="rgb(217,169,152)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_copy_ex (21 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="384.4" y="579" width="2.8" height="15.0" fill="rgb(217,167,151)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestSignFinal (51 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="387.3" y="563" width="1.4" height="15.0" fill="rgb(217,169,152)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_free (26 samples, 0.12%)&quot;)" onmouseout="c()" />
+    <rect x="387.2" y="579" width="1.5" height="15.0" fill="rgb(217,167,151)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_MD_CTX_cleanup (27 samples, 0.12%)&quot;)" onmouseout="c()" />
+    <rect x="388.7" y="579" width="1.6" height="15.0" fill="rgb(217,167,151)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_new_mac_key (29 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="390.5" y="515" width="1.5" height="15.0" fill="rgb(220,175,153)" rx="2" ry="2" onmouseover="s(&quot;node`HMAC_Init_ex (27 samples, 0.12%)&quot;)" onmouseout="c()" />
+    <rect x="390.4" y="531" width="1.7" height="15.0" fill="rgb(219,173,153)" rx="2" ry="2" onmouseover="s(&quot;node`pkey_hmac_ctrl (31 samples, 0.14%)&quot;)" onmouseout="c()" />
+    <rect x="390.4" y="547" width="1.7" height="15.0" fill="rgb(218,171,152)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_PKEY_CTX_ctrl (31 samples, 0.14%)&quot;)" onmouseout="c()" />
+    <rect x="390.3" y="563" width="1.7" height="15.0" fill="rgb(217,169,152)" rx="2" ry="2" onmouseover="s(&quot;node`EVP_DigestInit_ex (32 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="390.3" y="579" width="2.5" height="15.0" fill="rgb(217,167,151)" rx="2" ry="2" onmouseover="s(&quot;node`do_sigver_init (47 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="384.1" y="595" width="9.0" height="15.0" fill="rgb(216,163,148)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_PRF.constprop.0 (167 samples, 0.76%)&quot;)" onmouseout="c()" />
+    <rect x="383.3" y="611" width="9.8" height="15.0" fill="rgb(215,161,147)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_final_finish_mac (182 samples, 0.83%)&quot;)" onmouseout="c()" />
+    <rect x="383.3" y="627" width="9.9" height="15.0" fill="rgb(214,159,146)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_send_finished (183 samples, 0.84%)&quot;)" onmouseout="c()" />
+    <rect x="393.1" y="611" width="1.0" height="15.0" fill="rgb(215,163,150)" rx="2" ry="2" onmouseover="s(&quot;node`BIO_free (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="393.1" y="627" width="1.0" height="15.0" fill="rgb(214,161,149)" rx="2" ry="2" onmouseover="s(&quot;node`ssl_free_wbio_buffer (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="395.4" y="627" width="1.5" height="15.0" fill="rgb(214,161,149)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_change_cipher_state (27 samples, 0.12%)&quot;)" onmouseout="c()" />
+    <rect x="57.8" y="643" width="339.2" height="15.0" fill="rgb(213,73,44)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_accept (6286 samples, 28.74%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="60.750342935528124" y="653.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`ssl3_accept (6286 samples, 28.74%)&quot;)" onmouseout="c()" >node`ssl3_accept</text>
+    <rect x="397.7" y="643" width="1.0" height="15.0" fill="rgb(213,159,149)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_mac (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="57.5" y="659" width="341.3" height="15.0" fill="rgb(212,69,44)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_read_bytes (6325 samples, 28.92%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="60.48056698673983" y="669.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`ssl3_read_bytes (6325 samples, 28.92%)&quot;)" onmouseout="c()" >node`ssl3_read_bytes</text>
+    <rect x="57.3" y="675" width="341.5" height="15.0" fill="rgb(211,68,46)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_read_internal (6329 samples, 28.94%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="60.26474622770919" y="685.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`ssl3_read_internal (6329 samples, 28.94%)&quot;)" onmouseout="c()" >node`ssl3_read_internal</text>
+    <rect x="398.9" y="611" width="1.3" height="15.0" fill="rgb(215,163,150)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_mac (25 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="398.9" y="627" width="1.4" height="15.0" fill="rgb(214,161,149)" rx="2" ry="2" onmouseover="s(&quot;node`do_ssl3_write (26 samples, 0.12%)&quot;)" onmouseout="c()" />
+    <rect x="398.8" y="643" width="2.3" height="15.0" fill="rgb(213,159,148)" rx="2" ry="2" onmouseover="s(&quot;node`do_ssl3_write (43 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="398.8" y="659" width="2.4" height="15.0" fill="rgb(212,157,147)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_write_bytes (44 samples, 0.20%)&quot;)" onmouseout="c()" />
+    <rect x="398.7" y="675" width="2.4" height="15.0" fill="rgb(211,155,147)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_write (45 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="402.1" y="611" width="1.3" height="15.0" fill="rgb(215,163,150)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_mac (24 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="401.9" y="627" width="1.5" height="15.0" fill="rgb(214,161,149)" rx="2" ry="2" onmouseover="s(&quot;node`do_ssl3_write (28 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="401.9" y="643" width="1.6" height="15.0" fill="rgb(213,159,148)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_dispatch_alert (29 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="404.0" y="627" width="1.5" height="15.0" fill="rgb(214,161,149)" rx="2" ry="2" onmouseover="s(&quot;node`tls1_mac (28 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="403.4" y="643" width="2.1" height="15.0" fill="rgb(213,159,148)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_read_bytes (39 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="401.9" y="659" width="3.7" height="15.0" fill="rgb(212,157,147)" rx="2" ry="2" onmouseover="s(&quot;node`ssl3_shutdown (68 samples, 0.31%)&quot;)" onmouseout="c()" />
+    <rect x="401.8" y="675" width="3.7" height="15.0" fill="rgb(211,155,146)" rx="2" ry="2" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy6Socket8ShutdownEv (69 samples, 0.32%)&quot;)" onmouseout="c()" />
+    <rect x="32.2" y="691" width="373.5" height="15.0" fill="rgb(210,57,37)" rx="2" ry="2" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy6Socket7OnEventEv (6922 samples, 31.65%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="35.229538180155465" y="701.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy6Socket7OnEventEv (6922 samples, 31.65%)&quot;)" onmouseout="c()" >tlsnappy.node`_ZN8tlsnappy6Socket7OnEventEv</text>
+    <rect x="24.9" y="707" width="380.8" height="15.0" fill="rgb(209,51,35)" rx="2" ry="2" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy7Context7RunLoopEv (7058 samples, 32.27%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="27.945587562871516" y="717.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy7Context7RunLoopEv (7058 samples, 32.27%)&quot;)" onmouseout="c()" >tlsnappy.node`_ZN8tlsnappy7Context7RunLoopEv</text>
+    <rect x="24.5" y="723" width="381.2" height="15.0" fill="rgb(208,48,35)" rx="2" ry="2" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy7Context4LoopEPv (7066 samples, 32.31%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="27.513946044810243" y="733.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy7Context4LoopEPv (7066 samples, 32.31%)&quot;)" onmouseout="c()" >tlsnappy.node`_ZN8tlsnappy7Context4LoopEPv</text>
+    <rect x="24.5" y="739" width="381.3" height="15.0" fill="rgb(207,44,35)" rx="2" ry="2" onmouseover="s(&quot;node`uv__thread_start (7067 samples, 32.31%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="27.513946044810243" y="749.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`uv__thread_start (7067 samples, 32.31%)&quot;)" onmouseout="c()" >node`uv__thread_start</text>
+    <rect x="24.4" y="755" width="381.5" height="15.0" fill="rgb(206,44,38)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`_thrp_setup (7070 samples, 32.33%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="27.352080475537264" y="765.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;libc.so.1`_thrp_setup (7070 samples, 32.33%)&quot;)" onmouseout="c()" >libc.so.1`_thrp_setup</text>
+    <rect x="24.4" y="771" width="381.5" height="15.0" fill="rgb(205,99,97)" rx="2" ry="2" onmouseover="s(&quot;libc.so.1`_lwp_start (7070 samples, 32.33%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="27.352080475537264" y="781.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;libc.so.1`_lwp_start (7070 samples, 32.33%)&quot;)" onmouseout="c()" >libc.so.1`_lwp_start</text>
+    <rect x="420.8" y="531" width="2.2" height="15.0" fill="rgb(219,172,152)" rx="2" ry="2" onmouseover="s(&quot;(anon) as process._tickCallback at node.js position 19086 (41 samples, 0.19%)&quot;)" onmouseout="c()" />
+    <rect x="420.8" y="547" width="2.2" height="15.0" fill="rgb(218,171,152)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; adaptor &gt;&gt; (41 samples, 0.19%)&quot;)" onmouseout="c()" />
+    <rect x="424.5" y="467" width="1.0" height="15.0" fill="rgb(223,181,155)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal code &gt;&gt; (18 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="424.4" y="483" width="1.0" height="15.0" fill="rgb(222,179,154)" rx="2" ry="2" onmouseover="s(&quot;onSocketFinish at net.js position 10504 (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="424.3" y="499" width="1.2" height="15.0" fill="rgb(221,177,154)" rx="2" ry="2" onmouseover="s(&quot;(anon) as EventEmitter.emit at events.js position 4296 (22 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="424.2" y="515" width="1.2" height="15.0" fill="rgb(220,175,153)" rx="2" ry="2" onmouseover="s(&quot;(anon) as Writable.end at _stream_writable.js position 16084 (23 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="425.9" y="499" width="2.0" height="15.0" fill="rgb(221,176,153)" rx="2" ry="2" onmouseover="s(&quot;(anon) as Socket._destroy at net.js position 19690 (37 samples, 0.17%)&quot;)" onmouseout="c()" />
+    <rect x="425.8" y="515" width="2.1" height="15.0" fill="rgb(220,174,153)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; adaptor &gt;&gt; (38 samples, 0.17%)&quot;)" onmouseout="c()" />
+    <rect x="423.7" y="531" width="4.2" height="15.0" fill="rgb(219,172,151)" rx="2" ry="2" onmouseover="s(&quot;onclose at /root/tlsnappy/lib/tlsnappy/api.js position 9734 (78 samples, 0.36%)&quot;)" onmouseout="c()" />
+    <rect x="434.6" y="259" width="1.0" height="15.0" fill="rgb(236,206,157)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal10JSReceiver11SetPropertyEPNS0_6StringEPNS0_6ObjectE18PropertyAttributesNS0_14StrictModeFlagENS1_14StoreFromKeyedE (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="434.6" y="275" width="1.3" height="15.0" fill="rgb(235,203,156)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal10JSReceiver11SetPropertyENS0_6HandleIS1_EENS2_INS0_6StringEEENS2_INS0_6ObjectEEE18PropertyAttributesNS0_14StrictModeFlagE (24 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="434.6" y="291" width="1.3" height="15.0" fill="rgb(234,201,156)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal7Runtime17SetObjectPropertyEPNS0_7IsolateENS0_6HandleINS0_6ObjectEEES6_S6_18PropertyAttributesNS0_14StrictModeFlagE (24 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="434.6" y="307" width="1.3" height="15.0" fill="rgb(233,200,156)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal19Runtime_SetPropertyENS0_9ArgumentsEPNS0_7IsolateE (24 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="434.6" y="323" width="1.3" height="15.0" fill="rgb(232,198,156)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal code &gt;&gt; (24 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="434.4" y="339" width="2.3" height="15.0" fill="rgb(231,194,153)" rx="2" ry="2" onmouseover="s(&quot;(anon) as IncomingMessage._addHeaderLine at http.js position 20532 (42 samples, 0.19%)&quot;)" onmouseout="c()" />
+    <rect x="440.7" y="147" width="1.3" height="15.0" fill="rgb(242,215,131)" rx="2" ry="2" onmouseover="s(&quot;(anon) as exports.setTimeout at timers.js position 10038 (25 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="440.5" y="163" width="1.5" height="15.0" fill="rgb(242,213,135)" rx="2" ry="2" onmouseover="s(&quot;(anon) as global.setTimeout at node.js position 11582 (28 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="440.5" y="179" width="1.6" height="15.0" fill="rgb(241,212,141)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; adaptor &gt;&gt; (29 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="440.5" y="195" width="2.0" height="15.0" fill="rgb(240,209,139)" rx="2" ry="2" onmouseover="s(&quot;end at /root/tlsnappy/lib/tlsnappy/api.js position 14080 (37 samples, 0.17%)&quot;)" onmouseout="c()" />
+    <rect x="440.3" y="211" width="2.1" height="15.0" fill="rgb(239,207,141)" rx="2" ry="2" onmouseover="s(&quot;destroySoon at /root/tlsnappy/lib/tlsnappy/api.js position 12870 (39 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="438.6" y="227" width="3.8" height="15.0" fill="rgb(238,200,128)" rx="2" ry="2" onmouseover="s(&quot;(anon) as  (71 samples, 0.32%)&quot;)" onmouseout="c()" />
+    <rect x="438.4" y="243" width="4.0" height="15.0" fill="rgb(237,198,130)" rx="2" ry="2" onmouseover="s(&quot;(anon) as EventEmitter.emit at events.js position 4296 (75 samples, 0.34%)&quot;)" onmouseout="c()" />
+    <rect x="442.9" y="147" width="1.0" height="15.0" fill="rgb(242,218,142)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN4node6Buffer9Utf8WriteERKN2v89ArgumentsE (18 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="442.9" y="163" width="1.0" height="15.0" fill="rgb(242,217,147)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal code &gt;&gt; (18 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="442.6" y="179" width="1.5" height="15.0" fill="rgb(241,213,143)" rx="2" ry="2" onmouseover="s(&quot;(anon) as Buffer.write at buffer.js position 16980 (27 samples, 0.12%)&quot;)" onmouseout="c()" />
+    <rect x="442.6" y="195" width="1.5" height="15.0" fill="rgb(240,211,146)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; adaptor &gt;&gt; (28 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="442.5" y="211" width="2.1" height="15.0" fill="rgb(239,207,141)" rx="2" ry="2" onmouseover="s(&quot;Buffer at buffer.js position 10390 (39 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="442.5" y="227" width="2.1" height="15.0" fill="rgb(238,206,145)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; adaptor &gt;&gt; (39 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="442.5" y="243" width="2.1" height="15.0" fill="rgb(237,205,147)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; constructor &gt;&gt; (39 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="438.0" y="259" width="7.0" height="15.0" fill="rgb(236,189,112)" rx="2" ry="2" onmouseover="s(&quot;(anon) as OutgoingMessage.end at http.js position 40796 (130 samples, 0.59%)&quot;)" onmouseout="c()" />
+    <rect x="445.4" y="243" width="2.3" height="15.0" fill="rgb(237,204,146)" rx="2" ry="2" onmouseover="s(&quot;(anon) as OutgoingMessage._storeHeader at http.js position 28366 (42 samples, 0.19%)&quot;)" onmouseout="c()" />
+    <rect x="445.0" y="259" width="2.9" height="15.0" fill="rgb(236,201,143)" rx="2" ry="2" onmouseover="s(&quot;(anon) as ServerResponse.writeHead at http.js position 53642 (53 samples, 0.24%)&quot;)" onmouseout="c()" />
+    <rect x="438.0" y="275" width="9.9" height="15.0" fill="rgb(235,180,97)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; adaptor &gt;&gt; (183 samples, 0.84%)&quot;)" onmouseout="c()" />
+    <rect x="438.0" y="291" width="10.3" height="15.0" fill="rgb(234,179,102)" rx="2" ry="2" onmouseover="s(&quot;handler at /root/tlsnappy/example/server.js position 1416 (191 samples, 0.87%)&quot;)" onmouseout="c()" />
+    <rect x="437.6" y="307" width="10.7" height="15.0" fill="rgb(233,178,105)" rx="2" ry="2" onmouseover="s(&quot;(anon) as EventEmitter.emit at events.js position 4296 (198 samples, 0.91%)&quot;)" onmouseout="c()" />
+    <rect x="437.6" y="323" width="10.7" height="15.0" fill="rgb(232,178,114)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; adaptor &gt;&gt; (198 samples, 0.91%)&quot;)" onmouseout="c()" />
+    <rect x="448.4" y="307" width="1.2" height="15.0" fill="rgb(233,200,156)" rx="2" ry="2" onmouseover="s(&quot;ServerResponse at http.js position 51090 (23 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="448.3" y="323" width="1.3" height="15.0" fill="rgb(232,198,156)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; constructor &gt;&gt; (25 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="436.7" y="339" width="13.3" height="15.0" fill="rgb(231,174,109)" rx="2" ry="2" onmouseover="s(&quot;(anon) as parser.onIncoming at http.js position 00296 (247 samples, 1.13%)&quot;)" onmouseout="c()" />
+    <rect x="450.1" y="323" width="1.2" height="15.0" fill="rgb(232,198,157)" rx="2" ry="2" onmouseover="s(&quot;IncomingMessage at http.js position 16784 (22 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="450.0" y="339" width="1.2" height="15.0" fill="rgb(231,196,157)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; constructor &gt;&gt; (23 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="434.0" y="355" width="17.6" height="15.0" fill="rgb(230,167,101)" rx="2" ry="2" onmouseover="s(&quot;parserOnHeadersComplete at http.js position 4858 (327 samples, 1.50%)&quot;)" onmouseout="c()" />
+    <rect x="434.0" y="371" width="17.7" height="15.0" fill="rgb(229,167,106)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal &gt;&gt; (328 samples, 1.50%)&quot;)" onmouseout="c()" />
+    <rect x="434.0" y="387" width="17.7" height="15.0" fill="rgb(228,168,114)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; entry &gt;&gt; (328 samples, 1.50%)&quot;)" onmouseout="c()" />
+    <rect x="433.9" y="403" width="17.8" height="15.0" fill="rgb(227,168,120)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internalL6InvokeEbNS0_6HandleINS0_10JSFunctionEEENS1_INS0_6ObjectEEEiPS5_Pb (329 samples, 1.50%)&quot;)" onmouseout="c()" />
+    <rect x="433.9" y="419" width="17.8" height="15.0" fill="rgb(226,168,123)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal9Execution4CallENS0_6HandleINS0_6ObjectEEES4_iPS4_Pbb (329 samples, 1.50%)&quot;)" onmouseout="c()" />
+    <rect x="433.8" y="435" width="17.9" height="15.0" fill="rgb(225,167,126)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88Function4CallENS_6HandleINS_6ObjectEEEiPNS1_INS_5ValueEEE (332 samples, 1.52%)&quot;)" onmouseout="c()" />
+    <rect x="431.3" y="451" width="20.7" height="15.0" fill="rgb(224,165,127)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN4node6Parser19on_headers_completeEP11http_parser (383 samples, 1.75%)&quot;)" onmouseout="c()" />
+    <rect x="430.3" y="467" width="22.0" height="15.0" fill="rgb(223,165,129)" rx="2" ry="2" onmouseover="s(&quot;node`http_parser_execute (407 samples, 1.86%)&quot;)" onmouseout="c()" />
+    <rect x="430.2" y="483" width="22.0" height="15.0" fill="rgb(222,164,131)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN4node6Parser7ExecuteERKN2v89ArgumentsE (408 samples, 1.87%)&quot;)" onmouseout="c()" />
+    <rect x="430.1" y="499" width="22.1" height="15.0" fill="rgb(221,163,133)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal code &gt;&gt; (409 samples, 1.87%)&quot;)" onmouseout="c()" />
+    <rect x="429.9" y="515" width="22.3" height="15.0" fill="rgb(220,163,136)" rx="2" ry="2" onmouseover="s(&quot;(anon) as socket.ondata at http.js position 97016 (414 samples, 1.89%)&quot;)" onmouseout="c()" />
+    <rect x="457.2" y="371" width="1.1" height="15.0" fill="rgb(229,192,157)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal8JSObject17SetHiddenPropertyEPNS0_6StringEPNS0_6ObjectE (21 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="457.2" y="387" width="1.2" height="15.0" fill="rgb(228,190,157)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal8JSObject17SetHiddenPropertyENS0_6HandleIS1_EENS2_INS0_6StringEEENS2_INS0_6ObjectEEE (22 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="457.0" y="403" width="1.3" height="15.0" fill="rgb(227,188,156)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v86Object14SetHiddenValueENS_6HandleINS_6StringEEENS1_INS_5ValueEEE (25 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="458.6" y="355" width="1.5" height="15.0" fill="rgb(230,194,156)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal6Object23GetPropertyWithReceiverEPS1_PNS0_6StringEP18PropertyAttributes (27 samples, 0.12%)&quot;)" onmouseout="c()" />
+    <rect x="458.5" y="371" width="1.6" height="15.0" fill="rgb(229,192,156)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal7Runtime17GetObjectPropertyEPNS0_7IsolateENS0_6HandleINS0_6ObjectEEES6_ (29 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="458.5" y="387" width="1.6" height="15.0" fill="rgb(228,190,156)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal11GetPropertyENS0_6HandleINS0_6ObjectEEES3_ (29 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="458.4" y="403" width="1.7" height="15.0" fill="rgb(227,188,155)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v86Object3GetENS_6HandleINS_5ValueEEE (32 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="455.8" y="419" width="6.5" height="15.0" fill="rgb(226,180,146)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN4node10StreamWrap11WriteBufferERKN2v89ArgumentsE (120 samples, 0.55%)&quot;)" onmouseout="c()" />
+    <rect x="454.8" y="435" width="7.6" height="15.0" fill="rgb(225,178,144)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal code &gt;&gt; (140 samples, 0.64%)&quot;)" onmouseout="c()" />
+    <rect x="453.2" y="451" width="9.2" height="15.0" fill="rgb(224,175,143)" rx="2" ry="2" onmouseover="s(&quot;(anon) as Socket._write at net.js position 27552 (171 samples, 0.78%)&quot;)" onmouseout="c()" />
+    <rect x="453.0" y="467" width="9.6" height="15.0" fill="rgb(223,174,144)" rx="2" ry="2" onmouseover="s(&quot;(anon) as Writable.write at _stream_writable.js position 8108 (177 samples, 0.81%)&quot;)" onmouseout="c()" />
+    <rect x="453.0" y="483" width="9.6" height="15.0" fill="rgb(222,173,145)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; adaptor &gt;&gt; (178 samples, 0.81%)&quot;)" onmouseout="c()" />
+    <rect x="452.7" y="499" width="10.1" height="15.0" fill="rgb(221,171,145)" rx="2" ry="2" onmouseover="s(&quot;(anon) as Socket.write at net.js position 27098 (188 samples, 0.86%)&quot;)" onmouseout="c()" />
+    <rect x="452.2" y="515" width="10.6" height="15.0" fill="rgb(220,169,145)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; adaptor &gt;&gt; (197 samples, 0.90%)&quot;)" onmouseout="c()" />
+    <rect x="463.0" y="499" width="1.1" height="15.0" fill="rgb(221,177,154)" rx="2" ry="2" onmouseover="s(&quot;Buffer at buffer.js position 10390 (21 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="462.8" y="515" width="1.2" height="15.0" fill="rgb(220,175,153)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; constructor &gt;&gt; (23 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="464.5" y="499" width="1.5" height="15.0" fill="rgb(221,177,153)" rx="2" ry="2" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy6Socket6EncOutERKN2v89ArgumentsE (27 samples, 0.12%)&quot;)" onmouseout="c()" />
+    <rect x="464.1" y="515" width="2.3" height="15.0" fill="rgb(220,174,152)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal code &gt;&gt; (42 samples, 0.19%)&quot;)" onmouseout="c()" />
+    <rect x="427.9" y="531" width="38.4" height="15.0" fill="rgb(219,157,129)" rx="2" ry="2" onmouseover="s(&quot;oncycle at /root/tlsnappy/lib/tlsnappy/api.js position 7432 (712 samples, 3.26%)&quot;)" onmouseout="c()" />
+    <rect x="467.8" y="403" width="1.7" height="15.0" fill="rgb(227,188,155)" rx="2" ry="2" onmouseover="s(&quot;(anon) as  (32 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="469.9" y="387" width="1.1" height="15.0" fill="rgb(228,190,157)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal code &gt;&gt; (20 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="469.5" y="403" width="1.5" height="15.0" fill="rgb(227,188,156)" rx="2" ry="2" onmouseover="s(&quot;(anon) as EventEmitter.addListener at events.js position 8486 (27 samples, 0.12%)&quot;)" onmouseout="c()" />
+    <rect x="471.8" y="403" width="1.1" height="15.0" fill="rgb(227,188,156)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal code &gt;&gt; (21 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="467.1" y="419" width="6.3" height="15.0" fill="rgb(226,181,146)" rx="2" ry="2" onmouseover="s(&quot;connectionListener at http.js position 94638 (116 samples, 0.53%)&quot;)" onmouseout="c()" />
+    <rect x="466.8" y="435" width="6.6" height="15.0" fill="rgb(225,179,146)" rx="2" ry="2" onmouseover="s(&quot;(anon) as EventEmitter.emit at events.js position 4296 (122 samples, 0.56%)&quot;)" onmouseout="c()" />
+    <rect x="466.8" y="451" width="6.6" height="15.0" fill="rgb(224,178,147)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; adaptor &gt;&gt; (122 samples, 0.56%)&quot;)" onmouseout="c()" />
+    <rect x="466.8" y="467" width="6.6" height="15.0" fill="rgb(223,176,148)" rx="2" ry="2" onmouseover="s(&quot;(anon) as  (123 samples, 0.56%)&quot;)" onmouseout="c()" />
+    <rect x="466.7" y="483" width="6.7" height="15.0" fill="rgb(222,175,148)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal &gt;&gt; (125 samples, 0.57%)&quot;)" onmouseout="c()" />
+    <rect x="466.5" y="499" width="7.0" height="15.0" fill="rgb(221,173,148)" rx="2" ry="2" onmouseover="s(&quot;g at events.js position 11822 (129 samples, 0.59%)&quot;)" onmouseout="c()" />
+    <rect x="466.4" y="515" width="7.1" height="15.0" fill="rgb(220,171,148)" rx="2" ry="2" onmouseover="s(&quot;(anon) as EventEmitter.emit at events.js position 4296 (131 samples, 0.60%)&quot;)" onmouseout="c()" />
+    <rect x="466.4" y="531" width="7.6" height="15.0" fill="rgb(219,170,149)" rx="2" ry="2" onmouseover="s(&quot;oninit at /root/tlsnappy/lib/tlsnappy/api.js position 10656 (140 samples, 0.64%)&quot;)" onmouseout="c()" />
+    <rect x="423.0" y="547" width="50.9" height="15.0" fill="rgb(218,157,133)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal &gt;&gt; (943 samples, 4.31%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="426.0269775948788" y="557.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;&lt;&lt; internal &gt;&gt; (943 samples, 4.31%)&quot;)" onmouseout="c()" >&lt;&lt; int..</text>
+    <rect x="420.3" y="563" width="53.6" height="15.0" fill="rgb(217,155,133)" rx="2" ry="2" onmouseover="s(&quot;(anon) as process._makeCallback at node.js position 15826 (993 samples, 4.54%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="423.3292181069959" y="573.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;(anon) as process._makeCallback at node.js position 15826 (993 samples, 4.54%)&quot;)" onmouseout="c()" >(anon)..</text>
+    <rect x="420.2" y="579" width="53.7" height="15.0" fill="rgb(217,154,134)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal &gt;&gt; (995 samples, 4.55%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="423.22130772748056" y="589.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;&lt;&lt; internal &gt;&gt; (995 samples, 4.55%)&quot;)" onmouseout="c()" >&lt;&lt; int..</text>
+    <rect x="420.0" y="595" width="53.9" height="15.0" fill="rgb(216,152,133)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; entry &gt;&gt; (999 samples, 4.57%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="423.00548696844993" y="605.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;&lt;&lt; entry &gt;&gt; (999 samples, 4.57%)&quot;)" onmouseout="c()" >&lt;&lt; ent..</text>
+    <rect x="419.8" y="611" width="54.1" height="15.0" fill="rgb(215,150,133)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internalL6InvokeEbNS0_6HandleINS0_10JSFunctionEEENS1_INS0_6ObjectEEEiPS5_Pb (1002 samples, 4.58%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="422.843621399177" y="621.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`_ZN2v88internalL6InvokeEbNS0_6HandleINS0_10JSFunctionEEENS1_INS0_6ObjectEEEiPS5_Pb (1002 samples, 4.58%)&quot;)" onmouseout="c()" >node`_..</text>
+    <rect x="419.8" y="627" width="54.1" height="15.0" fill="rgb(214,148,133)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal9Execution4CallENS0_6HandleINS0_6ObjectEEES4_iPS4_Pbb (1003 samples, 4.59%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="422.7896662094193" y="637.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`_ZN2v88internal9Execution4CallENS0_6HandleINS0_6ObjectEEES4_iPS4_Pbb (1003 samples, 4.59%)&quot;)" onmouseout="c()" >node`_..</text>
+    <rect x="419.6" y="643" width="54.3" height="15.0" fill="rgb(213,146,132)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88Function4CallENS_6HandleINS_6ObjectEEEiPNS1_INS_5ValueEEE (1006 samples, 4.60%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="422.62780064014635" y="653.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`_ZN2v88Function4CallENS_6HandleINS_6ObjectEEEiPNS1_INS_5ValueEEE (1006 samples, 4.60%)&quot;)" onmouseout="c()" >node`_..</text>
+    <rect x="417.3" y="659" width="57.6" height="15.0" fill="rgb(212,143,131)" rx="2" ry="2" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy6Socket9EmitEventEP10uv_async_si (1067 samples, 4.88%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="420.307727480567" y="669.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy6Socket9EmitEventEP10uv_async_si (1067 samples, 4.88%)&quot;)" onmouseout="c()" >tlsnap..</text>
+    <rect x="408.5" y="675" width="66.5" height="15.0" fill="rgb(211,139,128)" rx="2" ry="2" onmouseover="s(&quot;node`uv__async_io (1233 samples, 5.64%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="411.4590763603109" y="685.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`uv__async_io (1233 samples, 5.64%)&quot;)" onmouseout="c()" >node`uv..</text>
+    <rect x="478.3" y="291" width="2.1" height="15.0" fill="rgb(234,199,151)" rx="2" ry="2" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy6Socket3NewERKN2v89ArgumentsE (39 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="478.0" y="307" width="2.5" height="15.0" fill="rgb(233,197,150)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internalL30Builtin_HandleApiCallConstructENS0_12_GLOBAL__N_116BuiltinArgumentsILNS0_21BuiltinExtraArgumentsE1EEEPNS0_7IsolateE (46 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="478.0" y="323" width="2.5" height="15.0" fill="rgb(232,195,151)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal code &gt;&gt; (46 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="478.0" y="339" width="2.5" height="15.0" fill="rgb(231,194,152)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; constructor &gt;&gt; (46 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="480.9" y="323" width="1.3" height="15.0" fill="rgb(232,198,156)" rx="2" ry="2" onmouseover="s(&quot;(anon) as EventEmitter.addListener at events.js position 8486 (24 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="483.0" y="307" width="1.2" height="15.0" fill="rgb(233,200,157)" rx="2" ry="2" onmouseover="s(&quot;emitDataEvents at _stream_readable.js position 29240 (22 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="482.2" y="323" width="1.9" height="15.0" fill="rgb(232,196,153)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; adaptor &gt;&gt; (36 samples, 0.16%)&quot;)" onmouseout="c()" />
+    <rect x="480.7" y="339" width="4.3" height="15.0" fill="rgb(231,190,145)" rx="2" ry="2" onmouseover="s(&quot;init at /root/tlsnappy/lib/tlsnappy/api.js position 11206 (80 samples, 0.37%)&quot;)" onmouseout="c()" />
+    <rect x="477.1" y="355" width="7.9" height="15.0" fill="rgb(230,183,134)" rx="2" ry="2" onmouseover="s(&quot;onconnection at /root/tlsnappy/lib/tlsnappy/api.js position 4504 (147 samples, 0.67%)&quot;)" onmouseout="c()" />
+    <rect x="477.0" y="371" width="8.0" height="15.0" fill="rgb(229,182,136)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal &gt;&gt; (148 samples, 0.68%)&quot;)" onmouseout="c()" />
+    <rect x="477.0" y="387" width="8.0" height="15.0" fill="rgb(228,181,139)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; entry &gt;&gt; (149 samples, 0.68%)&quot;)" onmouseout="c()" />
+    <rect x="477.0" y="403" width="8.0" height="15.0" fill="rgb(227,180,141)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internalL6InvokeEbNS0_6HandleINS0_10JSFunctionEEENS1_INS0_6ObjectEEEiPS5_Pb (149 samples, 0.68%)&quot;)" onmouseout="c()" />
+    <rect x="477.0" y="419" width="8.0" height="15.0" fill="rgb(226,179,142)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal9Execution4CallENS0_6HandleINS0_6ObjectEEES4_iPS4_Pbb (149 samples, 0.68%)&quot;)" onmouseout="c()" />
+    <rect x="476.9" y="435" width="8.1" height="15.0" fill="rgb(225,177,144)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal13Runtime_ApplyENS0_9ArgumentsEPNS0_7IsolateE (150 samples, 0.69%)&quot;)" onmouseout="c()" />
+    <rect x="476.9" y="451" width="8.5" height="15.0" fill="rgb(224,176,144)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal code &gt;&gt; (158 samples, 0.72%)&quot;)" onmouseout="c()" />
+    <rect x="476.9" y="467" width="8.6" height="15.0" fill="rgb(223,175,146)" rx="2" ry="2" onmouseover="s(&quot;(anon) as b at native v8natives.js line 1582 (159 samples, 0.73%)&quot;)" onmouseout="c()" />
+    <rect x="476.9" y="483" width="8.6" height="15.0" fill="rgb(222,173,146)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; adaptor &gt;&gt; (159 samples, 0.73%)&quot;)" onmouseout="c()" />
+    <rect x="476.7" y="499" width="8.8" height="15.0" fill="rgb(221,172,146)" rx="2" ry="2" onmouseover="s(&quot;(anon) as EventEmitter.emit at events.js position 4296 (164 samples, 0.75%)&quot;)" onmouseout="c()" />
+    <rect x="476.7" y="515" width="8.8" height="15.0" fill="rgb(220,170,147)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; adaptor &gt;&gt; (164 samples, 0.75%)&quot;)" onmouseout="c()" />
+    <rect x="486.0" y="483" width="1.5" height="15.0" fill="rgb(222,178,154)" rx="2" ry="2" onmouseover="s(&quot;(anon) as EventEmitter.addListener at events.js position 8486 (28 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="488.5" y="483" width="2.0" height="15.0" fill="rgb(222,178,153)" rx="2" ry="2" onmouseover="s(&quot;Duplex at _stream_duplex.js position 3502 (37 samples, 0.17%)&quot;)" onmouseout="c()" />
+    <rect x="485.8" y="499" width="4.9" height="15.0" fill="rgb(221,174,150)" rx="2" ry="2" onmouseover="s(&quot;Socket at net.js position 7332 (90 samples, 0.41%)&quot;)" onmouseout="c()" />
+    <rect x="485.6" y="515" width="5.1" height="15.0" fill="rgb(220,173,150)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; constructor &gt;&gt; (94 samples, 0.43%)&quot;)" onmouseout="c()" />
+    <rect x="476.4" y="531" width="14.5" height="15.0" fill="rgb(219,167,144)" rx="2" ry="2" onmouseover="s(&quot;onconnection at net.js position 54560 (268 samples, 1.23%)&quot;)" onmouseout="c()" />
+    <rect x="476.3" y="547" width="14.6" height="15.0" fill="rgb(218,167,147)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal &gt;&gt; (270 samples, 1.23%)&quot;)" onmouseout="c()" />
+    <rect x="476.1" y="563" width="14.8" height="15.0" fill="rgb(217,166,147)" rx="2" ry="2" onmouseover="s(&quot;(anon) as process._makeCallback at node.js position 15826 (274 samples, 1.25%)&quot;)" onmouseout="c()" />
+    <rect x="476.1" y="579" width="14.8" height="15.0" fill="rgb(217,164,147)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal &gt;&gt; (274 samples, 1.25%)&quot;)" onmouseout="c()" />
+    <rect x="476.0" y="595" width="14.8" height="15.0" fill="rgb(216,162,146)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; entry &gt;&gt; (275 samples, 1.26%)&quot;)" onmouseout="c()" />
+    <rect x="476.0" y="611" width="14.8" height="15.0" fill="rgb(215,160,145)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internalL6InvokeEbNS0_6HandleINS0_10JSFunctionEEENS1_INS0_6ObjectEEEiPS5_Pb (275 samples, 1.26%)&quot;)" onmouseout="c()" />
+    <rect x="476.0" y="627" width="14.8" height="15.0" fill="rgb(214,158,145)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal9Execution4CallENS0_6HandleINS0_6ObjectEEES4_iPS4_Pbb (275 samples, 1.26%)&quot;)" onmouseout="c()" />
+    <rect x="476.0" y="643" width="14.9" height="15.0" fill="rgb(213,156,144)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88Function4CallENS_6HandleINS_6ObjectEEEiPNS1_INS_5ValueEEE (276 samples, 1.26%)&quot;)" onmouseout="c()" />
+    <rect x="491.0" y="499" width="1.0" height="15.0" fill="rgb(221,177,154)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internalL30Builtin_HandleApiCallConstructENS0_12_GLOBAL__N_116BuiltinArgumentsILNS0_21BuiltinExtraArgumentsE1EEEPNS0_7IsolateE (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="491.0" y="515" width="1.0" height="15.0" fill="rgb(220,175,153)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal code &gt;&gt; (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="491.0" y="531" width="1.0" height="15.0" fill="rgb(219,173,153)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; constructor &gt;&gt; (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="491.0" y="547" width="1.0" height="15.0" fill="rgb(218,171,153)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal &gt;&gt; (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="491.0" y="563" width="1.0" height="15.0" fill="rgb(217,169,152)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; entry_construct &gt;&gt; (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="491.0" y="579" width="1.0" height="15.0" fill="rgb(217,167,151)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internalL6InvokeEbNS0_6HandleINS0_10JSFunctionEEENS1_INS0_6ObjectEEEiPS5_Pb (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="491.0" y="595" width="1.0" height="15.0" fill="rgb(216,165,151)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal9Execution3NewENS0_6HandleINS0_10JSFunctionEEEiPNS2_INS0_6ObjectEEEPb (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="490.9" y="611" width="1.1" height="15.0" fill="rgb(215,163,150)" rx="2" ry="2" onmouseover="s(&quot;node`_ZNK2v88Function11NewInstanceEiPNS_6HandleINS_5ValueEEE (20 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="490.9" y="627" width="1.1" height="15.0" fill="rgb(214,161,149)" rx="2" ry="2" onmouseover="s(&quot;node`_ZNK2v88Function11NewInstanceEv (20 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="490.9" y="643" width="1.1" height="15.0" fill="rgb(213,159,149)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN4node7TCPWrap11InstantiateEv (20 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="475.1" y="659" width="17.0" height="15.0" fill="rgb(212,153,143)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN4node7TCPWrap12OnConnectionEP11uv_stream_si (316 samples, 1.44%)&quot;)" onmouseout="c()" />
+    <rect x="475.1" y="675" width="17.2" height="15.0" fill="rgb(211,151,142)" rx="2" ry="2" onmouseover="s(&quot;node`uv__server_io (319 samples, 1.46%)&quot;)" onmouseout="c()" />
+    <rect x="495.6" y="563" width="1.1" height="15.0" fill="rgb(217,169,152)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal8JSObject10SetElementENS0_6HandleIS1_EEjNS2_INS0_6ObjectEEE18PropertyAttributesNS0_14StrictModeFlagENS0_15SetPropertyModeE (21 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="495.5" y="579" width="1.2" height="15.0" fill="rgb(217,167,151)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal7Runtime17SetObjectPropertyEPNS0_7IsolateENS0_6HandleINS0_6ObjectEEES6_S6_18PropertyAttributesNS0_14StrictModeFlagE (22 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="495.4" y="595" width="1.3" height="15.0" fill="rgb(216,165,150)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal11SetPropertyENS0_6HandleINS0_6ObjectEEES3_S3_18PropertyAttributesNS0_14StrictModeFlagE (24 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="495.2" y="611" width="1.6" height="15.0" fill="rgb(215,163,150)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v86Object3SetENS_6HandleINS_5ValueEEES3_NS_17PropertyAttributeE (30 samples, 0.14%)&quot;)" onmouseout="c()" />
+    <rect x="499.0" y="467" width="1.1" height="15.0" fill="rgb(223,181,155)" rx="2" ry="2" onmouseover="s(&quot;tickDone at node.js position 17734 (21 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="499.0" y="483" width="1.2" height="15.0" fill="rgb(222,179,154)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; adaptor &gt;&gt; (22 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="498.1" y="499" width="2.1" height="15.0" fill="rgb(221,176,153)" rx="2" ry="2" onmouseover="s(&quot;(anon) as process._tickCallback at node.js position 19086 (38 samples, 0.17%)&quot;)" onmouseout="c()" />
+    <rect x="498.1" y="515" width="2.1" height="15.0" fill="rgb(220,174,153)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; adaptor &gt;&gt; (39 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="505.4" y="339" width="1.3" height="15.0" fill="rgb(231,196,156)" rx="2" ry="2" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy7Context7EnqueueEPNS_6SocketE (25 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="504.4" y="355" width="2.7" height="15.0" fill="rgb(230,192,152)" rx="2" ry="2" onmouseover="s(&quot;tlsnappy.node`_ZN8tlsnappy6Socket5EncInERKN2v89ArgumentsE (50 samples, 0.23%)&quot;)" onmouseout="c()" />
+    <rect x="504.0" y="371" width="3.1" height="15.0" fill="rgb(229,189,151)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal code &gt;&gt; (58 samples, 0.27%)&quot;)" onmouseout="c()" />
+    <rect x="503.8" y="387" width="3.4" height="15.0" fill="rgb(228,187,151)" rx="2" ry="2" onmouseover="s(&quot;(anon) as  (63 samples, 0.29%)&quot;)" onmouseout="c()" />
+    <rect x="503.5" y="403" width="4.2" height="15.0" fill="rgb(227,185,150)" rx="2" ry="2" onmouseover="s(&quot;(anon) as EventEmitter.emit at events.js position 4296 (77 samples, 0.35%)&quot;)" onmouseout="c()" />
+    <rect x="508.9" y="387" width="1.1" height="15.0" fill="rgb(228,190,157)" rx="2" ry="2" onmouseover="s(&quot;fromList at _stream_readable.js position 36440 (21 samples, 0.10%)&quot;)" onmouseout="c()" />
+    <rect x="507.7" y="403" width="2.6" height="15.0" fill="rgb(227,187,153)" rx="2" ry="2" onmouseover="s(&quot;(anon) as Readable.read at _stream_readable.js position 7924 (49 samples, 0.22%)&quot;)" onmouseout="c()" />
+    <rect x="503.5" y="419" width="6.9" height="15.0" fill="rgb(226,180,145)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; adaptor &gt;&gt; (127 samples, 0.58%)&quot;)" onmouseout="c()" />
+    <rect x="503.3" y="435" width="7.0" height="15.0" fill="rgb(225,179,145)" rx="2" ry="2" onmouseover="s(&quot;(anon) as  (130 samples, 0.59%)&quot;)" onmouseout="c()" />
+    <rect x="502.7" y="451" width="7.7" height="15.0" fill="rgb(224,177,146)" rx="2" ry="2" onmouseover="s(&quot;(anon) as EventEmitter.emit at events.js position 4296 (143 samples, 0.65%)&quot;)" onmouseout="c()" />
+    <rect x="502.3" y="467" width="8.7" height="15.0" fill="rgb(223,175,145)" rx="2" ry="2" onmouseover="s(&quot;onread at _stream_readable.js position 13384 (162 samples, 0.74%)&quot;)" onmouseout="c()" />
+    <rect x="502.3" y="483" width="8.7" height="15.0" fill="rgb(222,173,146)" rx="2" ry="2" onmouseover="s(&quot;(anon) as ReadableState.onread at _stream_readable.js position 4660 (162 samples, 0.74%)&quot;)" onmouseout="c()" />
+    <rect x="511.7" y="435" width="1.1" height="15.0" fill="rgb(225,185,156)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN4node6Buffer14MakeFastBufferERKN2v89ArgumentsE (20 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="511.6" y="451" width="1.2" height="15.0" fill="rgb(224,182,155)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal code &gt;&gt; (23 samples, 0.11%)&quot;)" onmouseout="c()" />
+    <rect x="511.3" y="467" width="2.2" height="15.0" fill="rgb(223,180,154)" rx="2" ry="2" onmouseover="s(&quot;Buffer at buffer.js position 10390 (41 samples, 0.19%)&quot;)" onmouseout="c()" />
+    <rect x="511.1" y="483" width="2.4" height="15.0" fill="rgb(222,178,153)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; constructor &gt;&gt; (45 samples, 0.21%)&quot;)" onmouseout="c()" />
+    <rect x="501.4" y="499" width="12.7" height="15.0" fill="rgb(221,169,142)" rx="2" ry="2" onmouseover="s(&quot;onread at net.js position 22226 (235 samples, 1.07%)&quot;)" onmouseout="c()" />
+    <rect x="500.2" y="515" width="13.9" height="15.0" fill="rgb(220,168,143)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal &gt;&gt; (257 samples, 1.18%)&quot;)" onmouseout="c()" />
+    <rect x="497.6" y="531" width="16.6" height="15.0" fill="rgb(219,166,143)" rx="2" ry="2" onmouseover="s(&quot;(anon) as process._makeCallback at node.js position 15826 (308 samples, 1.41%)&quot;)" onmouseout="c()" />
+    <rect x="497.6" y="547" width="16.7" height="15.0" fill="rgb(218,167,146)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal &gt;&gt; (309 samples, 1.41%)&quot;)" onmouseout="c()" />
+    <rect x="497.5" y="563" width="16.8" height="15.0" fill="rgb(217,165,146)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; entry &gt;&gt; (311 samples, 1.42%)&quot;)" onmouseout="c()" />
+    <rect x="497.3" y="579" width="17.0" height="15.0" fill="rgb(217,163,146)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internalL6InvokeEbNS0_6HandleINS0_10JSFunctionEEENS1_INS0_6ObjectEEEiPS5_Pb (315 samples, 1.44%)&quot;)" onmouseout="c()" />
+    <rect x="497.2" y="595" width="17.1" height="15.0" fill="rgb(216,161,145)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal9Execution4CallENS0_6HandleINS0_6ObjectEEES4_iPS4_Pbb (317 samples, 1.45%)&quot;)" onmouseout="c()" />
+    <rect x="497.0" y="611" width="17.3" height="15.0" fill="rgb(215,159,145)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88Function4CallENS_6HandleINS_6ObjectEEEiPNS1_INS_5ValueEEE (320 samples, 1.46%)&quot;)" onmouseout="c()" />
+    <rect x="514.8" y="611" width="1.0" height="15.0" fill="rgb(215,163,150)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN4node13SlabAllocator6ShrinkEN2v86HandleINS1_6ObjectEEEPcj (19 samples, 0.09%)&quot;)" onmouseout="c()" />
+    <rect x="493.2" y="627" width="22.9" height="15.0" fill="rgb(214,156,142)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN4node10StreamWrap12OnReadCommonEP11uv_stream_si8uv_buf_t14uv_handle_type (425 samples, 1.94%)&quot;)" onmouseout="c()" />
+    <rect x="493.1" y="643" width="23.0" height="15.0" fill="rgb(213,154,142)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN4node10StreamWrap6OnReadEP11uv_stream_si8uv_buf_t (427 samples, 1.95%)&quot;)" onmouseout="c()" />
+    <rect x="517.2" y="595" width="1.0" height="15.0" fill="rgb(216,165,151)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal8JSObject17SetHiddenPropertyENS0_6HandleIS1_EENS2_INS0_6StringEEENS2_INS0_6ObjectEEE (18 samples, 0.08%)&quot;)" onmouseout="c()" />
+    <rect x="516.5" y="611" width="1.7" height="15.0" fill="rgb(215,163,150)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v86Object14SetHiddenValueENS_6HandleINS_6StringEEENS1_INS_5ValueEEE (31 samples, 0.14%)&quot;)" onmouseout="c()" />
+    <rect x="516.2" y="627" width="2.1" height="15.0" fill="rgb(214,161,149)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN4node13SlabAllocator8AllocateEN2v86HandleINS1_6ObjectEEEj (39 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="516.2" y="643" width="2.2" height="15.0" fill="rgb(213,159,148)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN4node10StreamWrap7OnAllocEP11uv_handle_sj (40 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="492.6" y="659" width="25.7" height="15.0" fill="rgb(212,151,140)" rx="2" ry="2" onmouseover="s(&quot;node`uv__read (476 samples, 2.18%)&quot;)" onmouseout="c()" />
+    <rect x="492.3" y="675" width="26.0" height="15.0" fill="rgb(211,149,140)" rx="2" ry="2" onmouseover="s(&quot;node`uv__stream_io (482 samples, 2.20%)&quot;)" onmouseout="c()" />
+    <rect x="407.6" y="691" width="110.8" height="15.0" fill="rgb(210,125,114)" rx="2" ry="2" onmouseover="s(&quot;node`uv__io_poll (2053 samples, 9.39%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="410.5957933241884" y="701.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`uv__io_poll (2053 samples, 9.39%)&quot;)" onmouseout="c()" >node`uv__io_p..</text>
+    <rect x="518.8" y="675" width="2.1" height="15.0" fill="rgb(211,155,147)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN4node10StreamWrap13AfterShutdownEP13uv_shutdown_si (39 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="518.7" y="691" width="2.2" height="15.0" fill="rgb(210,153,146)" rx="2" ry="2" onmouseover="s(&quot;node`uv__stream_destroy (40 samples, 0.18%)&quot;)" onmouseout="c()" />
+    <rect x="523.6" y="579" width="1.6" height="15.0" fill="rgb(217,167,151)" rx="2" ry="2" onmouseover="s(&quot;(anon) as process._makeCallback at node.js position 15826 (29 samples, 0.13%)&quot;)" onmouseout="c()" />
+    <rect x="523.5" y="595" width="1.6" height="15.0" fill="rgb(216,165,150)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; internal &gt;&gt; (30 samples, 0.14%)&quot;)" onmouseout="c()" />
+    <rect x="523.4" y="611" width="1.7" height="15.0" fill="rgb(215,163,150)" rx="2" ry="2" onmouseover="s(&quot;&lt;&lt; entry &gt;&gt; (32 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="523.4" y="627" width="1.7" height="15.0" fill="rgb(214,161,149)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internalL6InvokeEbNS0_6HandleINS0_10JSFunctionEEENS1_INS0_6ObjectEEEiPS5_Pb (32 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="523.4" y="643" width="1.7" height="15.0" fill="rgb(213,159,148)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88internal9Execution4CallENS0_6HandleINS0_6ObjectEEES4_iPS4_Pbb (32 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="523.4" y="659" width="1.8" height="15.0" fill="rgb(212,157,148)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN2v88Function4CallENS_6HandleINS_6ObjectEEEiPNS1_INS_5ValueEEE (33 samples, 0.15%)&quot;)" onmouseout="c()" />
+    <rect x="521.2" y="675" width="4.6" height="15.0" fill="rgb(211,155,146)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN4node10StreamWrap10AfterWriteEP10uv_write_si (86 samples, 0.39%)&quot;)" onmouseout="c()" />
+    <rect x="520.9" y="691" width="5.0" height="15.0" fill="rgb(210,153,145)" rx="2" ry="2" onmouseover="s(&quot;node`uv__stream_io (93 samples, 0.43%)&quot;)" onmouseout="c()" />
+    <rect x="406.6" y="707" width="119.3" height="15.0" fill="rgb(209,121,111)" rx="2" ry="2" onmouseover="s(&quot;node`uv__run (2211 samples, 10.11%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="409.6245999085505" y="717.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`uv__run (2211 samples, 10.11%)&quot;)" onmouseout="c()" >node`uv__run</text>
+    <rect x="406.6" y="723" width="119.3" height="15.0" fill="rgb(208,118,111)" rx="2" ry="2" onmouseover="s(&quot;node`uv_run (2211 samples, 10.11%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="409.6245999085505" y="733.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`uv_run (2211 samples, 10.11%)&quot;)" onmouseout="c()" >node`uv_run</text>
+    <rect x="406.6" y="739" width="119.3" height="15.0" fill="rgb(207,116,110)" rx="2" ry="2" onmouseover="s(&quot;node`_ZN4node5StartEiPPc (2211 samples, 10.11%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="409.6245999085505" y="749.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`_ZN4node5StartEiPPc (2211 samples, 10.11%)&quot;)" onmouseout="c()" >node`_ZN4node5..</text>
+    <rect x="406.6" y="755" width="119.3" height="15.0" fill="rgb(206,114,111)" rx="2" ry="2" onmouseover="s(&quot;node`main (2211 samples, 10.11%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="409.6245999085505" y="765.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`main (2211 samples, 10.11%)&quot;)" onmouseout="c()" >node`main</text>
+    <rect x="406.6" y="771" width="119.3" height="15.0" fill="rgb(205,130,129)" rx="2" ry="2" onmouseover="s(&quot;node`_start (2211 samples, 10.11%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="409.6245999085505" y="781.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`_start (2211 samples, 10.11%)&quot;)" onmouseout="c()" >node`_start</text>
+    <rect x="525.9" y="771" width="37.5" height="15.0" fill="rgb(205,140,139)" rx="2" ry="2" onmouseover="s(&quot;node`bn_add_words (695 samples, 3.18%)&quot;)" onmouseout="c()" />
+    <rect x="563.6" y="771" width="382.9" height="15.0" fill="rgb(205,99,97)" rx="2" ry="2" onmouseover="s(&quot;node`bn_mul_add_words (7096 samples, 32.45%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="566.5802469135803" y="781.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`bn_mul_add_words (7096 samples, 32.45%)&quot;)" onmouseout="c()" >node`bn_mul_add_words</text>
+    <rect x="946.4" y="771" width="41.9" height="15.0" fill="rgb(205,140,138)" rx="2" ry="2" onmouseover="s(&quot;node`bn_mul_comba8 (777 samples, 3.55%)&quot;)" onmouseout="c()" />
+    <rect x="988.4" y="771" width="5.6" height="15.0" fill="rgb(205,144,143)" rx="2" ry="2" onmouseover="s(&quot;node`bn_mul_words (103 samples, 0.47%)&quot;)" onmouseout="c()" />
+    <rect x="993.9" y="771" width="119.6" height="15.0" fill="rgb(205,130,129)" rx="2" ry="2" onmouseover="s(&quot;node`bn_sqr_comba8 (2216 samples, 10.13%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="996.9268404206676" y="781.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`bn_sqr_comba8 (2216 samples, 10.13%)&quot;)" onmouseout="c()" >node`bn_sqr_co..</text>
+    <rect x="1113.5" y="771" width="49.9" height="15.0" fill="rgb(205,139,137)" rx="2" ry="2" onmouseover="s(&quot;node`bn_sub_words (925 samples, 4.23%)&quot;)" onmouseout="c()" />
+    <rect x="1163.5" y="771" width="8.8" height="15.0" fill="rgb(205,144,142)" rx="2" ry="2" onmouseover="s(&quot;node`md5_block_data_order (163 samples, 0.75%)&quot;)" onmouseout="c()" />
+    <rect x="1172.4" y="771" width="17.6" height="15.0" fill="rgb(205,143,141)" rx="2" ry="2" onmouseover="s(&quot;node`sha1_block_data_order (327 samples, 1.50%)&quot;)" onmouseout="c()" />
+    <rect x="10.0" y="787" width="1180.0" height="15.0" fill="rgb(204,0,0)" rx="2" ry="2" onmouseover="s(&quot;all samples (21870 samples, 100%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="13" y="797.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;all samples (21870 samples, 100%)&quot;)" onmouseout="c()" ></text>
+</svg>

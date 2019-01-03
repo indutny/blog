@@ -1,0 +1,63 @@
+@keyframes vote-loading {
+  from {
+    border: 1px solid #eee;
+    box-shadow: 0 0 0 rgba(21, 87, 153, 0.0);
+  }
+
+  to {
+    border: 1px solid #aaa;
+    box-shadow: 0 0 8px rgba(21, 87, 153, 0.6);
+  }
+}
+
+.votewdgt {
+  height: 32px;
+  border-radius: 0.3rem;
+  background: #fff;
+  color: #333;
+  font-size: 16px;
+  float: right;
+  margin: 8px 8px 0 0;
+  text-align: center;
+  user-select: none;
+
+  transition: border 1s, box-shadow 1s, padding-left 0.3s, min-width 0.3s, background-position 0.3s 0.3s;
+  border: 1px solid #aaa;
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+  min-width: 32px;
+  background-position: 4px 32px;
+}
+
+.votewdgt:not(:disabled) {
+  cursor: pointer;
+}
+
+.votewdgt.votewdgt-ready:not(:disabled) {
+  padding-left: 32px;
+  min-width: 64px;
+  background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 512 640"><g><polygon points="128,320 256,192 384,320"/></g></svg>') no-repeat 4px 4px;
+}
+
+.votewdgt.votewdgt-loading,
+.votewdgt.votewdgt-computing,
+.votewdgt.votewdgt-voting {
+  animation-name: vote-loading;
+  animation-direction: alternate;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  cursor: progress;
+}
+
+.votewdgt.votewdgt-ready:not(:disabled):hover {
+  font-size: 0;
+}
+
+.votewdgt.votewdgt-ready:not(:disabled):hover:after {
+  font-size: 16px;
+  font-weight: bold;
+  content: '+1';
+}
+
+.votewdgt.votewdgt-voting {
+  border: 1px solid #333;
+}
