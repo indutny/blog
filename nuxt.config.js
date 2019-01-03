@@ -5,7 +5,7 @@ import posts from './src/posts';
 const pkg = require('./package');
 
 module.exports = {
-  mode: 'spa',
+  mode: 'universal',
 
   /*
   ** Headers of the page
@@ -75,6 +75,6 @@ module.exports = {
 
   generate: {
     fallback: true,
-    routes: posts.map((post) => `/${post.slug}`),
+    routes: posts.map((post) => post.slug)
   }
 };
