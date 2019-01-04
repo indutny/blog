@@ -4,30 +4,18 @@
 
 <script>
 import mPost from '~/components/post.vue';
-import posts from '~/src/posts';
 
 export default {
   components: { mPost },
   middleware: 'force-dir',
 
-  validate({ params }) {
-    return posts.some(post => post.slug === params.slug);
+  validate({ store, params }) {
+    return store.getters['posts/hasPostWithSlug'](params.slug);
   },
 
-  asyncData({ params }) {
-    let match;
-    const found = posts.some(post => {
-      if (post.slug === params.slug) {
-        match = post;
-        return true;
-      }
-      return false;
-    });
-    if (!found) {
-      throw new Error('Post not found');
-    }
-
-    return { post: match };
+  asyncData({ store, params }) {
+    const post = store.getters['posts/getPostBySlug'](params.slug);
+    return { post };
   },
 
   head() {

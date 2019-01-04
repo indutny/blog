@@ -14,12 +14,13 @@
 </template>
 
 <script>
-import posts from '~/src/posts';
 import { formatDate } from '~/src/common';
 
 export default {
-  data() {
-    return { posts };
+  computed: {
+    posts() {
+      return this.$store.state.posts.list;
+    }
   },
   methods: { formatDate }
 };
