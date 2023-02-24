@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+	
+	<url>
+		<loc>https://darksi.de/0.benchmarking-tls/</loc>
+		<lastmod>2012-10-02</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/1.to-lock-or-not-to-lock/</loc>
+		<lastmod>2012-10-11</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/2.candor-returns/</loc>
+		<lastmod>2012-11-21</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/3.dtrace-ustack-helper/</loc>
+		<lastmod>2013-01-11</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/4.how-to-start-jitting/</loc>
+		<lastmod>2013-11-01</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/6.allocating-numbers/</loc>
+		<lastmod>2013-11-06</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/6.smids-and-doubles/</loc>
+		<lastmod>2013-11-14</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/7.freebsd-dtrace/</loc>
+		<lastmod>2014-04-01</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/8.bud-a-tls-swiss-knife/</loc>
+		<lastmod>2014-04-03</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/9.heartbleed/</loc>
+		<lastmod>2014-04-16</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/a.deoptimize-me-not/</loc>
+		<lastmod>2014-12-15</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/b.side-projects/</loc>
+		<lastmod>2015-02-26</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/c.cpp-in-node/</loc>
+		<lastmod>2015-05-16</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/d.sea-of-nodes/</loc>
+		<lastmod>2015-10-08</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/e.uv-link-t/</loc>
+		<lastmod>2016-08-15</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/f.v8-hash-seed-timing-attack/</loc>
+		<lastmod>2017-01-19</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/10.bitcoin-to-the-moon/</loc>
+		<lastmod>2017-04-06</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/11.hyperbloom/</loc>
+		<lastmod>2017-04-26</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/12.hashwick-v8-vulnerability/</loc>
+		<lastmod>2018-08-22</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/about/</loc>
+		<lastmod>2023-02-24</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/blog/</loc>
+		<lastmod>2023-02-24</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/</loc>
+		<lastmod>2023-02-24</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/tags/</loc>
+		<lastmod>2023-02-24</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/tags/compilers/</loc>
+		<lastmod>2023-02-24</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/tags/dtrace/</loc>
+		<lastmod>2023-02-24</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/tags/tls/</loc>
+		<lastmod>2023-02-24</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/tags/security/</loc>
+		<lastmod>2023-02-24</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/tags/performance/</loc>
+		<lastmod>2023-02-24</lastmod>
+	</url>
+</urlset>

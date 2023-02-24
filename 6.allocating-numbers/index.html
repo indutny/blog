@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Allocating numbers</title>
+		<meta name="description" content="Darkside of Software Engineering.">
+		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Fedor Indutny&#39;s Blog">
+		<link rel="alternate" href="/feed/feed.json" type="application/json" title="Fedor Indutny&#39;s Blog">
+		<meta name="generator" content="Eleventy v2.0.0">
+		
+		<style>/* Only include the syntax highlighter CSS on blog posts */
+/**
+ * okaidia theme for JavaScript, CSS and HTML
+ * Loosely based on Monokai textmate theme by http://www.monokai.nl/
+ * @author ocodia
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #f8f8f2;
+	background: none;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+	border-radius: 0.3em;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #272822;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #8292a2;
+}
+
+.token.punctuation {
+	color: #f8f8f2;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #f92672;
+}
+
+.token.boolean,
+.token.number {
+	color: #ae81ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #a6e22e;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+	color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+	color: #e6db74;
+}
+
+.token.keyword {
+	color: #66d9ef;
+}
+
+.token.regex,
+.token.important {
+	color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+/*
+ * New diff- syntax
+ */
+
+pre[class*="language-diff-"] {
+	--eleventy-code-padding: 1.25em;
+	padding-left: var(--eleventy-code-padding);
+	padding-right: var(--eleventy-code-padding);
+}
+.token.deleted {
+	background-color: hsl(0, 51%, 37%);
+	color: inherit;
+}
+.token.inserted {
+	background-color: hsl(126, 31%, 39%);
+	color: inherit;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+	-webkit-user-select: none;
+	user-select: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.token.prefix.inserted,
+.token.prefix.deleted {
+	width: var(--eleventy-code-padding);
+	background-color: rgba(0,0,0,.2);
+}
+
+/* Optional: full-width background color */
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+	display: block;
+	margin-left: calc(-1 * var(--eleventy-code-padding));
+	margin-right: calc(-1 * var(--eleventy-code-padding));
+	text-decoration: none; /* override del, ins, mark defaults */
+	color: inherit; /* override del, ins, mark defaults */
+}
+* { box-sizing: border-box; }
+/* Defaults */
+:root {
+	--font-family: -apple-system, system-ui, sans-serif;
+	--font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+}
+
+/* Theme colors */
+:root {
+	--color-gray-20: #e0e0e0;
+	--color-gray-50: #C0C0C0;
+	--color-gray-90: #333;
+
+	--background-color: #fff;
+
+	--text-color: var(--color-gray-90);
+	--text-color-link: #082840;
+	--text-color-link-active: #5f2b48;
+	--text-color-link-visited: #17050F;
+
+	--syntax-tab-size: 2;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-gray-20: #e0e0e0;
+		--color-gray-50: #C0C0C0;
+		--color-gray-90: #dad8d8;
+
+		/* --text-color is assigned to --color-gray-_ above */
+		--text-color-link: #1493fb;
+		--text-color-link-active: #6969f7;
+		--text-color-link-visited: #a6a6f8;
+
+		--background-color: #15202b;
+	}
+}
+
+
+/* Global stylesheet */
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0 auto;
+	font-family: var(--font-family);
+	color: var(--text-color);
+	background-color: var(--background-color);
+}
+html {
+	overflow-y: scroll;
+}
+body {
+	max-width: 40em;
+}
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+p {
+	line-height: 1.5;
+}
+
+li {
+	line-height: 1.5;
+}
+
+a[href] {
+	color: var(--text-color-link);
+}
+a[href]:visited {
+	color: var(--text-color-link-visited);
+}
+a[href]:hover,
+a[href]:active {
+	color: var(--text-color-link-active);
+}
+
+main {
+	padding: 1rem;
+}
+main :first-child {
+	margin-top: 0;
+}
+
+header {
+	border-bottom: 1px dashed var(--color-gray-20);
+}
+header:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.links-nextprev {
+	list-style: none;
+	border-top: 1px dashed var(--color-gray-20);
+	padding: 1em 0;
+}
+
+table {
+	margin: 1em 0;
+}
+table td,
+table th {
+	padding-right: 1em;
+}
+
+pre,
+code {
+	font-family: var(--font-family-monospace);
+}
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.375; /* 22px /16 */
+	-moz-tab-size: var(--syntax-tab-size);
+	-o-tab-size: var(--syntax-tab-size);
+	tab-size: var(--syntax-tab-size);
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+}
+code {
+	word-break: break-all;
+}
+
+/* Header */
+header {
+	display: flex;
+	gap: 1em .5em;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: 1em;
+}
+.home-link {
+	font-size: 1em; /* 16px /16 */
+	font-weight: 700;
+	margin-right: 2em;
+}
+.home-link:link:not(:hover) {
+	text-decoration: none;
+}
+
+/* Nav */
+.nav {
+	display: flex;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+  align-items: center;
+}
+.nav-item {
+	display: inline-block;
+	margin-right: 1em;
+}
+.nav-item a[href]:not(:hover) {
+	text-decoration: none;
+}
+.nav a[href][aria-current="page"] {
+	text-decoration: underline;
+}
+.nav-item svg.social {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+/* Posts list */
+.postlist {
+	list-style: none;
+	padding: 0;
+	padding-left: 1.5rem;
+}
+.postlist-item {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	counter-increment: start-from -1;
+	margin-bottom: 1em;
+}
+.postlist-item:before {
+	display: inline-block;
+	pointer-events: none;
+	content: "" counter(start-from, decimal-leading-zero) ". ";
+	line-height: 100%;
+	text-align: right;
+	margin-left: -1.5rem;
+}
+.postlist-date,
+.postlist-item:before {
+	font-size: 0.8125em; /* 13px /16 */
+	color: var(--color-gray-90);
+}
+.postlist-date {
+	word-spacing: -0.5px;
+}
+.postlist-link {
+	font-size: 1.1875em; /* 19px /16 */
+	font-weight: 700;
+	flex-basis: calc(100% - 1.5rem);
+	padding-left: .25em;
+	padding-right: .5em;
+	text-underline-position: from-font;
+	text-underline-offset: 0;
+	text-decoration-thickness: 1px;
+}
+.postlist-item-active .postlist-link {
+	font-weight: bold;
+}
+
+/* Tags */
+.post-tag {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-transform: capitalize;
+	font-style: italic;
+}
+.postlist-item > .post-tag {
+	align-self: center;
+}
+
+/* Tags list */
+.post-metadata {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: .5em;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.post-metadata time {
+	margin-right: 1em;
+}
+
+/* Direct Links / Markdown Headers */
+.header-anchor {
+	text-decoration: none;
+	font-style: normal;
+	font-size: 1em;
+	margin-left: .1em;
+}
+a[href].header-anchor,
+a[href].header-anchor:visited {
+	color: transparent;
+}
+a[href].header-anchor:focus,
+a[href].header-anchor:hover {
+	text-decoration: underline;
+}
+a[href].header-anchor:focus,
+:hover > a[href].header-anchor {
+	color: #aaa;
+}
+
+h2 + .header-anchor {
+	font-size: 1.5em;
+}
+
+footer {
+  padding: 1.5em 0 0.5em 0;
+  font-size: 0.75em;
+  text-align: right;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}</style>
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
+
+		<header>
+			<a href="/" class="home-link">Fedor Indutny&#39;s Blog</a>
+
+      
+			<nav>
+				<h2 class="visually-hidden">Top level navigation menu</h2>
+				<ul class="nav">
+					<li class="nav-item"><a href="/">Home</a></li>
+					<li class="nav-item"><a href="/blog/">Archive</a></li>
+					<li class="nav-item"><a href="/about/">About Me</a></li>
+          <li class="nav-item">
+            <a href="https://github.com/indutny" target="_blank" rel="noreferrer">
+              <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" class="svg-inline--fa fa-github fa-w-16 social" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="https://fosstodon.org/@indutny" target="_blank" rel="me">
+              <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="mastodon" class="svg-inline--fa fa-mastodon fa-w-14 social" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M433 179.11c0-97.2-63.71-125.7-63.71-125.7-62.52-28.7-228.56-28.4-290.48 0 0 0-63.72 28.5-63.72 125.7 0 115.7-6.6 259.4 105.63 289.1 40.51 10.7 75.32 13 103.33 11.4 50.81-2.8 79.32-18.1 79.32-18.1l-1.7-36.9s-36.31 11.4-77.12 10.1c-40.41-1.4-83-4.4-89.63-54a102.54 102.54 0 0 1-.9-13.9c85.63 20.9 158.65 9.1 178.75 6.7 56.12-6.7 105-41.3 111.23-72.9 9.8-49.8 9-121.5 9-121.5zm-75.12 125.2h-46.63v-114.2c0-49.7-64-51.6-64 6.9v62.5h-46.33V197c0-58.5-64-56.6-64-6.9v114.2H90.19c0-122.1-5.2-147.9 18.41-175 25.9-28.9 79.82-30.8 103.83 6.1l11.6 19.5 11.6-19.5c24.11-37.1 78.12-34.8 103.83-6.1 23.71 27.3 18.4 53 18.4 175z"></path></svg>
+            </a>
+          </li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="skip">
+			
+<h1>Allocating numbers</h1>
+
+<ul class="post-metadata">
+	<li><time datetime="2013-11-06">06 November 2013</time></li>
+	<li><a href="/tags/compilers/" class="post-tag">compilers</a></li>
+</ul>
+
+<h2 id="jit" tabindex="-1">JIT <a class="header-anchor" href="#jit">#</a></h2>
+<p>This is the second blog post in the series about JIT compiling.
+<a href="/4.how-to-start-jitting">The previous post</a> was an introduction into the Just-In-Time code
+generation and, in particular, <a href="https://github.com/indutny/jit.js">jit.js</a> usage. If you haven't read it yet -
+I recommend you to familiarize yourself with <a href="/4.how-to-start-jitting">it</a> first.</p>
+<h2 id="objectives" tabindex="-1">Objectives <a class="header-anchor" href="#objectives">#</a></h2>
+<p>Previously, we created a JIT compiler, supporting a very limited subset of
+JavaScript: integer numbers, math binary operators (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>), and
+<code>-</code> unary operator. This time, we will extend it by adding floating point
+number support, and, to make the process funnier and to spice things up,
+we will allocate and store these numbers in the heap.</p>
+<p>Though, because we are doing things one step at a time, our heap won't have
+Garbage Collection, and will live inside fixed sized memory chunk (say &quot;yay&quot; to
+simplicity!).</p>
+<h2 id="stubs" tabindex="-1">Stubs <a class="header-anchor" href="#stubs">#</a></h2>
+<p>Knowing what we aim to do, we can now set up internal structures for these
+features. Essentially, what we'll need is a memory allocation procedure, that
+generates and returns memory addresses suitable for our goals.</p>
+<p>This allocation code could be generated for every AST node using series of
+inlined assembly instructions, which works great and, more importantly, is
+incredibly fast for concise operations. But due to the relatively big code's
+size of this procedure, the resulting machine code output may become too big to
+be fit entirely into the CPU's cache, causing potential performance problems to
+the whole system.</p>
+<p>Generally, this is considered a bad practice. A better approach would be
+parameterizing such code blocks into shared procedures called <code>stubs</code> (I picked
+that naming from <a href="https://github.com/v8/v8/blob/master/src/ia32/code-stubs-ia32.cc">v8's source</a> and, perhaps, it is how these things are
+named in other VMs too). For even better optimization these procedures
+could be lazily compiled, i.e. we should not compile those ones that are not
+used by generated code. This technique is good for both compilation time and
+executable code size (and therefore CPU caches too).</p>
+<p>Fortunately, <a href="https://github.com/indutny/jit.js">jit.js</a> lets you generate <em>stubs</em> easily:</p>
+<pre class="language-javascript" tabindex="0"><code class="language-javascript"><span class="token keyword">var</span> stubs <span class="token operator">=</span> jit<span class="token punctuation">.</span><span class="token function">stubs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>stubs<span class="token punctuation">.</span><span class="token function">define</span><span class="token punctuation">(</span><span class="token string">'Allocate'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>  <span class="token comment">// Our code here</span><br>  <span class="token comment">// ....</span><br><br>  <span class="token comment">// Returning back to caller</span><br>  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">Return</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Simple, isn't it? Now, to use it in our JIT compiler we'll need to pass it in
+an options argument:</p>
+<pre class="language-javascript" tabindex="0"><code class="language-javascript">jit<span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>  <span class="token comment">// Compiler code generation happens in this context</span><br><br>  <span class="token comment">// Explanation:</span><br>  <span class="token comment">// Read address of 'Allocate' stub into 'rax' register and</span><br>  <span class="token comment">// call it.</span><br>  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">stub</span><span class="token punctuation">(</span><span class="token string">'rax'</span><span class="token punctuation">,</span> <span class="token string">'Allocate'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">Return</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">stubs</span><span class="token operator">:</span> stubs <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>As mentioned above, only stubs that were used during compilation process will
+actually be generated and reused between all callers.</p>
+<h2 id="heap" tabindex="-1">Heap <a class="header-anchor" href="#heap">#</a></h2>
+<p>With this knowledge, we can proceed to the memory allocation phase. But first,
+lets take a short look at the structure and organization of the heap.</p>
+<p>The <em>heap</em> is the place where JavaScript (and many other) VMs create and store
+objects (usually, ones that can't be fit into CPU registers). Some heap objects
+may contain references to other objects (in other words, can reference them).
+All live objects and their references create a directed graph, starting at
+so called <em>roots</em> (which are usually global variables and pointers on stack).</p>
+<p>Although, it is usually used in VMs with JIT compilation, Garbage Collection is
+not required for the Heap. Indeed, many VMs and languages choose to use
+unmanaged memory instead (C/C++ as a banal example). In such cases you (as the
+language user) will generally need to explicitly free unused resources to not
+run out of the memory.</p>
+<p>But for obvious reasons, the JavaScript subset compiler that we're implementing,
+should support both managed memory and Garbage Collection (which will be
+implemented later).</p>
+<p>There are tons of books that may give you an advanced introduction into the
+heap allocation and garbage collection (my recommendation is
+<a href="http://www.amazon.com/The-Garbage-Collection-Handbook-Management/dp/1420082795/ref=sr_1_1?ie=UTF8&amp;qid=1383600127&amp;sr=8-1&amp;keywords=garbage+collection+handbook">The Garbage Collection Handbook</a>), and considerably many ways to allocate
+and collect memory in the heap.</p>
+<p>Usually, you will need to choose between the allocation speed and memory
+fragmentation. But, since we are not covering this very deeply, I would
+recommend to stick with the method called &quot;bump allocation&quot; for now.</p>
+<h2 id="bump-allocation" tabindex="-1">Bump allocation <a class="header-anchor" href="#bump-allocation">#</a></h2>
+<p>Fixed-page bump allocation works in a following way.</p>
+<ol>
+<li>Take the memory chunk of fixed size (a <em>page</em>)</li>
+<li>Give away consequent slices of it as a return value of the allocation
+procedure.</li>
+<li>When running low on memory, perform the Garbage Collection and free all
+unused space, by either compacting live objects or evacuating them to the
+new memory chunk (replacing references to live objects in both cases).</li>
+</ol>
+<p>In terms of <a href="https://github.com/indutny/jit.js">jit.js</a> and stubs API, this procedure may look as following:</p>
+<pre class="language-javascript" tabindex="0"><code class="language-javascript"><span class="token comment">// Create fixed size memory chunk</span><br><span class="token keyword">var</span> page <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Buffer</span><span class="token punctuation">(</span><span class="token number">1024</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token comment">// Set-up pointers to page start and page end</span><br><span class="token keyword">var</span> offset <span class="token operator">=</span> jit<span class="token punctuation">.</span><span class="token function">ptr</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token keyword">var</span> end <span class="token operator">=</span> jit<span class="token punctuation">.</span><span class="token function">ptr</span><span class="token punctuation">(</span>page<span class="token punctuation">,</span> page<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>stubs<span class="token punctuation">.</span><span class="token function">define</span><span class="token punctuation">(</span><span class="token string">'Alloc'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br><br>  <span class="token comment">// Save 'rbx' and 'rcx' registers</span><br>  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">spill</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'rbx'</span><span class="token punctuation">,</span> <span class="token string">'rcx'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token comment">// Load `offset`</span><br>    <span class="token comment">//</span><br>    <span class="token comment">// NOTE: We'll use pointer to `offset` variable, to be able to update</span><br>    <span class="token comment">// it below</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">mov</span><span class="token punctuation">(</span><span class="token string">'rax'</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">ptr</span><span class="token punctuation">(</span>offset<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">mov</span><span class="token punctuation">(</span><span class="token string">'rax'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'rax'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token comment">// Load end</span><br>    <span class="token comment">//</span><br>    <span class="token comment">// NOTE: Same applies to end, though, we're not updating it right now</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">mov</span><span class="token punctuation">(</span><span class="token string">'rbx'</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">ptr</span><span class="token punctuation">(</span>end<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">mov</span><span class="token punctuation">(</span><span class="token string">'rbx'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'rbx'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token comment">// Calculate new `offset`</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">mov</span><span class="token punctuation">(</span><span class="token string">'rcx'</span><span class="token punctuation">,</span> <span class="token string">'rax'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token comment">// We'll assume that all allocations are 16 bytes = two 64bit pointers</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">'rcx'</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token comment">// Check if we won't overflow our fixed size buffer</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">cmp</span><span class="token punctuation">(</span><span class="token string">'rcx'</span><span class="token punctuation">,</span> <span class="token string">'rbx'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token comment">// this.j() performs conditional jump to the specified label.</span><br>    <span class="token comment">// 'g' stands for 'greater'</span><br>    <span class="token comment">// 'overflow' is a label name, bound below</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">j</span><span class="token punctuation">(</span><span class="token string">'g'</span><span class="token punctuation">,</span> <span class="token string">'overflow'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token comment">// Ok, we're good to go, update offset</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">mov</span><span class="token punctuation">(</span><span class="token string">'rbx'</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">ptr</span><span class="token punctuation">(</span>offset<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">mov</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'rbx'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'rcx'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token comment">// The first 64bit pointer is reserved for 'tag',</span><br>    <span class="token comment">// the second one is a `double` value</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">mov</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'rax'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token comment">// Return 'rax'</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">Return</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token comment">// Overflowed :(</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">'overflow'</span><span class="token punctuation">)</span><br><br>    <span class="token comment">// Invoke javascript function!</span><br>    <span class="token comment">// NOTE: This is really funky stuff, but I'm not going to dive deep</span><br>    <span class="token comment">// into it right now</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">runtime</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'GC is needed, but not implemented'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token comment">// Crash</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">int3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">Return</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>That's it! Not totally straightforward, but not really complicated either!</p>
+<p>This procedure will give away consequent slices of the <em>page</em>, and even tag
+them! (I'll cover tagging in one of the next posts. Basically, they're used to
+distinguish different kinds of heap objects).</p>
+<p>Few things to note here:</p>
+<ol>
+<li><code>jit.ptr(buf, offset)</code> returns a <code>Buffer</code>, containing a pointer to the given
+<code>buf</code> with <code>offset</code> added to it.</li>
+<li><code>this.spill()</code> is a routine for saving and restoring registers to/from the
+memory (this process is usually called <em>spilling</em>). It takes list of the
+registers and the closure. These registers will be saved before entering the
+closure, and restored right after leaving it.
+NOTE: The restore code will be generated before each <code>this.Return()</code> too.</li>
+<li><code>this.mov(['rbx'], 'rcx')</code> - stores <code>rcx</code> register into the memory location,
+pointed by the value of <code>rbx</code> register.
+NOTE: you can also specify an offset here: <code>this.mov(['rbx', 8], 'rcx')</code>.</li>
+<li>jit.js supports branching primitives: <code>this.cmp(a, b)</code>,
+<code>this.j(condition, labelName)</code>, <code>this.j(labelName)</code>, <code>this.bind(labelName)</code>.</li>
+</ol>
+<h1 id="floating-point" tabindex="-1">Floating point <a class="header-anchor" href="#floating-point">#</a></h1>
+<p>Now as we have a <em>presumably</em> working allocation procedure, let's recall what
+should be stored inside of this heap chunks. In the allocation procedure, we
+create chunks with the 8 byte tag value, and the 8 byte contents. This is
+enough to store <code>double</code> (as C type) floating point numbers.</p>
+<p>There are plenty of assembly instructions to load/store/work with such numbers.
+But note that to work with them - you'll need to store them in the different
+register set: <code>xmm0</code>, <code>xmm1</code>, ... <code>xmm15</code>. Although, 64-bit floating numbers
+could be stored in the general purpose registers: <code>rax</code>, <code>rbx</code>, ... Performing
+math operations is possible only with a <code>xmm</code> register set. Here are some
+instructions, that are present in <code>jit.js</code> and should be useful for our
+compiler:</p>
+<ol>
+<li><code>movq('xmm', 'gp')</code> or <code>movq('gp', 'xmm')</code> to move 64bits from the general
+purpose register (or memory pointed by it) to xmm, or the other way around.</li>
+<li><code>movsd('xmm', 'xmm')</code> to move the value from one xmm to another.</li>
+<li><code>addsd</code>, <code>mulsd</code>, <code>subsd</code>, <code>divsd</code> - addition, multiplication, subtraction,
+division.</li>
+<li><code>cvtsi2sd('xmm', 'gp')</code>, <code>cvts2si('gp', 'xmm')</code> - converts integer into
+double, and double into integer, respectively.</li>
+<li><code>roundsd('mode', 'xmm', 'xmm')</code> - round the <code>src</code> register using specified
+<code>mode</code> (which is one of: <code>nearest</code>, <code>down</code>, <code>up</code>, <code>zero</code>) and place the
+result into the <code>dst</code> register.</li>
+</ol>
+<p>Using this sacred knowledge we can patch our existing code to make it work with
+the floating point numbers (yeah, we will remove the integer support for now):</p>
+<pre class="language-javascript" tabindex="0"><code class="language-javascript"><span class="token comment">// Compile</span><br><span class="token keyword">var</span> fn <span class="token operator">=</span> jit<span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>  <span class="token comment">// This will generate default entry boilerplate</span><br>  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">Proc</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token function">visit</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> ast<span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token comment">// The result should be in 'rax' at this point</span><br>    <span class="token comment">//</span><br>    <span class="token comment">// This will generate default exit boilerplate</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">Return</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">stubs</span><span class="token operator">:</span> stubs <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token comment">// Execute</span><br>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token keyword">function</span> <span class="token function">visit</span><span class="token punctuation">(</span><span class="token parameter">ast</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>  <span class="token keyword">if</span> <span class="token punctuation">(</span>ast<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'Program'</span><span class="token punctuation">)</span><br>    <span class="token function">visitProgram</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> ast<span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>ast<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'Literal'</span><span class="token punctuation">)</span><br>    <span class="token function">visitLiteral</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> ast<span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>ast<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'UnaryExpression'</span><span class="token punctuation">)</span><br>    <span class="token function">visitUnary</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> ast<span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>ast<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'BinaryExpression'</span><span class="token punctuation">)</span><br>    <span class="token function">visitBinary</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> ast<span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token keyword">else</span><br>    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'Unknown ast node: '</span> <span class="token operator">+</span> ast<span class="token punctuation">.</span>type<span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><br><span class="token keyword">function</span> <span class="token function">visitProgram</span><span class="token punctuation">(</span><span class="token parameter">ast</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>  assert<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>ast<span class="token punctuation">.</span>body<span class="token punctuation">.</span>length<span class="token punctuation">,</span><br>               <span class="token number">1</span><span class="token punctuation">,</span><br>               <span class="token string">'Only one statement programs are supported'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>  assert<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>ast<span class="token punctuation">.</span>body<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>type<span class="token punctuation">,</span> <span class="token string">'ExpressionStatement'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>  <span class="token comment">// We've a pointer in 'rax', convert it to integer</span><br>  <span class="token function">visit</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> ast<span class="token punctuation">.</span>body<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>expression<span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>  <span class="token comment">// Get floating point number out of heap number</span><br>  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">movq</span><span class="token punctuation">(</span><span class="token string">'xmm1'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'rax'</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>  <span class="token comment">// Round it towards zero</span><br>  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">roundsd</span><span class="token punctuation">(</span><span class="token string">'zero'</span><span class="token punctuation">,</span> <span class="token string">'xmm1'</span><span class="token punctuation">,</span> <span class="token string">'xmm1'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>  <span class="token comment">// Convert double to integer</span><br>  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">cvtsd2si</span><span class="token punctuation">(</span><span class="token string">'rax'</span><span class="token punctuation">,</span> <span class="token string">'xmm1'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><br><span class="token keyword">function</span> <span class="token function">visitLiteral</span><span class="token punctuation">(</span><span class="token parameter">ast</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>  assert<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token keyword">typeof</span> ast<span class="token punctuation">.</span>value<span class="token punctuation">,</span> <span class="token string">'number'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>  <span class="token comment">// Allocate new heap number</span><br>  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">stub</span><span class="token punctuation">(</span><span class="token string">'rax'</span><span class="token punctuation">,</span> <span class="token string">'Alloc'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>  <span class="token comment">// Save 'rbx' register</span><br>  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">spill</span><span class="token punctuation">(</span><span class="token string">'rbx'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">loadDouble</span><span class="token punctuation">(</span><span class="token string">'rbx'</span><span class="token punctuation">,</span> ast<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">mov</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'rax'</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'rbx'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><br><span class="token keyword">function</span> <span class="token function">visitBinary</span><span class="token punctuation">(</span><span class="token parameter">ast</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>  <span class="token comment">// Preserve 'rbx' after leaving the AST node</span><br>  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">spill</span><span class="token punctuation">(</span><span class="token string">'rbx'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token comment">// Visit right side of expresion</span><br>    <span class="token function">visit</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> ast<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token comment">// Move it to 'rbx'</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">mov</span><span class="token punctuation">(</span><span class="token string">'rbx'</span><span class="token punctuation">,</span> <span class="token string">'rax'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token comment">// Visit left side of expression (the result is in 'rax')</span><br>    <span class="token function">visit</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> ast<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token comment">//</span><br>    <span class="token comment">// So, to conclude, we've left side in 'rax' and right in 'rbx'</span><br>    <span class="token comment">//</span><br><br>    <span class="token comment">// Let's load their double values</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">movq</span><span class="token punctuation">(</span><span class="token string">'xmm1'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'rax'</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">movq</span><span class="token punctuation">(</span><span class="token string">'xmm2'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'rbx'</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token comment">// Execute binary operation</span><br>    <span class="token keyword">if</span> <span class="token punctuation">(</span>ast<span class="token punctuation">.</span>operator <span class="token operator">===</span> <span class="token string">'+'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">addsd</span><span class="token punctuation">(</span><span class="token string">'xmm1'</span><span class="token punctuation">,</span> <span class="token string">'xmm2'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>ast<span class="token punctuation">.</span>operator <span class="token operator">===</span> <span class="token string">'-'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">subsd</span><span class="token punctuation">(</span><span class="token string">'xmm1'</span><span class="token punctuation">,</span> <span class="token string">'xmm2'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>ast<span class="token punctuation">.</span>operator <span class="token operator">===</span> <span class="token string">'*'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">mulsd</span><span class="token punctuation">(</span><span class="token string">'xmm1'</span><span class="token punctuation">,</span> <span class="token string">'xmm2'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>ast<span class="token punctuation">.</span>operator <span class="token operator">===</span> <span class="token string">'/'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">divsd</span><span class="token punctuation">(</span><span class="token string">'xmm1'</span><span class="token punctuation">,</span> <span class="token string">'xmm2'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span><br>      <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'Unsupported binary operator: '</span> <span class="token operator">+</span> ast<span class="token punctuation">.</span>operator<span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><br><br>    <span class="token comment">// Allocate new number, and put value in it</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">stub</span><span class="token punctuation">(</span><span class="token string">'rax'</span><span class="token punctuation">,</span> <span class="token string">'Alloc'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">movq</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'rax'</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'xmm1'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><br><span class="token keyword">function</span> <span class="token function">visitUnary</span><span class="token punctuation">(</span><span class="token parameter">ast</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>  <span class="token keyword">if</span> <span class="token punctuation">(</span>ast<span class="token punctuation">.</span>operator <span class="token operator">===</span> <span class="token string">'-'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token comment">// Negate argument by emulating binary expression</span><br>    <span class="token function">visit</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><br>      <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'BinaryExpression'</span><span class="token punctuation">,</span><br>      <span class="token literal-property property">operator</span><span class="token operator">:</span> <span class="token string">'*'</span><span class="token punctuation">,</span><br>      <span class="token literal-property property">left</span><span class="token operator">:</span> ast<span class="token punctuation">.</span>argument<span class="token punctuation">,</span><br>      <span class="token literal-property property">right</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'Literal'</span><span class="token punctuation">,</span> <span class="token literal-property property">value</span><span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">}</span><br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><br>  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span><br>    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'Unsupported unary operator: '</span> <span class="token operator">+</span> ast<span class="token punctuation">.</span>operator<span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">}</span></code></pre>
+<h2 id="to-be-continued" tabindex="-1">To be continued <a class="header-anchor" href="#to-be-continued">#</a></h2>
+<p>So, that's all I have to say to you for now. On a more social theme, you may
+want subscribe to my <a href="https://twitter.com/indutny">twitter</a> or watch my <a href="https://github.com/indutny/blog">blog on github</a>. Don't miss
+the next post!</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/4.how-to-start-jitting/">How to start JIT-ting</a></li><li>Next: <a href="/6.smids-and-doubles/">SMIs and Doubles</a></li>
+</ul>
+
+		</main>
+
+		<footer>
+      Copyright Fedor Indutny 2023; Released under
+      <a href="https://opensource.org/licenses/mit-license.php" target="_blank" rel="noreferrer">
+        MIT license
+      </a>.
+    </footer>
+
+		<!-- Current page: /6.allocating-numbers/ -->
+	</body>
+</html>
