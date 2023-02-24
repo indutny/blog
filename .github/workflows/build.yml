@@ -14,8 +14,10 @@ jobs:
           node-version: 19
       - name: Install dependencies & build
         run: |
-          npm ci
-          NODE_ENV=production npm run build
+          npm install
+          npm run build
+        env:
+          NODE_ENV=production
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
