@@ -11,7 +11,7 @@
 		<link rel="alternate" href="/feed/feed.json" type="application/json" title="{{ metadata.title }}">
 
 		{#- Uncomment this if you’d like folks to know that you used Eleventy to build your site!  #}
-		{#- <meta name="generator" content="{{ eleventy.generator }}"> #}
+		<meta name="generator" content="{{ eleventy.generator }}">
 
 		{#-
 		CSS bundles are provided via the `eleventy-plugin-bundle` plugin:
@@ -37,6 +37,13 @@
 		<header>
 			<a href="/" class="home-link">{{ metadata.title }}</a>
 
+      {%
+        set social = [
+          { brand: 'github', url: 'https://github.com/indutny', rel: 'noreferrer' },
+          { brand: 'mastodon', url: 'https://fosstodon.org/@indutny', rel: 'me' }
+        ]
+      %}
+
 			{#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
 			<nav>
 				<h2 class="visually-hidden">Top level navigation menu</h2>
@@ -44,6 +51,13 @@
 				{%- for entry in collections.all | eleventyNavigation %}
 					<li class="nav-item"><a href="{{ entry.url }}"{% if entry.url == page.url %} aria-current="page"{% endif %}>{{ entry.title }}</a></li>
 				{%- endfor %}
+        {%- for entry in social %}
+          <li class="nav-item">
+            <a href="{{ entry.url }}" target="_blank" rel="{{ entry.rel }}">
+              {% fortawesomeBrand entry.brand, "social" %}
+            </a>
+          </li>
+        {%- endfor %}
 				</ul>
 			</nav>
 		</header>
@@ -52,7 +66,12 @@
 			{{ content | safe }}
 		</main>
 
-		<footer></footer>
+		<footer>
+      Copyright Fedor Indutny 2023; Released under
+      <a href="https://opensource.org/licenses/mit-license.php" target="_blank" rel="noreferrer">
+        MIT license
+      </a>.
+    </footer>
 
 		<!-- Current page: {{ page.url | htmlBaseUrl }} -->
 	</body>

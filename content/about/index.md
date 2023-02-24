@@ -6,4 +6,7 @@ eleventyNavigation:
 ---
 # About Me
 
-I am a person that writes stuff.
+{% image "./avatar-small.png", "Avatar" %}
+
+Fedor Indutny is a Software Engineer at [Signal](https://signal.org/), who
+loves working on performance, compilers, security, and exploring wild ideas.

@@ -40,5 +40,8 @@
 		"@11ty/eleventy-plugin-syntaxhighlight": "^4.2.0",
 		"luxon": "^3.2.1",
 		"markdown-it-anchor": "^8.6.6"
+	},
+	"dependencies": {
+		"@vidhill/fortawesome-brands-11ty-shortcode": "^1.0.2"
 	}
 }
