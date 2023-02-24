@@ -12,10 +12,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 19
-      - name: Install dependencies & build
-        run: |
-          npm install
-          npm run build
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
         env:
           NODE_ENV: production
       - name: Deploy
