@@ -139,7 +139,7 @@ pre:not([class*="language-"]) {
 	word-break: normal;
 }
 code {
-	word-break: break-all;
+	word-break: normal;
 }
 
 /* Header */

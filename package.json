@@ -4,9 +4,9 @@
 	"description": "A starter repository for a blog web site using the Eleventy site generator.",
 	"scripts": {
 		"build": "eleventy",
-		"start": "eleventy @11ty/eleventy --serve --quiet",
-		"debug": "DEBUG=Eleventy* eleventy @11ty/eleventy",
-		"debugstart": "DEBUG=Eleventy* eleventy @11ty/eleventy --serve --quiet",
+		"start": "eleventy --serve --quiet",
+		"debug": "DEBUG=Eleventy* eleventy",
+		"debugstart": "DEBUG=Eleventy* eleventy --serve --quiet",
 		"benchmark": "DEBUG=Eleventy:Benchmark* eleventy @11ty/eleventy"
 	},
 	"repository": {
