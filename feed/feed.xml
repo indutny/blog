@@ -4,12 +4,215 @@
 	<subtitle>Darkside of Software Engineering.</subtitle>
 	<link href="https://darksi.de/feed/feed.xml" rel="self"/>
 	<link href="https://darksi.de/"/>
-	<updated>2018-08-22T00:00:00Z</updated>
+	<updated>2023-02-26T00:00:00Z</updated>
 	<id>https://darksi.de/</id>
 	<author>
 		<name>Fedor Indutny</name>
 		<email>blackhole@livebox.sh</email>
 	</author>
+	
+	<entry>
+		<title>Structure of FTS5 Index in SQLite</title>
+		<link href="https://darksi.de/13.sqlite-fts5-structure/"/>
+		<updated>2023-02-26T00:00:00Z</updated>
+		<id>https://darksi.de/13.sqlite-fts5-structure/</id>
+		<content type="html">&lt;p&gt;Recently &lt;a href=&quot;https://signal.org/&quot;&gt;Signal&lt;/a&gt; has
+&lt;a href=&quot;https://github.com/signalapp/Signal-FTS5-Extension&quot;&gt;open-sourced a SQLite extension&lt;/a&gt;
+that provides better support for non-latin languages (Chinese, Japanese, etc) in
+the Full-Text Search (FTS) virtual table. I was one of the engineers
+who worked on this extension and in the course of this endeavor I got to learn
+about the structure of the SQLite&#39;s FTS implementation.
+&lt;a href=&quot;https://www.sqlite.org/fts5.html&quot;&gt;The existing documentation&lt;/a&gt; focuses mostly
+on API and its use patterns, and even though it covers some of the internal
+storage format, I found it a bit confusing. Thus this article was born. Not as
+alternative documentation for FTS5, but as a complement for developers who want
+to dive in past the officially documented bits.&lt;/p&gt;
+&lt;h2 id=&quot;how-is-fts5-used&quot; tabindex=&quot;-1&quot;&gt;How is FTS5 used &lt;a class=&quot;header-anchor&quot; href=&quot;https://darksi.de/13.sqlite-fts5-structure/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Before anything else, though, let&#39;s see what the FTS5 looks like to the API
+consumer. As with many other features of SQLite we start by creating a table:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;CREATE&lt;/span&gt; VIRTUAL &lt;span class=&quot;token keyword&quot;&gt;TABLE&lt;/span&gt; search&lt;br&gt;    &lt;span class=&quot;token keyword&quot;&gt;USING&lt;/span&gt; fts5&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;content&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This virtual table supports insertion, modification, and deletion of textual
+content:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;INSERT&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;INTO&lt;/span&gt; search&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;content&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;VALUES&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;hello world&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;halló heimur&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;你好世界&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&quot;token keyword&quot;&gt;DELETE&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; search&lt;br&gt;    &lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt; content &lt;span class=&quot;token operator&quot;&gt;IS&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;halló heimur&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As well as special full-text search queries that can find an entry that has a
+word (term) starting with a certain prefix:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; content &lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; search&lt;br&gt;    &lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt; content &lt;span class=&quot;token keyword&quot;&gt;MATCH&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;wo*&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- Output: &#39;hello world&#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In addition to that you could match on multiple words (not necessarily adjacent)
+and sort by the search rank. The details of this are
+&lt;a href=&quot;https://www.sqlite.org/fts5.html#fts5_phrases&quot;&gt;covered by the official documentation&lt;/a&gt;
+so we won&#39;t be discussing them much more here.&lt;/p&gt;
+&lt;h2 id=&quot;signal-s-fts5-extension&quot; tabindex=&quot;-1&quot;&gt;Signal&#39;s FTS5 extension &lt;a class=&quot;header-anchor&quot; href=&quot;https://darksi.de/13.sqlite-fts5-structure/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;In the example above you might have noticed that we inserted a phrase in
+Simplified Chinese: &lt;code&gt;你好世界&lt;/code&gt;. What happens if we search for the second word of
+it (&lt;code&gt;世界&lt;/code&gt;)?&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; content &lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; search&lt;br&gt;    &lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt; content &lt;span class=&quot;token keyword&quot;&gt;MATCH&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;世界*&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- Output: nothing&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;No resulting rows! The reason for that is that the default tokenizer for FTS5
+has segmented &lt;code&gt;你好世界&lt;/code&gt; as a single word (term), instead of either splitting
+it into two words (example in JavaScript):&lt;/p&gt;
+&lt;pre class=&quot;language-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; segmenter &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Intl&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Segmenter&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token literal-property property&quot;&gt;granularity&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;word&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; segments &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;segmenter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;segment&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;你好世界&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; s&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;segment&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;segments&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;// Output: [ &#39;你好&#39;, &#39;世界&#39; ]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;or at the very least into separate CJK symbols:&lt;/p&gt;
+&lt;pre class=&quot;language-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;你&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;好&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;世&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;界&#39;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since FTS5 only supports indexed searches by the start of the term - it cannot
+search for Chinese/Japanese words in the middle of the sentence.&lt;/p&gt;
+&lt;p&gt;This is where &lt;a href=&quot;https://github.com/signalapp/Signal-FTS5-Extension&quot;&gt;Signal&#39;s FTS5 Extension&lt;/a&gt; comes to the rescue.
+It is a &lt;a href=&quot;https://www.rust-lang.org/&quot;&gt;Rust&lt;/a&gt; crate that could be built as either static or shared
+library. When plugged into SQLite this library provides an alternative
+tokenizer conspicuously named &lt;code&gt;signal_tokenizer&lt;/code&gt;. Creating a table with this
+tokenizer is fairly straightforward and one could easily verify that the CJK
+search works without issues now:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;-- With extension loaded&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- (e.g. after &quot;.load signal-fts5-extension.dylib&quot;)&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&quot;token keyword&quot;&gt;CREATE&lt;/span&gt; VIRTUAL &lt;span class=&quot;token keyword&quot;&gt;TABLE&lt;/span&gt; search&lt;br&gt;    &lt;span class=&quot;token keyword&quot;&gt;USING&lt;/span&gt; fts5&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;content&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; tokenize&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;signal_tokenizer&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&quot;token keyword&quot;&gt;INSERT&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;INTO&lt;/span&gt; search&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;content&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;VALUES&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;你好世界&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; content &lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; search&lt;br&gt;    &lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt; content &lt;span class=&quot;token keyword&quot;&gt;MATCH&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;世界*&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- Output: &#39;你好世界&#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;em&gt;Note that default &lt;code&gt;sqlite3&lt;/code&gt; shell
+doesn&#39;t support extensions so you&#39;d have to build your own or use Signal&#39;s
+&lt;a href=&quot;https://github.com/signalapp/better-sqlite3&quot;&gt;fork of better-sqlite3&lt;/a&gt; which
+automatically loads &lt;code&gt;signal_tokenizer&lt;/code&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&quot;fts5-internal-structure&quot; tabindex=&quot;-1&quot;&gt;FTS5 Internal Structure &lt;a class=&quot;header-anchor&quot; href=&quot;https://darksi.de/13.sqlite-fts5-structure/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;With this context in mind, we are ready to take a look at the internal
+structure of FTS5! Let&#39;s define the common terminology:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;document&lt;/strong&gt; - a &lt;code&gt;rowid&lt;/code&gt; primary key along with one or more indexed text
+columns (for simplicity we will assume one)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;term&lt;/strong&gt; - a &amp;quot;word&amp;quot; in an indexed column. Tokenizer is responsible for
+segmenting the text with multiple sentences into &lt;code&gt;term&lt;/code&gt;s&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;segment&lt;/strong&gt; - a collection of pages/leaves&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;page&lt;/strong&gt; (&lt;strong&gt;leaf&lt;/strong&gt;) - a sorted list of tokens and their positions in the
+documents.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;naive-idea&quot; tabindex=&quot;-1&quot;&gt;Naive Idea &lt;a class=&quot;header-anchor&quot; href=&quot;https://darksi.de/13.sqlite-fts5-structure/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Naively, given a document we could imagine compiling a list of terms and their
+positions sorted lexicographically by the term:&lt;/p&gt;
+&lt;pre class=&quot;language-txt&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-txt&quot;&gt;&quot;hello&quot;  -&gt; rowid1 + position of &quot;hello&quot; in the document&lt;br&gt;&quot;hooray&quot; -&gt; rowid2 + ...&lt;br&gt;&quot;howdy&quot;  -&gt; rowid3 + ...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A binary search could be then performed over the document to find the first
+term (and the following terms) with a given prefix.
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Big_O_notation&quot;&gt;The cost&lt;/a&gt; of lookups would be:
+&lt;code&gt;O(log N)&lt;/code&gt;, but the insertions are going to be painful (&lt;code&gt;O(N)&lt;/code&gt;) since most
+new entries would have to be put into the middle of the list and thus we&#39;d have
+to move all older entries forward to make space for them.&lt;/p&gt;
+&lt;h3 id=&quot;b-tree&quot; tabindex=&quot;-1&quot;&gt;B-Tree &lt;a class=&quot;header-anchor&quot; href=&quot;https://darksi.de/13.sqlite-fts5-structure/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/B-tree&quot;&gt;B-Trees&lt;/a&gt; were invented to compensate for
+that. There is a lot to be said about them, but the only relevant part for our
+discussion is that B-Trees work by splitting the data into pages, each
+page individually sorted, and then organizing the pages into a binary tree-like
+structure. Inserting new data then mostly touches a single page and some nodes
+in the tree along the way to that page. This amortizes the insertion performance
+to &lt;code&gt;O(log N)&lt;/code&gt; (from &lt;code&gt;O(N)&lt;/code&gt; of the &amp;quot;big sorted list&amp;quot; described above).&lt;/p&gt;
+&lt;p&gt;Because of these performance characteristics, B-Trees are ubiquitous in the
+&amp;quot;database world&amp;quot;. Some version of them (e.g., &lt;a href=&quot;https://en.wikipedia.org/wiki/B%2B_tree&quot;&gt;B+ Tree&lt;/a&gt;) is used in
+practically every popular database.&lt;/p&gt;
+&lt;h3 id=&quot;outline-of-fts5-approach&quot; tabindex=&quot;-1&quot;&gt;Outline of FTS5 Approach &lt;a class=&quot;header-anchor&quot; href=&quot;https://darksi.de/13.sqlite-fts5-structure/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;While the above approach would work for full-text search, it doesn&#39;t take in
+account the specifics of it. Namely, users usually insert large documents that
+consist of many terms, and commonly perform lookup by just a few terms.&lt;/p&gt;
+&lt;p&gt;I believe this was the motivation for the approach that SQLite took with FTS5.
+Instead of plain &lt;a href=&quot;https://en.wikipedia.org/wiki/B-tree&quot;&gt;B-Trees&lt;/a&gt; FTS5 uses a structure that has even better
+amortization for insertions at a price of a slight overhead during the lookup.&lt;/p&gt;
+&lt;p&gt;Roughly the data is split into three tables:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;%_data&lt;/code&gt; - holds the header of the structure with levels description, and
+the contents of segments (sorted lists) of doclists (term + document rowid +
+positions of the term in the document). This table is indexed by &lt;a href=&quot;https://www.sqlite.org/rowidtable.html&quot;&gt;rowid&lt;/a&gt;
+(i.e. an integer primary key)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;%_idx&lt;/code&gt; - holds the triples (segment id, term, page number) to index within
+each segment. This table is indexed by &lt;code&gt;segment id&lt;/code&gt; and &lt;code&gt;term&lt;/code&gt;, so that we
+could find the page number in a segment efficiently&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;%_content&lt;/code&gt; - holds the full contents of the stored documents (note that this
+table is omitted when FTS5 is configured to use
+&lt;a href=&quot;https://www.sqlite.org/fts5.html#external_content_and_contentless_tables&quot;&gt;external content&lt;/a&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;(Note: &lt;code&gt;&amp;quot;%&amp;quot;&lt;/code&gt; is the virtual table name, e.g. &lt;code&gt;search&lt;/code&gt; in our examples)&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;With the overview above, let&#39;s build the structure bottom up. When a new
+document is inserted into the table:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;It is tokenized into multiple terms and their positions within the document&lt;/li&gt;
+&lt;li&gt;A new segment is created for all these terms, and it is essentially what we
+called &amp;quot;big sorted list&amp;quot; above. A segment could be one page if it is small
+(less than 1000 bytes, see &lt;a href=&quot;https://www.sqlite.org/fts5.html#the_pgsz_configuration_option&quot;&gt;&lt;code&gt;pgsz&lt;/code&gt; config option&lt;/a&gt;), or it could be
+split into multiple sorted pages (leaves)&lt;/li&gt;
+&lt;li&gt;If the segment is split into multiple pages - we take a prefix of the first
+term from each sorted page and put them into &lt;code&gt;%_idx&lt;/code&gt; table. Thus we
+indirectly create a &lt;a href=&quot;https://en.wikipedia.org/wiki/B-tree&quot;&gt;B-Tree&lt;/a&gt;! &lt;code&gt;%_idx&lt;/code&gt; becomes a tree part of B-Tree
+(because it is indexed by a B+-Tree under the hood), and this tree points to
+pages in the &lt;code&gt;%_data&lt;/code&gt; table. Each page small enough that we could search it
+for terms and their documents&lt;/li&gt;
+&lt;li&gt;Finally, if FTS5 isn&#39;t running in the &amp;quot;external content&amp;quot; mode - we insert the
+original (non-tokenized) contents of the document into the &lt;code&gt;%_content&lt;/code&gt; table.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;With this structure it is easy to see how FTS5 performs a search over a single
+segment, but what if we insert multiple documents into the index over time?&lt;/p&gt;
+&lt;h3 id=&quot;merging-segments&quot; tabindex=&quot;-1&quot;&gt;Merging segments &lt;a class=&quot;header-anchor&quot; href=&quot;https://darksi.de/13.sqlite-fts5-structure/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Each time we insert a new document - we create a new segment with its terms
+(just as described above). If the number of segments is small, when looking up a
+term in the index we&#39;d just iterate through all of them starting with the newest
+segments! This is the insertion amortization technique in the nutshell. We just
+create a brand new B-Tree (through a combination of rows in &lt;code&gt;%_idx&lt;/code&gt; and
+&lt;code&gt;%_data&lt;/code&gt;) and get a forest of them.&lt;/p&gt;
+&lt;p&gt;When the number of segments becomes too large, however, B-Tree forest can
+quickly become impractical. Thus every now and then (every 64 insertions in
+SQLite) SQLite has to perform &amp;quot;merges&amp;quot; of some of these segments and create
+larger (but more efficient) B-Trees. There are various ways to configure how
+these merges work, and how much data is merged. I previously
+&lt;a href=&quot;https://gist.github.com/indutny/ae44fd93dde2736205609d19a21b87cc&quot;&gt;covered the mechanics of the merges&lt;/a&gt;
+so we won&#39;t concentrate on them here.&lt;/p&gt;
+&lt;p&gt;Every time a merge is performed - we have to combine together two segments and
+move all their data into a new one. This sounds like it could be... slow, right?
+In fact it very well would be if not for a trick that FTS5 employs! Instead of
+just merging everything together any time we get too many segments - we assign
+each segment a level. They all start with level 0 and the merges only affect
+segments on the &lt;strong&gt;same level&lt;/strong&gt;. When they are finally merged - the resulting
+segment is one level above the source segments. Since we merge every 64
+insertions, with each new level segments become ~64 times larger.
+This way we reduce the merge frequency for older and larger segments on
+a higher level, and perform most merges on the lower levels when they become
+overcrowded.&lt;/p&gt;
+&lt;h3 id=&quot;inspecting-the-structure&quot; tabindex=&quot;-1&quot;&gt;Inspecting the Structure &lt;a class=&quot;header-anchor&quot; href=&quot;https://darksi.de/13.sqlite-fts5-structure/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Let&#39;s see how this works in practice. There is a &amp;quot;secret&amp;quot; test-only function in
+FTS5 named &lt;code&gt;fts5_decode&lt;/code&gt; that is unfortunately only available when &lt;code&gt;SQLITE_TEST&lt;/code&gt;
+was defined at the build time. &lt;code&gt;sqlite3&lt;/code&gt; shell isn&#39;t supposed to be built with
+this define, but with a &lt;a href=&quot;https://gist.github.com/indutny/01cccb511059a0e2d657036e2fc9cb67&quot;&gt;small patch&lt;/a&gt; we could get it running:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;CREATE&lt;/span&gt; VIRTUAL &lt;span class=&quot;token keyword&quot;&gt;TABLE&lt;/span&gt; search&lt;br&gt;    &lt;span class=&quot;token keyword&quot;&gt;USING&lt;/span&gt; fts5&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;content&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- Limit max page size for instructiveness&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token keyword&quot;&gt;INSERT&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;INTO&lt;/span&gt; search&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;search&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; rank&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;VALUES&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;pgsz&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&quot;token keyword&quot;&gt;INSERT&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;INTO&lt;/span&gt; search&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;content&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;VALUES&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;hello world&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; rowid&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; fts5_decode&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;rowid&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; block&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; search_data&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- Output (with manual indenting):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- 1|{averages} 1 2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- 10|{structure} {lvl=0 nMerge=0 nSeg=1 {id=1 leaves=1..1}}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- 137438953473|{segid=1 h=0 pgno=1}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--     term=0hello id=1 nPos=1 2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--     term=0world id=1 nPos=1 3&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If we ignore the &lt;code&gt;{averages}&lt;/code&gt; (it is used for ranking), we see that in the
+&lt;code&gt;{structure}&lt;/code&gt; we have one level (&lt;code&gt;lvl=0&lt;/code&gt;) with one segment
+(&lt;code&gt;nSeg=1 {id=1 leaves=1..1}&lt;/code&gt;) that consists of a single page (&lt;code&gt;1..1&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Row &lt;code&gt;137438953473&lt;/code&gt; (0x2000000001, see
+&lt;a href=&quot;https://www.sqlite.org/fts5.html#data_structure&quot;&gt;the official documentation on the value&lt;/a&gt;)
+has the actual segment page which contains a sorted list of terms and
+their positions within the document (as promised!). They all start with &amp;quot;0&amp;quot;,
+because FTS5 supports optional
+&lt;a href=&quot;https://www.sqlite.org/fts5.html#prefix_indexes&quot;&gt;prefix indexes&lt;/a&gt; which require
+this encoding.&lt;/p&gt;
+&lt;p&gt;We can insert more data into the index:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;INSERT&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;INTO&lt;/span&gt; search&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;content&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;VALUES&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;how was your day&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; rowid&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; fts5_decode&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;rowid&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; block&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; search_data&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- Output (from now on without {averages}, and&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--   with hex segment ids):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- 10|{structure} {lvl=0 nMerge=0 nSeg=2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--   {id=1 leaves=1..1}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--   {id=2 leaves=1..2}}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- 0x2000000001|{segid=1 h=0 pgno=1}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--   term=0hello id=1 nPos=1 2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--   term=0world id=1 nPos=1 3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- 0x4000000001|{segid=2 h=0 pgno=1}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--   term=0day id=2 nPos=1 5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--   term=0how id=2 nPos=1 2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--   term=0was id=2 nPos=1 3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- 0x4000000002|{segid=2 h=0 pgno=2}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--   term=0your id=2 nPos=1 4&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It is easy to see that the segment 1 wasn&#39;t changed, and we added one more
+level zero segment (&lt;code&gt;{id=2 leaves=1..2}&lt;/code&gt;) with two pages (&lt;code&gt;1..2&lt;/code&gt;,
+&lt;code&gt;0x4000000001&lt;/code&gt; and &lt;code&gt;0x4000000002&lt;/code&gt;) because the terms didn&#39;t all fit into a
+single page. Each page is again a sorted list, and they are now inserted into
+the &lt;code&gt;%_idx&lt;/code&gt; table:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; search_idx&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- Output (with column names):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- segment id | term | page number&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- 1          |      | 2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- 2          |      | 2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- 2          | 0y   | 4&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;One can see that for the newly inserted segment 2 we have two entries (one per
+each page), and that they correctly start with &lt;code&gt;&amp;quot;0y&amp;quot;&lt;/code&gt; term prefix which lets us
+quickly find the page if we are searching by &lt;code&gt;&amp;quot;y*&amp;quot;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;To finish this, let&#39;s simulate merging of the segments. We could insert 62 more
+entries to trigger it, but a similar result could be achieved by running
+&lt;a href=&quot;https://www.sqlite.org/fts5.html#the_optimize_command&quot;&gt;&lt;code&gt;optimize&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;INSERT&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;INTO&lt;/span&gt; search&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;search&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;VALUES&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;optimize&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; rowid&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; fts5_decode&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;rowid&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; block&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; search_data&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- Output:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- 10|{structure}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--   {lvl=0 nMerge=0 nSeg=0}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--   {lvl=1 nMerge=0 nSeg=1 {id=3 leaves=1..3}}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- 0x6000000001|{segid=3 h=0 pgno=1}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--   term=0day id=2 nPos=1 5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--   term=0hello id=1 nPos=1 2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--   term=0how id=2 nPos=1 2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- 0x6000000002|{segid=3 h=0 pgno=2}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--    term=0was id=2 nPos=1 3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--    term=0world id=1 nPos=1 3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--    term=0your id=2 nPos=1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- 0x6000000003|{segid=3 h=0 pgno=3}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;--    4&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; search_idx&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- Output:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- segment id | term | page number&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- 3          |      | 2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token comment&quot;&gt;-- 3          | 0w   | 4&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As promised, the segments 1 and 2 got merged into a segment 3 on the newly
+created level 1. The result has three pages, where the last one has the left
+over term position that didn&#39;t fit into page 2.&lt;/p&gt;
+&lt;p&gt;If we insert more data into the table - it will be put again on the level 0 so
+the next automatic merge would only work with the segments of that level.&lt;/p&gt;
+&lt;h2 id=&quot;closing-note&quot; tabindex=&quot;-1&quot;&gt;Closing Note &lt;a class=&quot;header-anchor&quot; href=&quot;https://darksi.de/13.sqlite-fts5-structure/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;I don&#39;t know about you, but for me this was quite a wild ride! B-Trees,
+tokenizers, merges... There&#39;s certainly a lot going on under the hood of
+&lt;a href=&quot;https://www.sqlite.org/mostdeployed.html&quot;&gt;one of the most popular databases&lt;/a&gt; in
+the world. As it often is in engineering, by reusing and combining simple blocks
+we can create a very complex structure that might be hard to understand when
+approaching head on. In this article I attempted to deconstruct FTS5 down to its
+roots (or at least a few levels lower), but there is still much more that could
+be said (like compact encoding of terms and positions in the pages).&lt;/p&gt;
+&lt;p&gt;If you have any requests or ideas - feel free to &amp;quot;toot&amp;quot; at me on
+&lt;a href=&quot;https://fosstodon.org/@indutny&quot;&gt;Mastodon&lt;/a&gt;. Thanks for spending your time
+reading this!&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>HashWick V8 Vulnerability</title>
