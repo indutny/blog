@@ -4,12 +4,120 @@
 	<subtitle>Darkside of Software Engineering.</subtitle>
 	<link href="https://darksi.de/feed/feed.xml" rel="self"/>
 	<link href="https://darksi.de/"/>
-	<updated>2023-02-26T00:00:00Z</updated>
+	<updated>2024-08-07T00:00:00Z</updated>
 	<id>https://darksi.de/</id>
 	<author>
 		<name>Fedor Indutny</name>
 		<email>blackhole@livebox.sh</email>
 	</author>
+	
+	<entry>
+		<title>Resource Decryption On-the-Fly in Electron</title>
+		<link href="https://darksi.de/14.decryption-on-the-fly/"/>
+		<updated>2024-08-07T00:00:00Z</updated>
+		<id>https://darksi.de/14.decryption-on-the-fly/</id>
+		<content type="html">&lt;p&gt;My team at Signal constantly faces challenges that go beyond what one would
+expect while working on practically any other messaging application. Consider
+the following facts about Signal:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Does not collect telemetry.&lt;/li&gt;
+&lt;li&gt;Uses &lt;a href=&quot;https://signal.org/blog/pqxdh/&quot;&gt;strong and proven cryptography&lt;/a&gt; to enable end-to-end encryption
+by default while emphasizing security within the UX too.&lt;/li&gt;
+&lt;li&gt;Doesn&#39;t permanently store queued end-to-end encrypted messages on the server,
+and thus is effectively a distributed application loosely coordinated by a
+centralized server.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;It&#39;d take a long time to discuss all of the implications of everything mentioned
+above, and the &lt;a href=&quot;https://signal.org/blog/phone-number-privacy-usernames/&quot;&gt;innumerable&lt;/a&gt; &lt;a href=&quot;https://signal.org/blog/building-faster-oram/&quot;&gt;innovations&lt;/a&gt; that my colleagues have
+created. In this post, however, we will concentrate on how attachments and other
+user data are stored on the Signal Desktop client.&lt;/p&gt;
+&lt;h2 id=&quot;existing-code&quot; tabindex=&quot;-1&quot;&gt;Existing Code &lt;a class=&quot;header-anchor&quot; href=&quot;https://darksi.de/14.decryption-on-the-fly/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Based on feedback from the community, we recently introduced an important change
+to how dynamic resources are stored in Signal Desktop. Beginning in the
+&lt;a href=&quot;https://github.com/signalapp/Signal-Desktop/releases/tag/v7.18.0&quot;&gt;Signal Desktop v7.18.0&lt;/a&gt;, attachments, avatars, stickers, and other
+media are all individually encrypted on disk with the encryption key securely
+stored in a local &lt;a href=&quot;https://github.com/sqlcipher/sqlcipher&quot;&gt;SQLCipher&lt;/a&gt; database.&lt;/p&gt;
+&lt;p&gt;Given that Signal Desktop is an &lt;a href=&quot;https://www.electronjs.org/&quot;&gt;Electron&lt;/a&gt; app, this presents a
+challenge: How does one migrate existing references that point directly to
+attachments on the file system (using tags like &lt;code&gt;&amp;lt;img/&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;lt;video/&amp;gt;&lt;/code&gt;, etc.)
+and transition to a storage system where the displayed files can no longer
+be loaded from disk without an explicit decryption step?&lt;/p&gt;
+&lt;h2 id=&quot;custom-protocol-handler&quot; tabindex=&quot;-1&quot;&gt;Custom Protocol Handler &lt;a class=&quot;header-anchor&quot; href=&quot;https://darksi.de/14.decryption-on-the-fly/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The breadth of the UI elements that would be affected by this change makes
+loading and decrypting stored data within the React components &lt;em&gt;intractable&lt;/em&gt;.
+However, we identified a simpler path forward that leverages
+&lt;a href=&quot;https://www.electronjs.org/docs/latest/api/protocol&quot;&gt;custom protocol handlers&lt;/a&gt; in Electron. Because each stored
+attachment is separately encrypted with a random key, the client
+only needs to generate a simple formatted URL:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;attachment://v2/ab/abcde?size=&amp;lt;num&amp;gt;&amp;amp;key=&amp;lt;base64&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;When Electron&#39;s main process receives a request with such a URL, it verifies the
+supplied params and uses stream decryption to send back the decrypted attachment
+via a Web API &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/API/Response&quot;&gt;&lt;code&gt;Response&lt;/code&gt;&lt;/a&gt; object and Node&#39;s
+&lt;a href=&quot;https://nodejs.org/api/stream.html#streamreadabletowebstreamreadable-options&quot;&gt;&lt;code&gt;Readable.toWeb()&lt;/code&gt;&lt;/a&gt; helper. This means that the UI layer only has to be
+modified at the stage where these URLs are generated, and individual components
+can remain practically unchanged!&lt;/p&gt;
+&lt;p&gt;Naturally, there are some quirks about how Electron handles requests for
+resources that support streaming (like video and audio files), and we had to
+implement a &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/API/Range&quot;&gt;&lt;code&gt;Range&lt;/code&gt; request&lt;/a&gt; handler that only returns the requested
+data chunks to the Renderer process instead of returning the whole file.&lt;/p&gt;
+&lt;p&gt;Originally, we created a Node.js stream for every request and then sliced the
+desired data out of it with a simple 11-line &lt;a href=&quot;https://nodejs.org/api/stream.html#class-streamtransform&quot;&gt;Transform&lt;/a&gt; stream:&lt;/p&gt;
+&lt;pre class=&quot;language-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; offset &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; transform &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Transform&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;br&gt;  &lt;span class=&quot;token function&quot;&gt;transform&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;data&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _enc&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; callback&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;offset &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; data&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;byteLength &lt;span class=&quot;token operator&quot;&gt;&gt;=&lt;/span&gt; start &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; offset &lt;span class=&quot;token operator&quot;&gt;&amp;lt;=&lt;/span&gt; end&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;br&gt;      &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;subarray&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Math&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; start &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; offset&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; end &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; offset&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;br&gt;&lt;br&gt;    offset &lt;span class=&quot;token operator&quot;&gt;+=&lt;/span&gt; data&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;byteLength&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token function&quot;&gt;callback&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;br&gt;  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;However, we quickly discovered that Chromium would issue a whopping 200 requests
+for sufficiently large files instead of the small handful of requests that we
+had seen for smaller files. This meant that the simple approach above wouldn&#39;t
+scale but we also noticed that most of these requests were cancelled after only
+reading a small amount of data, and their offsets were evenly distributed with
+infrequent overlaps. Knowing this enabled us to write a more nuanced npm module
+called &lt;a href=&quot;https://github.com/indutny/range-finder&quot;&gt;&amp;quot;range-finder&amp;quot;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;picture&gt;&lt;source type=&quot;image/avif&quot; srcset=&quot;https://darksi.de/img/qIyxqezXbW-944.avif 944w&quot;&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://darksi.de/img/qIyxqezXbW-944.webp 944w&quot;&gt;&lt;img alt=&quot;Dev Tools Screenshot showing lots of requests&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://darksi.de/img/qIyxqezXbW-944.png&quot; width=&quot;944&quot; height=&quot;702&quot;&gt;&lt;/picture&gt;&lt;/p&gt;
+&lt;p&gt;In &amp;quot;range-finder,&amp;quot; partially consumed streams are not immediately destroyed and
+are reused for subsequent offset-based reads. Thus if Chromium requests a stream
+starting from byte zero of the file, cancels it after 800kb, and then makes a
+separate request for data starting from the 1-megabyte mark, then we can just
+skip some data on the original stream and keep giving Chromium data without
+opening and decrypting everything again from scratch.&lt;/p&gt;
+&lt;p&gt;This approach reduces the number of created streams from ~200 to ~3, which is an
+improvement of more than 98%!&lt;/p&gt;
+&lt;p&gt;Here&#39;s the &lt;a href=&quot;https://github.com/signalapp/Signal-Desktop/blob/02e7a9e1a5ba4a0e1d82ed30eeab235f3b35a42d/app/attachment_channel.ts&quot;&gt;source code&lt;/a&gt; for the full protocol handler at the time of
+writing this post.&lt;/p&gt;
+&lt;p&gt;In the future, we can move to a system where we don&#39;t have to decrypt the whole
+file to get the desired chunk (which is usually around ~800kb in size), but more
+on this later!&lt;/p&gt;
+&lt;h2 id=&quot;migration&quot; tabindex=&quot;-1&quot;&gt;Migration &lt;a class=&quot;header-anchor&quot; href=&quot;https://darksi.de/14.decryption-on-the-fly/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The exciting story described above wouldn&#39;t be complete without also mentioning
+the existing attachments that users who are updating from older versions of
+Signal Desktop will still have on their computer. Since the on-disk size of the
+data that needs to be migrated to the new storage format is potentially large,
+and users can also close the app at any time, the migration and re-encryption
+process can&#39;t block the app from launching or require everything to happen all
+at once. Fortunately, as a result of past migrations, Signal Desktop already has
+an existing system in place to migrate messages in smaller batches whenever the
+app is idle on the user&#39;s computer. This system has now been updated to include
+attachment re-encryption, and every file in the old format (v1) will be
+migrated to the new format (v2) automatically.&lt;/p&gt;
+&lt;p&gt;You might have noticed that the attachment URL above had a &lt;code&gt;v2&lt;/code&gt; in it.
+Attachments that haven&#39;t been migrated yet also have their own special
+URL format:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;attachment://v1/ab/abcde&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Similarly, files at these URLs need to enable streaming to the UI with the
+support of &lt;code&gt;Range&lt;/code&gt; requests, and be able to handle all of the compatibility
+updates for &lt;code&gt;v2&lt;/code&gt; URLs too. Although every new attachment that is sent or
+received on the latest version of Signal Desktop will start using the new v2
+format right away, the versioned URL scheme helps keep things organized during
+the short period of time where the UI has to display a mix of
+v1 and v2 attachments during the migration process.&lt;/p&gt;
+&lt;h2 id=&quot;moving-forward&quot; tabindex=&quot;-1&quot;&gt;Moving Forward &lt;a class=&quot;header-anchor&quot; href=&quot;https://darksi.de/14.decryption-on-the-fly/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Feel free to &lt;a href=&quot;https://signal.org/download/&quot;&gt;install our app&lt;/a&gt; to see all of the described above come
+into motion right in front of you!&lt;/p&gt;
+&lt;p&gt;If the technical details we discussed in this post sound
+exciting to you — come &lt;a href=&quot;https://signal.org/workworkwork/&quot;&gt;work with us&lt;/a&gt;!&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Structure of FTS5 Index in SQLite</title>
