@@ -132,17 +132,17 @@
 	</url>
 	
 	<url>
-		<loc>https://darksi.de/tags/dtrace/</loc>
-		<lastmod>2024-09-18</lastmod>
-	</url>
-	
-	<url>
 		<loc>https://darksi.de/tags/tls/</loc>
 		<lastmod>2024-09-18</lastmod>
 	</url>
 	
 	<url>
 		<loc>https://darksi.de/tags/security/</loc>
+		<lastmod>2024-09-18</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://darksi.de/tags/dtrace/</loc>
 		<lastmod>2024-09-18</lastmod>
 	</url>
 	

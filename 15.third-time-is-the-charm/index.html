@@ -552,7 +552,7 @@ with the <code>use_native_picker</code> boolean set to <code>true</code>.</p>
 <p>and rebuilding with <code>e build</code>, it became apparent that the third &quot;Start&quot; click
 doesn't get there at all.</p>
 <p>Back-tracking from
-<code>ScreenCaptureKitDeviceMac::OnStart</code> to farther farther callees, it
+<code>ScreenCaptureKitDeviceMac::OnStart</code> to farther callees, it
 became clear that the issue is that Electron generates fake video source ids
 that clash with Chromium's fake source id for the test green screen which has
 a <code>DesktopMediaID::kFakeId = -3</code>.</p>
