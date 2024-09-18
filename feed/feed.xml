@@ -4,12 +4,85 @@
 	<subtitle>Darkside of Software Engineering.</subtitle>
 	<link href="https://darksi.de/feed/feed.xml" rel="self"/>
 	<link href="https://darksi.de/"/>
-	<updated>2024-08-07T00:00:00Z</updated>
+	<updated>2024-09-17T00:00:00Z</updated>
 	<id>https://darksi.de/</id>
 	<author>
 		<name>Fedor Indutny</name>
 		<email>blackhole@livebox.sh</email>
 	</author>
+	
+	<entry>
+		<title>Third Time Is the Charm</title>
+		<link href="https://darksi.de/15.third-time-is-the-charm/"/>
+		<updated>2024-09-17T00:00:00Z</updated>
+		<id>https://darksi.de/15.third-time-is-the-charm/</id>
+		<content type="html">&lt;p&gt;With the release of macOS Sequoia many developers must have started
+discovering new exciting changes in otherwise settled and stable APIs.&lt;/p&gt;
+&lt;p&gt;One good example is Electron&#39;s &lt;a href=&quot;https://www.electronjs.org/docs/latest/api/desktop-capturer&quot;&gt;&lt;code&gt;desktopCapturer&lt;/code&gt;&lt;/a&gt; that lets apps list
+windows and screens available for screensharing and then stream their contents
+during a video call. With the Sequoia release, however, using &lt;code&gt;desktopCapturer&lt;/code&gt;
+directly presents &lt;a href=&quot;https://9to5mac.com/2024/08/06/macos-sequoia-screen-recording-privacy-prompt/&quot;&gt;an extra window to popup&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;enter-pac-man&quot; tabindex=&quot;-1&quot;&gt;Enter Pac-Man &lt;a class=&quot;header-anchor&quot; href=&quot;https://darksi.de/15.third-time-is-the-charm/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Thankfully, Electron team was anticipating this API transition and has prepared
+a &lt;a href=&quot;https://github.com/electron/electron/pull/43581&quot;&gt;change&lt;/a&gt; that lets macOS developers leverage the new APIs and
+avoid the popup. After migrating the source code over, an unexpected oddity has
+appeared in the testing. When sharing the screen for the first and the second
+time screensharing the user would see the expected video:&lt;/p&gt;
+&lt;p&gt;&lt;picture&gt;&lt;source type=&quot;image/avif&quot; srcset=&quot;https://darksi.de/img/aEiZGfC1CK-1010.avif 1010w&quot;&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://darksi.de/img/aEiZGfC1CK-1010.webp 1010w&quot;&gt;&lt;img alt=&quot;Electron window with screensharing working correctly&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://darksi.de/img/aEiZGfC1CK-1010.png&quot; width=&quot;1010&quot; height=&quot;924&quot;&gt;&lt;/picture&gt;&lt;/p&gt;
+&lt;p&gt;However, when attempting to share the third time, a happy green Pac-Man would
+appear instead:&lt;/p&gt;
+&lt;p&gt;&lt;picture&gt;&lt;source type=&quot;image/avif&quot; srcset=&quot;https://darksi.de/img/_nLoNgntAF-1010.avif 1010w&quot;&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://darksi.de/img/_nLoNgntAF-1010.webp 1010w&quot;&gt;&lt;img alt=&quot;Electron window with screensharing with a Pac-Man&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://darksi.de/img/_nLoNgntAF-1010.png&quot; width=&quot;1010&quot; height=&quot;924&quot;&gt;&lt;/picture&gt;&lt;/p&gt;
+&lt;p&gt;Having no such test screen in the app&#39;s source code, the suspicion has landed at
+this being either an Electron or Chromium issue.&lt;/p&gt;
+&lt;h2 id=&quot;the-process&quot; tabindex=&quot;-1&quot;&gt;The Process &lt;a class=&quot;header-anchor&quot; href=&quot;https://darksi.de/15.third-time-is-the-charm/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Just as with the most bugs, the fix consisted of three main steps:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Reproduction&lt;/li&gt;
+&lt;li&gt;Isolation&lt;/li&gt;
+&lt;li&gt;Fix&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;reproduction&quot; tabindex=&quot;-1&quot;&gt;Reproduction &lt;a class=&quot;header-anchor&quot; href=&quot;https://darksi.de/15.third-time-is-the-charm/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;For Electron specifically, reproducing a bug in isolation is best done by
+running code in &lt;a href=&quot;https://www.electronjs.org/fiddle&quot;&gt;Electron Fiddle&lt;/a&gt;. Thankfully Electron&#39;s maintainers
+already had a &lt;a href=&quot;https://gist.github.com/VerteDinde/19563b207541c160bf88eca58137cd29&quot;&gt;gist&lt;/a&gt; prepared so the only work that had to be done was
+clicking the &amp;quot;Start&amp;quot; button three times.&lt;/p&gt;
+&lt;h3 id=&quot;isolation&quot; tabindex=&quot;-1&quot;&gt;Isolation &lt;a class=&quot;header-anchor&quot; href=&quot;https://darksi.de/15.third-time-is-the-charm/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Isolation requires modifications outside of the test code and thus a full
+Electron checkout. The best way to have it locally is to use
+&lt;a href=&quot;https://github.com/electron/build-tools&quot;&gt;official build tools&lt;/a&gt;. Roughly the following steps are needed:&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; i &lt;span class=&quot;token parameter variable&quot;&gt;-g&lt;/span&gt; @electron/build-tools&lt;br&gt;e init &lt;span class=&quot;token parameter variable&quot;&gt;--root&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=~&lt;/span&gt;/electron&lt;br&gt;e &lt;span class=&quot;token function&quot;&gt;sync&lt;/span&gt;&lt;br&gt;e build&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and then (after a few hours) &lt;code&gt;~/electron&lt;/code&gt; will contain (among other things):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Chromium repo at root&lt;/li&gt;
+&lt;li&gt;Electron repo in &lt;code&gt;electron/&lt;/code&gt; folder.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Given the &lt;a href=&quot;https://github.com/electron/electron/pull/43581&quot;&gt;original patch&lt;/a&gt;, the first thing to check was
+whether the execution gets into patched &lt;code&gt;ScreenCaptureKitDeviceMac::OnStart&lt;/code&gt;
+with the &lt;code&gt;use_native_picker&lt;/code&gt; boolean set to &lt;code&gt;true&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;After adding a few C&#39;s &amp;quot;&lt;code&gt;console.log&lt;/code&gt;&amp;quot; equivalents:&lt;/p&gt;
+&lt;pre class=&quot;language-c&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-c&quot;&gt;&lt;span class=&quot;token function&quot;&gt;fprintf&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;stderr&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;we are here!&#92;n&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and rebuilding with &lt;code&gt;e build&lt;/code&gt;, it became apparent that the third &amp;quot;Start&amp;quot; click
+doesn&#39;t get there at all.&lt;/p&gt;
+&lt;p&gt;Back-tracking from
+&lt;code&gt;ScreenCaptureKitDeviceMac::OnStart&lt;/code&gt; to farther farther callees, it
+became clear that the issue is that Electron generates fake video source ids
+that clash with Chromium&#39;s fake source id for the test green screen which has
+a &lt;code&gt;DesktopMediaID::kFakeId = -3&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The first &amp;quot;Start&amp;quot; click used &lt;code&gt;window:-1:0&lt;/code&gt; as an id, the second -
+&lt;code&gt;window:-2:0&lt;/code&gt;, but when the id got to &lt;code&gt;window:-3:0&lt;/code&gt; the check:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/chromium/chromium/blob/09981a29e9028dbdf2fe16db6b2e4297dbf0f4bd/content/browser/renderer_host/media/in_process_video_capture_device_launcher.cc#L302&quot;&gt;&lt;code&gt;desktop_id.id == DesktopMediaID::kFakeId&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;substituted the media stream with the test green screen.&lt;/p&gt;
+&lt;h3 id=&quot;fix&quot; tabindex=&quot;-1&quot;&gt;Fix &lt;a class=&quot;header-anchor&quot; href=&quot;https://darksi.de/15.third-time-is-the-charm/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Now that the cause is known, the best solution appears to be to introduce an
+another fake desktop id and set it to &lt;code&gt;-4&lt;/code&gt;. This id would now be kept fixed, and
+the second integer representing window id would be decremented for uniqueness
+instead. After much waiting for builds and testing, the &lt;a href=&quot;https://github.com/electron/electron/pull/43767&quot;&gt;final fix&lt;/a&gt; is just
+69 lines long, and hopefully would prevent the clash of fake entities for good.&lt;/p&gt;
+&lt;p&gt;One never knows where an investigation might bring them, but thankfully this was
+a short fun trip. Thank you for letting me take you along on it.
+Until next time!&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Resource Decryption On-the-Fly in Electron</title>

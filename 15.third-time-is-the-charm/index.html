@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Resource Decryption On-the-Fly in Electron</title>
+		<title>Third Time Is the Charm</title>
 		<meta name="description" content="Darkside of Software Engineering.">
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Fedor Indutny&#39;s Blog">
 		<link rel="alternate" href="/feed/feed.json" type="application/json" title="Fedor Indutny&#39;s Blog">
@@ -497,115 +497,80 @@ img {
 
 		<main id="skip">
 			
-<h1>Resource Decryption On-the-Fly in Electron</h1>
+<h1>Third Time Is the Charm</h1>
 
 <ul class="post-metadata">
-	<li><time datetime="2024-08-07">07 August 2024</time></li>
+	<li><time datetime="2024-09-17">17 September 2024</time></li>
 	<li><a href="/tags/electron/" class="post-tag">electron</a></li>
 </ul>
 
-<p>My team at Signal constantly faces challenges that go beyond what one would
-expect while working on practically any other messaging application. Consider
-the following facts about Signal:</p>
+<p>With the release of macOS Sequoia many developers must have started
+discovering new exciting changes in otherwise settled and stable APIs.</p>
+<p>One good example is Electron's <a href="https://www.electronjs.org/docs/latest/api/desktop-capturer"><code>desktopCapturer</code></a> that lets apps list
+windows and screens available for screensharing and then stream their contents
+during a video call. With the Sequoia release, however, using <code>desktopCapturer</code>
+directly presents <a href="https://9to5mac.com/2024/08/06/macos-sequoia-screen-recording-privacy-prompt/">an extra window to popup</a>.</p>
+<h2 id="enter-pac-man" tabindex="-1">Enter Pac-Man <a class="header-anchor" href="#enter-pac-man">#</a></h2>
+<p>Thankfully, Electron team was anticipating this API transition and has prepared
+a <a href="https://github.com/electron/electron/pull/43581">change</a> that lets macOS developers leverage the new APIs and
+avoid the popup. After migrating the source code over, an unexpected oddity has
+appeared in the testing. When sharing the screen for the first and the second
+time screensharing the user would see the expected video:</p>
+<p><picture><source type="image/avif" srcset="/img/aEiZGfC1CK-1010.avif 1010w"><source type="image/webp" srcset="/img/aEiZGfC1CK-1010.webp 1010w"><img alt="Electron window with screensharing working correctly" loading="lazy" decoding="async" src="/img/aEiZGfC1CK-1010.png" width="1010" height="924"></picture></p>
+<p>However, when attempting to share the third time, a happy green Pac-Man would
+appear instead:</p>
+<p><picture><source type="image/avif" srcset="/img/_nLoNgntAF-1010.avif 1010w"><source type="image/webp" srcset="/img/_nLoNgntAF-1010.webp 1010w"><img alt="Electron window with screensharing with a Pac-Man" loading="lazy" decoding="async" src="/img/_nLoNgntAF-1010.png" width="1010" height="924"></picture></p>
+<p>Having no such test screen in the app's source code, the suspicion has landed at
+this being either an Electron or Chromium issue.</p>
+<h2 id="the-process" tabindex="-1">The Process <a class="header-anchor" href="#the-process">#</a></h2>
+<p>Just as with the most bugs, the fix consisted of three main steps:</p>
 <ul>
-<li>Does not collect telemetry.</li>
-<li>Uses <a href="https://signal.org/blog/pqxdh/">strong and proven cryptography</a> to enable end-to-end encryption
-by default while emphasizing security within the UX too.</li>
-<li>Doesn't permanently store queued end-to-end encrypted messages on the server,
-and thus is effectively a distributed application loosely coordinated by a
-centralized server.</li>
+<li>Reproduction</li>
+<li>Isolation</li>
+<li>Fix</li>
 </ul>
-<p>It'd take a long time to discuss all of the implications of everything mentioned
-above, and the <a href="https://signal.org/blog/phone-number-privacy-usernames/">innumerable</a> <a href="https://signal.org/blog/building-faster-oram/">innovations</a> that my colleagues have
-created. In this post, however, we will concentrate on how attachments and other
-user data are stored on the Signal Desktop client.</p>
-<h2 id="existing-code" tabindex="-1">Existing Code <a class="header-anchor" href="#existing-code">#</a></h2>
-<p>Based on feedback from the community, we recently introduced an important change
-to how dynamic resources are stored in Signal Desktop. Beginning in the
-<a href="https://github.com/signalapp/Signal-Desktop/releases/tag/v7.18.0">Signal Desktop v7.18.0</a>, attachments, avatars, stickers, and other
-media are all individually encrypted on disk with the encryption key securely
-stored in a local <a href="https://github.com/sqlcipher/sqlcipher">SQLCipher</a> database.</p>
-<p>Given that Signal Desktop is an <a href="https://www.electronjs.org/">Electron</a> app, this presents a
-challenge: How does one migrate existing references that point directly to
-attachments on the file system (using tags like <code>&lt;img/&gt;</code>, <code>&lt;video/&gt;</code>, etc.)
-and transition to a storage system where the displayed files can no longer
-be loaded from disk without an explicit decryption step?</p>
-<h2 id="custom-protocol-handler" tabindex="-1">Custom Protocol Handler <a class="header-anchor" href="#custom-protocol-handler">#</a></h2>
-<p>The breadth of the UI elements that would be affected by this change makes
-loading and decrypting stored data within the React components <em>intractable</em>.
-However, we identified a simpler path forward that leverages
-<a href="https://www.electronjs.org/docs/latest/api/protocol">custom protocol handlers</a> in Electron. Because each stored
-attachment is separately encrypted with a random key, the client
-only needs to generate a simple formatted URL:</p>
-<blockquote>
-<p><code>attachment://v2/ab/abcde?size=&lt;num&gt;&amp;key=&lt;base64&gt;</code></p>
-</blockquote>
-<p>When Electron's main process receives a request with such a URL, it verifies the
-supplied params and uses stream decryption to send back the decrypted attachment
-via a Web API <a href="https://developer.mozilla.org/en-US/docs/Web/API/Response"><code>Response</code></a> object and Node's
-<a href="https://nodejs.org/api/stream.html#streamreadabletowebstreamreadable-options"><code>Readable.toWeb()</code></a> helper. This means that the UI layer only has to be
-modified at the stage where these URLs are generated, and individual components
-can remain practically unchanged!</p>
-<p>Naturally, there are some quirks about how Electron handles requests for
-resources that support streaming (like video and audio files), and we had to
-implement a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Range"><code>Range</code> request</a> handler that only returns the requested
-data chunks to the Renderer process instead of returning the whole file.</p>
-<p>Originally, we created a Node.js stream for every request and then sliced the
-desired data out of it with a simple 11-line <a href="https://nodejs.org/api/stream.html#class-streamtransform">Transform</a> stream:</p>
-<pre class="language-js" tabindex="0"><code class="language-js"><span class="token keyword">let</span> offset <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span><br><span class="token keyword">const</span> transform <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Transform</span><span class="token punctuation">(</span><span class="token punctuation">{</span><br>  <span class="token function">transform</span><span class="token punctuation">(</span><span class="token parameter">data<span class="token punctuation">,</span> _enc<span class="token punctuation">,</span> callback</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token keyword">if</span> <span class="token punctuation">(</span>offset <span class="token operator">+</span> data<span class="token punctuation">.</span>byteLength <span class="token operator">>=</span> start <span class="token operator">&amp;&amp;</span> offset <span class="token operator">&lt;=</span> end<span class="token punctuation">)</span> <span class="token punctuation">{</span><br>      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span><span class="token function">subarray</span><span class="token punctuation">(</span>Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> start <span class="token operator">-</span> offset<span class="token punctuation">)</span><span class="token punctuation">,</span> end <span class="token operator">-</span> offset<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><br><br>    offset <span class="token operator">+=</span> data<span class="token punctuation">.</span>byteLength<span class="token punctuation">;</span><br>    <span class="token function">callback</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>However, we quickly discovered that Chromium would issue a whopping 200 requests
-for sufficiently large files instead of the small handful of requests that we
-had seen for smaller files. This meant that the simple approach above wouldn't
-scale but we also noticed that most of these requests were cancelled after only
-reading a small amount of data, and their offsets were evenly distributed with
-infrequent overlaps. Knowing this enabled us to write a more nuanced npm module
-called <a href="https://github.com/indutny/range-finder">&quot;range-finder&quot;</a>.</p>
-<p><picture><source type="image/avif" srcset="/img/qIyxqezXbW-944.avif 944w"><source type="image/webp" srcset="/img/qIyxqezXbW-944.webp 944w"><img alt="Dev Tools Screenshot showing lots of requests" loading="lazy" decoding="async" src="/img/qIyxqezXbW-944.png" width="944" height="702"></picture></p>
-<p>In &quot;range-finder,&quot; partially consumed streams are not immediately destroyed and
-are reused for subsequent offset-based reads. Thus if Chromium requests a stream
-starting from byte zero of the file, cancels it after 800kb, and then makes a
-separate request for data starting from the 1-megabyte mark, then we can just
-skip some data on the original stream and keep giving Chromium data without
-opening and decrypting everything again from scratch.</p>
-<p>This approach reduces the number of created streams from ~200 to ~3, which is an
-improvement of more than 98%!</p>
-<p>Here's the <a href="https://github.com/signalapp/Signal-Desktop/blob/02e7a9e1a5ba4a0e1d82ed30eeab235f3b35a42d/app/attachment_channel.ts">source code</a> for the full protocol handler at the time of
-writing this post.</p>
-<p>In the future, we can move to a system where we don't have to decrypt the whole
-file to get the desired chunk (which is usually around ~800kb in size), but more
-on this later!</p>
-<h2 id="migration" tabindex="-1">Migration <a class="header-anchor" href="#migration">#</a></h2>
-<p>The exciting story described above wouldn't be complete without also mentioning
-the existing attachments that users who are updating from older versions of
-Signal Desktop will still have on their computer. Since the on-disk size of the
-data that needs to be migrated to the new storage format is potentially large,
-and users can also close the app at any time, the migration and re-encryption
-process can't block the app from launching or require everything to happen all
-at once. Fortunately, as a result of past migrations, Signal Desktop already has
-an existing system in place to migrate messages in smaller batches whenever the
-app is idle on the user's computer. This system has now been updated to include
-attachment re-encryption, and every file in the old format (v1) will be
-migrated to the new format (v2) automatically.</p>
-<p>You might have noticed that the attachment URL above had a <code>v2</code> in it.
-Attachments that haven't been migrated yet also have their own special
-URL format:</p>
-<blockquote>
-<p><code>attachment://v1/ab/abcde</code></p>
-</blockquote>
-<p>Similarly, files at these URLs need to enable streaming to the UI with the
-support of <code>Range</code> requests, and be able to handle all of the compatibility
-updates for <code>v2</code> URLs too. Although every new attachment that is sent or
-received on the latest version of Signal Desktop will start using the new v2
-format right away, the versioned URL scheme helps keep things organized during
-the short period of time where the UI has to display a mix of
-v1 and v2 attachments during the migration process.</p>
-<h2 id="moving-forward" tabindex="-1">Moving Forward <a class="header-anchor" href="#moving-forward">#</a></h2>
-<p>Feel free to <a href="https://signal.org/download/">install our app</a> to see all of the described above come
-into motion right in front of you!</p>
-<p>If the technical details we discussed in this post sound
-exciting to you — come <a href="https://signal.org/workworkwork/">work with us</a>!</p>
+<h3 id="reproduction" tabindex="-1">Reproduction <a class="header-anchor" href="#reproduction">#</a></h3>
+<p>For Electron specifically, reproducing a bug in isolation is best done by
+running code in <a href="https://www.electronjs.org/fiddle">Electron Fiddle</a>. Thankfully Electron's maintainers
+already had a <a href="https://gist.github.com/VerteDinde/19563b207541c160bf88eca58137cd29">gist</a> prepared so the only work that had to be done was
+clicking the &quot;Start&quot; button three times.</p>
+<h3 id="isolation" tabindex="-1">Isolation <a class="header-anchor" href="#isolation">#</a></h3>
+<p>Isolation requires modifications outside of the test code and thus a full
+Electron checkout. The best way to have it locally is to use
+<a href="https://github.com/electron/build-tools">official build tools</a>. Roughly the following steps are needed:</p>
+<pre class="language-sh" tabindex="0"><code class="language-sh"><span class="token function">npm</span> i <span class="token parameter variable">-g</span> @electron/build-tools<br>e init <span class="token parameter variable">--root</span><span class="token operator">=~</span>/electron<br>e <span class="token function">sync</span><br>e build</code></pre>
+<p>and then (after a few hours) <code>~/electron</code> will contain (among other things):</p>
+<ul>
+<li>Chromium repo at root</li>
+<li>Electron repo in <code>electron/</code> folder.</li>
+</ul>
+<p>Given the <a href="https://github.com/electron/electron/pull/43581">original patch</a>, the first thing to check was
+whether the execution gets into patched <code>ScreenCaptureKitDeviceMac::OnStart</code>
+with the <code>use_native_picker</code> boolean set to <code>true</code>.</p>
+<p>After adding a few C's &quot;<code>console.log</code>&quot; equivalents:</p>
+<pre class="language-c" tabindex="0"><code class="language-c"><span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span> <span class="token string">"we are here!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>and rebuilding with <code>e build</code>, it became apparent that the third &quot;Start&quot; click
+doesn't get there at all.</p>
+<p>Back-tracking from
+<code>ScreenCaptureKitDeviceMac::OnStart</code> to farther farther callees, it
+became clear that the issue is that Electron generates fake video source ids
+that clash with Chromium's fake source id for the test green screen which has
+a <code>DesktopMediaID::kFakeId = -3</code>.</p>
+<p>The first &quot;Start&quot; click used <code>window:-1:0</code> as an id, the second -
+<code>window:-2:0</code>, but when the id got to <code>window:-3:0</code> the check:</p>
+<p><a href="https://github.com/chromium/chromium/blob/09981a29e9028dbdf2fe16db6b2e4297dbf0f4bd/content/browser/renderer_host/media/in_process_video_capture_device_launcher.cc#L302"><code>desktop_id.id == DesktopMediaID::kFakeId</code></a></p>
+<p>substituted the media stream with the test green screen.</p>
+<h3 id="fix" tabindex="-1">Fix <a class="header-anchor" href="#fix">#</a></h3>
+<p>Now that the cause is known, the best solution appears to be to introduce an
+another fake desktop id and set it to <code>-4</code>. This id would now be kept fixed, and
+the second integer representing window id would be decremented for uniqueness
+instead. After much waiting for builds and testing, the <a href="https://github.com/electron/electron/pull/43767">final fix</a> is just
+69 lines long, and hopefully would prevent the clash of fake entities for good.</p>
+<p>One never knows where an investigation might bring them, but thankfully this was
+a short fun trip. Thank you for letting me take you along on it.
+Until next time!</p>
 
-<ul class="links-nextprev"><li>Previous: <a href="/13.sqlite-fts5-structure/">Structure of FTS5 Index in SQLite</a></li><li>Next: <a href="/15.third-time-is-the-charm/">Third Time Is the Charm</a></li>
+<ul class="links-nextprev"><li>Previous: <a href="/14.decryption-on-the-fly/">Resource Decryption On-the-Fly in Electron</a></li>
 </ul>
 
 		</main>
@@ -619,6 +584,6 @@ exciting to you — come <a href="https://signal.org/workworkwork/">work with us
       </a>.
     </footer>
 
-		<!-- Current page: /14.decryption-on-the-fly/ -->
+		<!-- Current page: /15.third-time-is-the-charm/ -->
 	</body>
 </html>
